@@ -1,0 +1,7 @@
+/home/hanbury.p/env/lib/python3.7/site-packages/numpy/core/numeric.py:538: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+2019-04-23 14:49:20.237962
+Traceback (most recent call last):
+  File "/home/hanbury.p/feiguin/vmc/main.py", line 67, in <module>
+    initial_parameters = final_parameters
+ValueError: not enough values to unpack (expected 3, got 2)

@@ -1,1 +1,13 @@
 H = \sum_{i=0}^{N-1} (1 - \delta (-1)^{i+1} )(S^z_{i}S^z_{i+1} - \frac{1}{2}(S^+_{i}S^-_{i+1} + h.c.))
+
+\psi_{w} = e^{\sum_{j}a_j s_j} \prod_{i}cosh(b_{i} + \sum_{j}w_{ij}s_{j})
+
+H = \sum_{i=0, i\neq \frac{n}{2} - 1}^{N-1}(S^z_{i}S^z_{i+1} - \frac{1}{2}(S^+_{i}S^-_{i+1} + h.c.))
+
+H = \sum_{i=0}^{N-1} \lambda_i (S^z_{i}S^z_{i+1} - \frac{1}{2}(S^+_{i}S^-_{i+1} + h.c.))
+
+E_{var} = \sum_{s} P_w(s)E_{loc}(s)
+
+P_w(s) = \frac{|\psi^2_{w}(s)|^2}{\sum_{s'}|\psi^2_{w}(s')|^2}
+
+E_{loc}(s) = \frac{\braket{s|H|\psi}}{\braket{s|\psi}

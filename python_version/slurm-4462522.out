@@ -1,0 +1,89 @@
+/home/hanbury.p/feiguin/vmc/env/lib/python3.7/site-packages/numpy/core/numeric.py:538: ComplexWarning: Casting complex values to real discards the imaginary part
+  return array(a, dtype, copy=False, order=order)
+/home/hanbury.p/feiguin/vmc/env/lib/python3.7/site-packages/matplotlib/pyplot.py:514: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  max_open_warning, RuntimeWarning)
+2019-04-14 21:04:44.968630
+**********************************************************************
+
+Purpose: 8 Particle ground state calculation using adiabatic method 
+
+
+
+increased total monte carlo simulations per delta from 50 to 100 
+
+hoping to ensure that converges occurs at each delta 
+
+15,000 MC steps 
+
+UPDATE: a and b parameters are fixed 
+
+intermediate parameter plots are outputted 
+
+
+
+for plots: Green dot indicates start. Red dot indicates end 
+
+
+------------------------------------------------------------
+Total time = 8.14357329611111 hours
+Final Summary: 
+Delta: 0.95
+Energy: -5.85E+00 + -3.45E-05j
+------------------------------------------------------------
+Delta: 0.90
+Energy: -5.70E+00 + 5.89E-04j
+------------------------------------------------------------
+Delta: 0.85
+Energy: -5.11E+00 + -4.22E-03j
+------------------------------------------------------------
+Delta: 0.80
+Energy: -5.20E+00 + -9.84E-04j
+------------------------------------------------------------
+Delta: 0.75
+Energy: -5.21E+00 + -2.79E-03j
+------------------------------------------------------------
+Delta: 0.70
+Energy: -5.09E+00 + -4.31E-03j
+------------------------------------------------------------
+Delta: 0.65
+Energy: -4.95E+00 + -6.39E-03j
+------------------------------------------------------------
+Delta: 0.60
+Energy: -4.81E+00 + -4.25E-03j
+------------------------------------------------------------
+Delta: 0.55
+Energy: -4.67E+00 + 8.67E-03j
+------------------------------------------------------------
+Delta: 0.50
+Energy: -4.53E+00 + -6.92E-03j
+------------------------------------------------------------
+Delta: 0.45
+Energy: -4.39E+00 + 2.76E-03j
+------------------------------------------------------------
+Delta: 0.40
+Energy: -4.25E+00 + 9.89E-03j
+------------------------------------------------------------
+Delta: 0.35
+Energy: -4.11E+00 + 1.82E-02j
+------------------------------------------------------------
+Delta: 0.30
+Energy: -3.97E+00 + 1.85E-03j
+------------------------------------------------------------
+Delta: 0.25
+Energy: -3.84E+00 + 4.26E-04j
+------------------------------------------------------------
+Delta: 0.20
+Energy: -3.72E+00 + 2.71E-03j
+------------------------------------------------------------
+Delta: 0.15
+Energy: -3.60E+00 + 1.56E-03j
+------------------------------------------------------------
+Delta: 0.10
+Energy: -3.48E+00 + 5.82E-03j
+------------------------------------------------------------
+Delta: 0.05
+Energy: -3.37E+00 + 1.62E-02j
+------------------------------------------------------------
+Delta: 0.00
+Energy: -3.29E+00 + 1.83E-02j
+------------------------------------------------------------
