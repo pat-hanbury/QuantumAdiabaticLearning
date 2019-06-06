@@ -7,6 +7,8 @@ from math import exp
 import time
 import cmath
 
+from IPython.display import clear_output
+
 from tqdm import tqdm
 
 from .state import State
@@ -74,12 +76,13 @@ class Optimizer:
         if self.fixed_parameters is not None:
             for idx, param in self.fixed_parameters.items():
                 self.parameters[idx] = param
-
+                
+                
     def monte_carlo_simulation(self):
-        """
+        '''
         This function calculates expectation values for the
         4 variables of interest P, Q,
-        """
+        '''
 
         cdef int N = self.num_particles
         cdef int num_steps = self.num_steps
@@ -91,11 +94,16 @@ class Optimizer:
         cdef complex local_energy
         cdef dict expectation_delta = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
         cdef dict expectation_Q = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
+        
+        Ys = []
+        Xs = []
 
         for i in range(num_steps):
             # clear_output(wait=True)
 
             state.update_state()
+            state.delta_x = None
+            state.Q_of_x = None
             local_energy = self.H.calculate_local_energy(state)
             delta_x = state.get_delta_x()
             Q_of_x = state.get_Q_of_x(local_energy)
@@ -103,6 +111,19 @@ class Optimizer:
             expectation_local_energy += local_energy
             expectation_delta.update((key, value + delta_x[key]) for key, value in expectation_delta.items())
             expectation_Q.update((key, value + Q_of_x[key]) for key, value in expectation_Q.items())
+            
+            
+            if True:
+                Ys.append(local_energy.real)
+                clear_output(wait=True)
+                plt.plot(Ys)
+                plt.title("Local Energies Throughout Monte Carlo")
+                plt.xlabel("Iteration")
+                plt.ylabel("Energy")
+                plt.show()
+            
+             
+
             
         # normalize expectation values
         num_steps = self.num_steps
@@ -112,9 +133,11 @@ class Optimizer:
         
         return expectation_local_energy, expectation_delta, expectation_Q
 
+
+
     def clear_expectations(self):
         self.exp_Q = None
-        self.varitional_enery = None
+        self.variational_energy = None
         self.exp_delta = None
 
 
@@ -145,9 +168,9 @@ class Optimizer:
                 # and assume you can do better (set end count, i, to zero)
                 if self.variational_energy.real < min_energy.real:
                         min_energy = self.variational_energy
-                        optimal_parameters = self.parameters
+                        optimal_parameters = {}
                         # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
-                        optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())
+                        optimal_parameters.update((key, value.copy()) for key, value in self.parameters.items())
 
                 self.update_variational_parameters()
 

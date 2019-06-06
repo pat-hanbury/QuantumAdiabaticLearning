@@ -1,0 +1,7 @@
+running build_ext
+skipping 'lib/qvmc/utils.c' Cython extension (up-to-date)
+skipping 'lib/qvmc/state.c' Cython extension (up-to-date)
+skipping 'lib/qvmc/optimizer.c' Cython extension (up-to-date)
+skipping 'lib/qvmc/debug.c' Cython extension (up-to-date)
+skipping 'lib/qvmc/hamiltonian.c' Cython extension (up-to-date)
+slurmstepd: error: *** JOB 5338847 ON c0201 CANCELLED AT 2019-06-04T17:09:24 DUE TO TIME LIMIT ***

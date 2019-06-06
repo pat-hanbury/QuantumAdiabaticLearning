@@ -35,6 +35,9 @@ class State:
             else:
                 state.append(-1)
         self.configuration = np.asarray(state)
+        
+        for i in range(50):
+            self.update_state()
 
     def generate_coefficient(self):
         """
@@ -153,13 +156,14 @@ class State:
                 return 2.0
             return numerator.real / denominator.real
 
-        trial_state = random_flip(self.configuration.copy())
-        R = compute_R(trial_state)
-        r = random.uniform(0,1)
-        if R > r:
-            self.clear_state()
-            self.configuration = trial_state.configuration
-            self.coefficient = trial_state.coefficient
+        for i in range(10):
+            trial_state = random_flip(self.configuration.copy())
+            R = compute_R(trial_state)
+            r = random.uniform(0,1)
+            if R > r:
+                self.clear_state()
+                self.configuration = trial_state.configuration
+                self.coefficient = trial_state.coefficient
 
     def calculate_delta_x(self):
         """
@@ -240,7 +244,8 @@ class State:
         return self.delta_x
 
     def get_Q_of_x(self, energy):
-        Q = self.get_delta_x().copy()
-        for key, value in Q.items():
-            Q[key] = value*energy
+        delta_x = self.get_delta_x()
+        Q = dict()
+        for key, value in delta_x.items():
+            Q[key] = energy*value.copy()
         return Q

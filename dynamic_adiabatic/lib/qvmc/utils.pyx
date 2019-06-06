@@ -74,6 +74,11 @@ def check_configs(config):
     assert(is_power_of_two(config['num_particles'])), error
     
 def generate_new_parameters(previous_parameters):
+    """
+    This generates initial parameters for a 2*N spin system
+    from the optimal paramters of a N spin system 
+    (For use with algorithm 2)
+    """
     previous_parameters['w']
     m, n = previous_parameters['w'].shape
     assert m == n, 'Should be using W matrices for this function'

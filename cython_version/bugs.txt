@@ -1,0 +1,5 @@
+Q if X did not use copying --- derivatives where weird and too small
+
+Expectation might need value.copy and delta_x.copy() (when getting the expectations)
+
+ckear_expectations

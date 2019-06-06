@@ -59,17 +59,17 @@ class Optimizer:
             set_trace()
 
         f = {}
-        f.update((key, None) for key in self.parameters.keys())
+        # f.update((key, None) for key in self.parameters.keys())
         parameter_changes = {}
         for key in self.parameters.keys():
-            f[key] = (self.exp_Q[key] - self.exp_delta[key]*self.variational_energy) # derivatives vector
+            f[key] = self.exp_Q[key] - self.exp_delta[key]*self.variational_energy # derivatives vector
             parameter_changes[key] = self.lr*f[key]
             cap = self.dx_cap + self.dx_cap*1j
             parameter_changes[key] = parameter_changes[key].clip(-1*cap, cap)
-            
-        with np.printoptions(precision=5, suppress=True):    
-            print("All Derivatives: ")
-            print(f)
+        
+        # with np.printoptions(precision=5, suppress=True):    
+        #    print("All Derivatives: ")
+        #    print(f)
         
         for key in self.parameters.keys():
             self.parameters[key] = self.parameters[key] - parameter_changes[key]
@@ -143,7 +143,7 @@ class Optimizer:
 
     def clear_expectations(self):
         self.exp_Q = None
-        self.varitional_enery = None
+        self.variational_energy = None
         self.exp_delta = None
 
 
@@ -174,9 +174,9 @@ class Optimizer:
                 # and assume you can do better (set end count, i, to zero)
                 if self.variational_energy.real < min_energy.real:
                         min_energy = self.variational_energy
-                        optimal_parameters = self.parameters
+                        optimal_parameters = {}
                         # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
-                        optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())
+                        optimal_parameters.update((key, value.copy()) for key, value in self.parameters.items())
 
                 self.update_variational_parameters()
 

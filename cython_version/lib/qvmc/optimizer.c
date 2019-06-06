@@ -844,7 +844,7 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr;
 struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state;
 struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_8_genexpr;
 
-/* "lib/qvmc/optimizer.pyx":54
+/* "lib/qvmc/optimizer.pyx":56
  *         set_trace()
  * 
  *     def update_variational_parameters(self):             # <<<<<<<<<<<<<<
@@ -857,7 +857,7 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_pa
 };
 
 
-/* "lib/qvmc/optimizer.pyx":60
+/* "lib/qvmc/optimizer.pyx":62
  * 
  *         f = {}
  *         f.update((key, None) for key in self.parameters.keys())             # <<<<<<<<<<<<<<
@@ -874,11 +874,11 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr {
 };
 
 
-/* "lib/qvmc/optimizer.pyx":78
- *                 self.parameters[idx] = param
+/* "lib/qvmc/optimizer.pyx":81
+ * 
  * 
  *     def monte_carlo_simulation(self):             # <<<<<<<<<<<<<<
- *         """
+ *         '''
  *         This function calculates expectation values for the
  */
 struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation {
@@ -891,7 +891,7 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulati
 };
 
 
-/* "lib/qvmc/optimizer.pyx":104
+/* "lib/qvmc/optimizer.pyx":112
  * 
  *             expectation_local_energy += local_energy
  *             expectation_delta.update((key, value + delta_x[key]) for key, value in expectation_delta.items())             # <<<<<<<<<<<<<<
@@ -909,12 +909,12 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr {
 };
 
 
-/* "lib/qvmc/optimizer.pyx":105
+/* "lib/qvmc/optimizer.pyx":113
  *             expectation_local_energy += local_energy
  *             expectation_delta.update((key, value + delta_x[key]) for key, value in expectation_delta.items())
  *             expectation_Q.update((key, value + Q_of_x[key]) for key, value in expectation_Q.items())             # <<<<<<<<<<<<<<
  * 
- *         # normalize expectation values
+ * 
  */
 struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr {
   PyObject_HEAD
@@ -927,7 +927,7 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr {
 };
 
 
-/* "lib/qvmc/optimizer.pyx":110
+/* "lib/qvmc/optimizer.pyx":131
  *         num_steps = self.num_steps
  *         expectation_local_energy = expectation_local_energy / num_steps
  *         expectation_delta.update((key, value/num_steps) for key, value in expectation_delta.items())             # <<<<<<<<<<<<<<
@@ -945,7 +945,7 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr {
 };
 
 
-/* "lib/qvmc/optimizer.pyx":111
+/* "lib/qvmc/optimizer.pyx":132
  *         expectation_local_energy = expectation_local_energy / num_steps
  *         expectation_delta.update((key, value/num_steps) for key, value in expectation_delta.items())
  *         expectation_Q.update((key, value/num_steps) for key, value in expectation_Q.items())             # <<<<<<<<<<<<<<
@@ -963,7 +963,7 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr {
 };
 
 
-/* "lib/qvmc/optimizer.pyx":121
+/* "lib/qvmc/optimizer.pyx":144
  * 
  * 
  *     def get_ground_state(self):             # <<<<<<<<<<<<<<
@@ -972,14 +972,14 @@ struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr {
  */
 struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state {
   PyObject_HEAD
-  PyObject *__pyx_v_optimal_parameters;
+  PyObject *__pyx_v_self;
 };
 
 
-/* "lib/qvmc/optimizer.pyx":150
- *                         optimal_parameters = self.parameters
+/* "lib/qvmc/optimizer.pyx":173
+ *                         optimal_parameters = {}
  *                         # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
- *                         optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())             # <<<<<<<<<<<<<<
+ *                         optimal_parameters.update((key, value.copy()) for key, value in self.parameters.items())             # <<<<<<<<<<<<<<
  * 
  *                 self.update_variational_parameters()
  */
@@ -1284,6 +1284,23 @@ static PyObject* __Pyx__CallUnboundCMethod0(__Pyx_CachedCFunction* cfunc, PyObje
         __Pyx__CallUnboundCMethod0(cfunc, self))
 #else
 #define __Pyx_CallUnboundCMethod0(cfunc, self)  __Pyx__CallUnboundCMethod0(cfunc, self)
+#endif
+
+/* ListAppend.proto */
+#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
+static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
+        Py_INCREF(x);
+        PyList_SET_ITEM(list, len, x);
+        Py_SIZE(list) = len+1;
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
 #endif
 
 /* GetTopmostException.proto */
@@ -1702,6 +1719,8 @@ static const char __pyx_k_b[] = "b";
 static const char __pyx_k_f[] = "f";
 static const char __pyx_k_i[] = "i";
 static const char __pyx_k_w[] = "w";
+static const char __pyx_k_Xs[] = "Xs";
+static const char __pyx_k_Ys[] = "Ys";
 static const char __pyx_k_lr[] = "lr";
 static const char __pyx_k_np[] = "np";
 static const char __pyx_k_cap[] = "cap";
@@ -1723,13 +1742,16 @@ static const char __pyx_k_keys[] = "keys";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_math[] = "math";
 static const char __pyx_k_name[] = "__name__";
+static const char __pyx_k_plot[] = "plot";
 static const char __pyx_k_real[] = "real";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_send[] = "send";
+static const char __pyx_k_show[] = "show";
 static const char __pyx_k_size[] = "size";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_time[] = "time";
 static const char __pyx_k_tqdm[] = "tqdm";
+static const char __pyx_k_wait[] = "wait";
 static const char __pyx_k_State[] = "State";
 static const char __pyx_k_close[] = "close";
 static const char __pyx_k_cmath[] = "cmath";
@@ -1745,8 +1767,10 @@ static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_sleep[] = "sleep";
 static const char __pyx_k_state[] = "state";
 static const char __pyx_k_throw[] = "throw";
+static const char __pyx_k_title[] = "title";
 static const char __pyx_k_value[] = "value";
 static const char __pyx_k_zeros[] = "zeros";
+static const char __pyx_k_Energy[] = "Energy";
 static const char __pyx_k_Q_of_x[] = "Q_of_x";
 static const char __pyx_k_dx_cap[] = "dx_cap";
 static const char __pyx_k_import[] = "__import__";
@@ -1755,11 +1779,14 @@ static const char __pyx_k_normal[] = "normal";
 static const char __pyx_k_pyplot[] = "pyplot";
 static const char __pyx_k_random[] = "random";
 static const char __pyx_k_update[] = "update";
+static const char __pyx_k_xlabel[] = "xlabel";
+static const char __pyx_k_ylabel[] = "ylabel";
 static const char __pyx_k_delta_x[] = "delta_x";
 static const char __pyx_k_genexpr[] = "genexpr";
 static const char __pyx_k_plotter[] = "plotter";
 static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_qualname[] = "__qualname__";
+static const char __pyx_k_Iteration[] = "Iteration";
 static const char __pyx_k_Optimizer[] = "Optimizer";
 static const char __pyx_k_exp_delta[] = "exp_delta";
 static const char __pyx_k_metaclass[] = "__metaclass__";
@@ -1790,7 +1817,6 @@ static const char __pyx_k_IPython_display[] = "IPython.display";
 static const char __pyx_k_Optimizer___init[] = "Optimizer.__init__";
 static const char __pyx_k_fixed_parameters[] = "fixed_parameters";
 static const char __pyx_k_get_ground_state[] = "get_ground_state";
-static const char __pyx_k_varitional_enery[] = "varitional_enery";
 static const char __pyx_k_KeyboardInterrupt[] = "KeyboardInterrupt";
 static const char __pyx_k_expectation_delta[] = "expectation_delta";
 static const char __pyx_k_parameter_changes[] = "parameter_changes";
@@ -1814,6 +1840,7 @@ static const char __pyx_k_Optimizer_clear_expectations[] = "Optimizer.clear_expe
 static const char __pyx_k_update_variational_parameters[] = "update_variational_parameters";
 static const char __pyx_k_Optimizer_randomize_parameters[] = "Optimizer.randomize_parameters";
 static const char __pyx_k_ERROR_RANDOMIZED_PARAMETERS_NOT[] = "ERROR: RANDOMIZED PARAMETERS NOT DEFINED";
+static const char __pyx_k_Local_Energies_Throughout_Monte[] = "Local Energies Throughout Monte Carlo";
 static const char __pyx_k_Optimizer_get_ground_state_local[] = "Optimizer.get_ground_state.<locals>.genexpr";
 static const char __pyx_k_Optimizer_monte_carlo_simulation[] = "Optimizer.monte_carlo_simulation.<locals>.genexpr";
 static const char __pyx_k_Optimizer_update_variational_par[] = "Optimizer.update_variational_parameters.<locals>.genexpr";
@@ -1821,10 +1848,13 @@ static const char __pyx_k_monte_carlo_simulations_per_delt[] = "monte_carlo_simu
 static const char __pyx_k_Optimizer_monte_carlo_simulation_2[] = "Optimizer.monte_carlo_simulation";
 static const char __pyx_k_Optimizer_update_variational_par_2[] = "Optimizer.update_variational_parameters";
 static PyObject *__pyx_kp_s_ERROR_RANDOMIZED_PARAMETERS_NOT;
+static PyObject *__pyx_n_s_Energy;
 static PyObject *__pyx_n_s_H;
 static PyObject *__pyx_n_s_Hamiltonian;
 static PyObject *__pyx_n_s_IPython_display;
+static PyObject *__pyx_n_s_Iteration;
 static PyObject *__pyx_n_s_KeyboardInterrupt;
+static PyObject *__pyx_kp_s_Local_Energies_Throughout_Monte;
 static PyObject *__pyx_n_s_N;
 static PyObject *__pyx_kp_s_OUT_OF_ORDER_ERROR;
 static PyObject *__pyx_n_s_Optimizer;
@@ -1839,6 +1869,8 @@ static PyObject *__pyx_n_s_Optimizer_update_variational_par;
 static PyObject *__pyx_n_s_Optimizer_update_variational_par_2;
 static PyObject *__pyx_n_s_Q_of_x;
 static PyObject *__pyx_n_s_State;
+static PyObject *__pyx_n_s_Xs;
+static PyObject *__pyx_n_s_Ys;
 static PyObject *__pyx_n_s_a;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_b;
@@ -1906,6 +1938,7 @@ static PyObject *__pyx_n_s_param;
 static PyObject *__pyx_n_s_parameter_changes;
 static PyObject *__pyx_n_s_parameters;
 static PyObject *__pyx_n_s_pdb;
+static PyObject *__pyx_n_s_plot;
 static PyObject *__pyx_n_s_plot_real_time;
 static PyObject *__pyx_n_s_plotter;
 static PyObject *__pyx_n_s_plt;
@@ -1926,6 +1959,7 @@ static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_send;
 static PyObject *__pyx_n_s_set_trace;
 static PyObject *__pyx_n_s_shape;
+static PyObject *__pyx_n_s_show;
 static PyObject *__pyx_n_s_show_plot;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_sleep;
@@ -1934,6 +1968,7 @@ static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_throw;
 static PyObject *__pyx_n_s_time;
 static PyObject *__pyx_n_s_time_caught_in_local_min;
+static PyObject *__pyx_n_s_title;
 static PyObject *__pyx_n_s_total_loops;
 static PyObject *__pyx_n_s_tqdm;
 static PyObject *__pyx_n_s_update;
@@ -1942,8 +1977,10 @@ static PyObject *__pyx_n_s_update_state;
 static PyObject *__pyx_n_s_update_variational_parameters;
 static PyObject *__pyx_n_s_value;
 static PyObject *__pyx_n_s_variational_energy;
-static PyObject *__pyx_n_s_varitional_enery;
 static PyObject *__pyx_n_s_w;
+static PyObject *__pyx_n_s_wait;
+static PyObject *__pyx_n_s_xlabel;
+static PyObject *__pyx_n_s_ylabel;
 static PyObject *__pyx_n_s_zeros;
 static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_hamiltonian, PyObject *__pyx_v_num_steps, PyObject *__pyx_v_cfg, PyObject *__pyx_v_plotter, PyObject *__pyx_v_parameters, PyObject *__pyx_v_fixed_parameters, PyObject *__pyx_v_lr, PyObject *__pyx_v_derivative_cap, PyObject *__pyx_v_random_noise_scale); /* proto */
 static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_2randomize_parameters(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
@@ -1987,7 +2024,7 @@ static PyObject *__pyx_codeobj__11;
 static PyObject *__pyx_codeobj__13;
 /* Late includes */
 
-/* "lib/qvmc/optimizer.pyx":18
+/* "lib/qvmc/optimizer.pyx":20
  * 
  * class Optimizer:
  *     def __init__(self, hamiltonian, num_steps, cfg,             # <<<<<<<<<<<<<<
@@ -2016,7 +2053,7 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_1__init__(PyObject *_
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_hamiltonian,&__pyx_n_s_num_steps,&__pyx_n_s_cfg,&__pyx_n_s_plotter,&__pyx_n_s_parameters,&__pyx_n_s_fixed_parameters,&__pyx_n_s_lr,&__pyx_n_s_derivative_cap,&__pyx_n_s_random_noise_scale,0};
     PyObject* values[10] = {0,0,0,0,0,0,0,0,0,0};
 
-    /* "lib/qvmc/optimizer.pyx":19
+    /* "lib/qvmc/optimizer.pyx":21
  * class Optimizer:
  *     def __init__(self, hamiltonian, num_steps, cfg,
  *                  plotter = None, parameters = None, fixed_parameters = None,             # <<<<<<<<<<<<<<
@@ -2029,7 +2066,7 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_1__init__(PyObject *_
     values[7] = ((PyObject *)((PyObject*)__pyx_float_0_03));
     values[8] = ((PyObject *)((PyObject*)__pyx_float_0_3));
 
-    /* "lib/qvmc/optimizer.pyx":20
+    /* "lib/qvmc/optimizer.pyx":22
  *     def __init__(self, hamiltonian, num_steps, cfg,
  *                  plotter = None, parameters = None, fixed_parameters = None,
  *                  lr = 0.03, derivative_cap = 0.3, random_noise_scale = None):             # <<<<<<<<<<<<<<
@@ -2073,19 +2110,19 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_1__init__(PyObject *_
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_hamiltonian)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 10, 1); __PYX_ERR(0, 18, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 10, 1); __PYX_ERR(0, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_num_steps)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 10, 2); __PYX_ERR(0, 18, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 10, 2); __PYX_ERR(0, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cfg)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 10, 3); __PYX_ERR(0, 18, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 10, 3); __PYX_ERR(0, 20, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -2125,7 +2162,7 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_1__init__(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 18, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 20, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2162,7 +2199,7 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_1__init__(PyObject *_
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 18, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 20, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("lib.qvmc.optimizer.Optimizer.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2170,7 +2207,7 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_1__init__(PyObject *_
   __pyx_L4_argument_unpacking_done:;
   __pyx_r = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(__pyx_self, __pyx_v_self, __pyx_v_hamiltonian, __pyx_v_num_steps, __pyx_v_cfg, __pyx_v_plotter, __pyx_v_parameters, __pyx_v_fixed_parameters, __pyx_v_lr, __pyx_v_derivative_cap, __pyx_v_random_noise_scale);
 
-  /* "lib/qvmc/optimizer.pyx":18
+  /* "lib/qvmc/optimizer.pyx":20
  * 
  * class Optimizer:
  *     def __init__(self, hamiltonian, num_steps, cfg,             # <<<<<<<<<<<<<<
@@ -2203,103 +2240,103 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
   PyObject *__pyx_t_11 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "lib/qvmc/optimizer.pyx":21
+  /* "lib/qvmc/optimizer.pyx":23
  *                  plotter = None, parameters = None, fixed_parameters = None,
  *                  lr = 0.03, derivative_cap = 0.3, random_noise_scale = None):
  *         self.H = hamiltonian             # <<<<<<<<<<<<<<
  *         self.num_particles = hamiltonian.num_particles
  *         self.num_steps = num_steps# number of steps for every monte carlo simulation
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_H, __pyx_v_hamiltonian) < 0) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_H, __pyx_v_hamiltonian) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":22
+  /* "lib/qvmc/optimizer.pyx":24
  *                  lr = 0.03, derivative_cap = 0.3, random_noise_scale = None):
  *         self.H = hamiltonian
  *         self.num_particles = hamiltonian.num_particles             # <<<<<<<<<<<<<<
  *         self.num_steps = num_steps# number of steps for every monte carlo simulation
  *         self.lr = lr # learning rate
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hamiltonian, __pyx_n_s_num_particles); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_hamiltonian, __pyx_n_s_num_particles); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_num_particles, __pyx_t_1) < 0) __PYX_ERR(0, 22, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_num_particles, __pyx_t_1) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":23
+  /* "lib/qvmc/optimizer.pyx":25
  *         self.H = hamiltonian
  *         self.num_particles = hamiltonian.num_particles
  *         self.num_steps = num_steps# number of steps for every monte carlo simulation             # <<<<<<<<<<<<<<
  *         self.lr = lr # learning rate
  *         self.dx_cap = derivative_cap
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_num_steps, __pyx_v_num_steps) < 0) __PYX_ERR(0, 23, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_num_steps, __pyx_v_num_steps) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":24
+  /* "lib/qvmc/optimizer.pyx":26
  *         self.num_particles = hamiltonian.num_particles
  *         self.num_steps = num_steps# number of steps for every monte carlo simulation
  *         self.lr = lr # learning rate             # <<<<<<<<<<<<<<
  *         self.dx_cap = derivative_cap
  *         self.fixed_parameters = fixed_parameters
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_lr, __pyx_v_lr) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_lr, __pyx_v_lr) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":25
+  /* "lib/qvmc/optimizer.pyx":27
  *         self.num_steps = num_steps# number of steps for every monte carlo simulation
  *         self.lr = lr # learning rate
  *         self.dx_cap = derivative_cap             # <<<<<<<<<<<<<<
  *         self.fixed_parameters = fixed_parameters
  *         self.monte_carlo_simulations_per_delta = cfg['num_monte_carlos_per_delta']
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_dx_cap, __pyx_v_derivative_cap) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_dx_cap, __pyx_v_derivative_cap) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":26
+  /* "lib/qvmc/optimizer.pyx":28
  *         self.lr = lr # learning rate
  *         self.dx_cap = derivative_cap
  *         self.fixed_parameters = fixed_parameters             # <<<<<<<<<<<<<<
  *         self.monte_carlo_simulations_per_delta = cfg['num_monte_carlos_per_delta']
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fixed_parameters, __pyx_v_fixed_parameters) < 0) __PYX_ERR(0, 26, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_fixed_parameters, __pyx_v_fixed_parameters) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":27
+  /* "lib/qvmc/optimizer.pyx":29
  *         self.dx_cap = derivative_cap
  *         self.fixed_parameters = fixed_parameters
  *         self.monte_carlo_simulations_per_delta = cfg['num_monte_carlos_per_delta']             # <<<<<<<<<<<<<<
  * 
  *         # quantities for calculating derivatives
  */
-  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_cfg, __pyx_n_s_num_monte_carlos_per_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Dict_GetItem(__pyx_v_cfg, __pyx_n_s_num_monte_carlos_per_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_monte_carlo_simulations_per_delt, __pyx_t_1) < 0) __PYX_ERR(0, 27, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_monte_carlo_simulations_per_delt, __pyx_t_1) < 0) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":30
+  /* "lib/qvmc/optimizer.pyx":32
  * 
  *         # quantities for calculating derivatives
  *         self.exp_Q = None #expectation of Q             # <<<<<<<<<<<<<<
  *         self.exp_delta =None # expectation of the delta array (also BIg Oh in sorrellas paper)
  *         self.variational_energy = None
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_Q, Py_None) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_Q, Py_None) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":31
+  /* "lib/qvmc/optimizer.pyx":33
  *         # quantities for calculating derivatives
  *         self.exp_Q = None #expectation of Q
  *         self.exp_delta =None # expectation of the delta array (also BIg Oh in sorrellas paper)             # <<<<<<<<<<<<<<
  *         self.variational_energy = None
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_delta, Py_None) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_delta, Py_None) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":32
+  /* "lib/qvmc/optimizer.pyx":34
  *         self.exp_Q = None #expectation of Q
  *         self.exp_delta =None # expectation of the delta array (also BIg Oh in sorrellas paper)
  *         self.variational_energy = None             # <<<<<<<<<<<<<<
  * 
  *         if parameters is None:
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_variational_energy, Py_None) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_variational_energy, Py_None) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":34
+  /* "lib/qvmc/optimizer.pyx":36
  *         self.variational_energy = None
  * 
  *         if parameters is None:             # <<<<<<<<<<<<<<
@@ -2310,14 +2347,14 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "lib/qvmc/optimizer.pyx":35
+    /* "lib/qvmc/optimizer.pyx":37
  * 
  *         if parameters is None:
  *             self.randomize_parameters()             # <<<<<<<<<<<<<<
  *         else:
  *             self.parameters = parameters
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_randomize_parameters); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 35, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_randomize_parameters); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -2331,12 +2368,12 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
     }
     __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":34
+    /* "lib/qvmc/optimizer.pyx":36
  *         self.variational_energy = None
  * 
  *         if parameters is None:             # <<<<<<<<<<<<<<
@@ -2346,7 +2383,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
     goto __pyx_L3;
   }
 
-  /* "lib/qvmc/optimizer.pyx":37
+  /* "lib/qvmc/optimizer.pyx":39
  *             self.randomize_parameters()
  *         else:
  *             self.parameters = parameters             # <<<<<<<<<<<<<<
@@ -2354,9 +2391,9 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
  *                 for key, value in self.parameters.items():
  */
   /*else*/ {
-    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_parameters, __pyx_v_parameters) < 0) __PYX_ERR(0, 37, __pyx_L1_error)
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_parameters, __pyx_v_parameters) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
 
-    /* "lib/qvmc/optimizer.pyx":38
+    /* "lib/qvmc/optimizer.pyx":40
  *         else:
  *             self.parameters = parameters
  *             if random_noise_scale is not None:             # <<<<<<<<<<<<<<
@@ -2367,16 +2404,16 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
     __pyx_t_2 = (__pyx_t_3 != 0);
     if (__pyx_t_2) {
 
-      /* "lib/qvmc/optimizer.pyx":39
+      /* "lib/qvmc/optimizer.pyx":41
  *             self.parameters = parameters
  *             if random_noise_scale is not None:
  *                 for key, value in self.parameters.items():             # <<<<<<<<<<<<<<
  *                     real_noise = np.random.normal(scale=random_noise_scale, size=value.shape)
  *                     imag_noise = np.random.normal(scale=random_noise_scale, size=value.shape)*1j
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 39, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_items); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 39, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_items); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_t_4 = NULL;
@@ -2391,16 +2428,16 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
       }
       __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
         __pyx_t_5 = __pyx_t_1; __Pyx_INCREF(__pyx_t_5); __pyx_t_6 = 0;
         __pyx_t_7 = NULL;
       } else {
-        __pyx_t_6 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 39, __pyx_L1_error)
+        __pyx_t_6 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 41, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_7 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 39, __pyx_L1_error)
+        __pyx_t_7 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 41, __pyx_L1_error)
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       for (;;) {
@@ -2408,17 +2445,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
           if (likely(PyList_CheckExact(__pyx_t_5))) {
             if (__pyx_t_6 >= PyList_GET_SIZE(__pyx_t_5)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_1 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 39, __pyx_L1_error)
+            __pyx_t_1 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 41, __pyx_L1_error)
             #else
-            __pyx_t_1 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
             #endif
           } else {
             if (__pyx_t_6 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 39, __pyx_L1_error)
+            __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_6); __Pyx_INCREF(__pyx_t_1); __pyx_t_6++; if (unlikely(0 < 0)) __PYX_ERR(0, 41, __pyx_L1_error)
             #else
-            __pyx_t_1 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+            __pyx_t_1 = PySequence_ITEM(__pyx_t_5, __pyx_t_6); __pyx_t_6++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
             #endif
           }
@@ -2428,7 +2465,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 39, __pyx_L1_error)
+              else __PYX_ERR(0, 41, __pyx_L1_error)
             }
             break;
           }
@@ -2440,7 +2477,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
           if (unlikely(size != 2)) {
             if (size > 2) __Pyx_RaiseTooManyValuesError(2);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 39, __pyx_L1_error)
+            __PYX_ERR(0, 41, __pyx_L1_error)
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -2453,15 +2490,15 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
           __Pyx_INCREF(__pyx_t_4);
           __Pyx_INCREF(__pyx_t_8);
           #else
-          __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 39, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_8 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 39, __pyx_L1_error)
+          __pyx_t_8 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 41, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           #endif
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_9 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 39, __pyx_L1_error)
+          __pyx_t_9 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 41, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __pyx_t_10 = Py_TYPE(__pyx_t_9)->tp_iternext;
@@ -2469,7 +2506,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
           __Pyx_GOTREF(__pyx_t_4);
           index = 1; __pyx_t_8 = __pyx_t_10(__pyx_t_9); if (unlikely(!__pyx_t_8)) goto __pyx_L7_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_8);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_10(__pyx_t_9), 2) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_10(__pyx_t_9), 2) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
           __pyx_t_10 = NULL;
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           goto __pyx_L8_unpacking_done;
@@ -2477,7 +2514,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           __pyx_t_10 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 39, __pyx_L1_error)
+          __PYX_ERR(0, 41, __pyx_L1_error)
           __pyx_L8_unpacking_done:;
         }
         __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_4);
@@ -2485,90 +2522,90 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
         __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_8);
         __pyx_t_8 = 0;
 
-        /* "lib/qvmc/optimizer.pyx":40
+        /* "lib/qvmc/optimizer.pyx":42
  *             if random_noise_scale is not None:
  *                 for key, value in self.parameters.items():
  *                     real_noise = np.random.normal(scale=random_noise_scale, size=value.shape)             # <<<<<<<<<<<<<<
  *                     imag_noise = np.random.normal(scale=random_noise_scale, size=value.shape)*1j
  *                     self.parameters.update({key : value+real_noise+imag_noise})
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 40, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_random); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_normal); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_normal); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 40, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_scale, __pyx_v_random_noise_scale) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_value, __pyx_n_s_shape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 40, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_scale, __pyx_v_random_noise_scale) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_value, __pyx_n_s_shape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_size, __pyx_t_4) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_size, __pyx_t_4) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 40, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_XDECREF_SET(__pyx_v_real_noise, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "lib/qvmc/optimizer.pyx":41
+        /* "lib/qvmc/optimizer.pyx":43
  *                 for key, value in self.parameters.items():
  *                     real_noise = np.random.normal(scale=random_noise_scale, size=value.shape)
  *                     imag_noise = np.random.normal(scale=random_noise_scale, size=value.shape)*1j             # <<<<<<<<<<<<<<
  *                     self.parameters.update({key : value+real_noise+imag_noise})
  *                 # self.add_noise()
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_normal); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_normal); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_scale, __pyx_v_random_noise_scale) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_value, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_scale, __pyx_v_random_noise_scale) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_value, __pyx_n_s_shape); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_size, __pyx_t_1) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_size, __pyx_t_1) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = PyComplex_FromDoubles(0.0, 1.0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_8 = PyComplex_FromDoubles(0.0, 1.0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_4 = PyNumber_Multiply(__pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_XDECREF_SET(__pyx_v_imag_noise, __pyx_t_4);
         __pyx_t_4 = 0;
 
-        /* "lib/qvmc/optimizer.pyx":42
+        /* "lib/qvmc/optimizer.pyx":44
  *                     real_noise = np.random.normal(scale=random_noise_scale, size=value.shape)
  *                     imag_noise = np.random.normal(scale=random_noise_scale, size=value.shape)*1j
  *                     self.parameters.update({key : value+real_noise+imag_noise})             # <<<<<<<<<<<<<<
  *                 # self.add_noise()
  * 
  */
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 44, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_update); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_update); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 44, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_9 = PyNumber_Add(__pyx_v_value, __pyx_v_real_noise); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_9 = PyNumber_Add(__pyx_v_value, __pyx_v_real_noise); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 44, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
-        __pyx_t_11 = PyNumber_Add(__pyx_t_9, __pyx_v_imag_noise); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_11 = PyNumber_Add(__pyx_t_9, __pyx_v_imag_noise); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 44, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        if (PyDict_SetItem(__pyx_t_8, __pyx_v_key, __pyx_t_11) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
+        if (PyDict_SetItem(__pyx_t_8, __pyx_v_key, __pyx_t_11) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __pyx_t_11 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -2583,12 +2620,12 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
         __pyx_t_4 = (__pyx_t_11) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_11, __pyx_t_8) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_8);
         __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 42, __pyx_L1_error)
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 44, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "lib/qvmc/optimizer.pyx":39
+        /* "lib/qvmc/optimizer.pyx":41
  *             self.parameters = parameters
  *             if random_noise_scale is not None:
  *                 for key, value in self.parameters.items():             # <<<<<<<<<<<<<<
@@ -2598,7 +2635,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
       }
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "lib/qvmc/optimizer.pyx":38
+      /* "lib/qvmc/optimizer.pyx":40
  *         else:
  *             self.parameters = parameters
  *             if random_noise_scale is not None:             # <<<<<<<<<<<<<<
@@ -2609,34 +2646,34 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
   }
   __pyx_L3:;
 
-  /* "lib/qvmc/optimizer.pyx":46
+  /* "lib/qvmc/optimizer.pyx":48
  * 
  *         # some debugging features
  *         self.plotter = plotter             # <<<<<<<<<<<<<<
  *         self.debug = False
  *         self.sleep = False
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_plotter, __pyx_v_plotter) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_plotter, __pyx_v_plotter) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":47
+  /* "lib/qvmc/optimizer.pyx":49
  *         # some debugging features
  *         self.plotter = plotter
  *         self.debug = False             # <<<<<<<<<<<<<<
  *         self.sleep = False
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug, Py_False) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_debug, Py_False) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":48
+  /* "lib/qvmc/optimizer.pyx":50
  *         self.plotter = plotter
  *         self.debug = False
  *         self.sleep = False             # <<<<<<<<<<<<<<
  * 
  *     def randomize_parameters(self):
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sleep, Py_False) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_sleep, Py_False) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":18
+  /* "lib/qvmc/optimizer.pyx":20
  * 
  * class Optimizer:
  *     def __init__(self, hamiltonian, num_steps, cfg,             # <<<<<<<<<<<<<<
@@ -2666,7 +2703,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer___init__(CYTHON_UNUSE
   return __pyx_r;
 }
 
-/* "lib/qvmc/optimizer.pyx":50
+/* "lib/qvmc/optimizer.pyx":52
  *         self.sleep = False
  * 
  *     def randomize_parameters(self):             # <<<<<<<<<<<<<<
@@ -2696,23 +2733,23 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_2randomize_parameters
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("randomize_parameters", 0);
 
-  /* "lib/qvmc/optimizer.pyx":51
+  /* "lib/qvmc/optimizer.pyx":53
  * 
  *     def randomize_parameters(self):
  *         print("ERROR: RANDOMIZED PARAMETERS NOT DEFINED")             # <<<<<<<<<<<<<<
  *         set_trace()
  * 
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_ERROR_RANDOMIZED_PARAMETERS_NOT) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_ERROR_RANDOMIZED_PARAMETERS_NOT) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":52
+  /* "lib/qvmc/optimizer.pyx":54
  *     def randomize_parameters(self):
  *         print("ERROR: RANDOMIZED PARAMETERS NOT DEFINED")
  *         set_trace()             # <<<<<<<<<<<<<<
  * 
  *     def update_variational_parameters(self):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_set_trace); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_set_trace); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -2726,12 +2763,12 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_2randomize_parameters
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":50
+  /* "lib/qvmc/optimizer.pyx":52
  *         self.sleep = False
  * 
  *     def randomize_parameters(self):             # <<<<<<<<<<<<<<
@@ -2754,7 +2791,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_2randomize_parameters
   return __pyx_r;
 }
 
-/* "lib/qvmc/optimizer.pyx":54
+/* "lib/qvmc/optimizer.pyx":56
  *         set_trace()
  * 
  *     def update_variational_parameters(self):             # <<<<<<<<<<<<<<
@@ -2777,7 +2814,7 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_5update_variational_p
 }
 static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_parameters_2generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "lib/qvmc/optimizer.pyx":60
+/* "lib/qvmc/optimizer.pyx":62
  * 
  *         f = {}
  *         f.update((key, None) for key in self.parameters.keys())             # <<<<<<<<<<<<<<
@@ -2794,7 +2831,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 60, __pyx_L1_error)
+    __PYX_ERR(0, 62, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -2802,7 +2839,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_parameters_2generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_update_variational_par, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_parameters_2generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_update_variational_par, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -2837,11 +2874,11 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 60, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 60, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 62, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_keys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_keys); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -2856,16 +2893,16 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -2873,17 +2910,17 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
       if (likely(PyList_CheckExact(__pyx_t_3))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 62, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 62, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -2893,7 +2930,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 60, __pyx_L1_error)
+          else __PYX_ERR(0, 62, __pyx_L1_error)
         }
         break;
       }
@@ -2903,7 +2940,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_key, __pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_1);
     __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_key);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_key);
@@ -2929,7 +2966,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
     __Pyx_XGOTREF(__pyx_t_3);
     __pyx_t_4 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_5 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 60, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 62, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
@@ -2953,7 +2990,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_
   return __pyx_r;
 }
 
-/* "lib/qvmc/optimizer.pyx":54
+/* "lib/qvmc/optimizer.pyx":56
  *         set_trace()
  * 
  *     def update_variational_parameters(self):             # <<<<<<<<<<<<<<
@@ -2989,7 +3026,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 54, __pyx_L1_error)
+    __PYX_ERR(0, 56, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -2997,14 +3034,14 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "lib/qvmc/optimizer.pyx":55
+  /* "lib/qvmc/optimizer.pyx":57
  * 
  *     def update_variational_parameters(self):
  *         if self.variational_energy is None or self.exp_delta is None or self.exp_Q is None:             # <<<<<<<<<<<<<<
  *             print("OUT OF ORDER ERROR")
  *             set_trace()
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = (__pyx_t_2 == Py_None);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3014,7 +3051,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     __pyx_t_1 = __pyx_t_4;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_delta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_delta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = (__pyx_t_2 == Py_None);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3024,7 +3061,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = (__pyx_t_2 == Py_None);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3033,23 +3070,23 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "lib/qvmc/optimizer.pyx":56
+    /* "lib/qvmc/optimizer.pyx":58
  *     def update_variational_parameters(self):
  *         if self.variational_energy is None or self.exp_delta is None or self.exp_Q is None:
  *             print("OUT OF ORDER ERROR")             # <<<<<<<<<<<<<<
  *             set_trace()
  * 
  */
-    if (__Pyx_PrintOne(0, __pyx_kp_s_OUT_OF_ORDER_ERROR) < 0) __PYX_ERR(0, 56, __pyx_L1_error)
+    if (__Pyx_PrintOne(0, __pyx_kp_s_OUT_OF_ORDER_ERROR) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
 
-    /* "lib/qvmc/optimizer.pyx":57
+    /* "lib/qvmc/optimizer.pyx":59
  *         if self.variational_energy is None or self.exp_delta is None or self.exp_Q is None:
  *             print("OUT OF ORDER ERROR")
  *             set_trace()             # <<<<<<<<<<<<<<
  * 
  *         f = {}
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_set_trace); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 57, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_set_trace); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -3063,12 +3100,12 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     }
     __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":55
+    /* "lib/qvmc/optimizer.pyx":57
  * 
  *     def update_variational_parameters(self):
  *         if self.variational_energy is None or self.exp_delta is None or self.exp_Q is None:             # <<<<<<<<<<<<<<
@@ -3077,54 +3114,54 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
  */
   }
 
-  /* "lib/qvmc/optimizer.pyx":59
+  /* "lib/qvmc/optimizer.pyx":61
  *             set_trace()
  * 
  *         f = {}             # <<<<<<<<<<<<<<
  *         f.update((key, None) for key in self.parameters.keys())
  *         parameter_changes = {}
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_f = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":60
+  /* "lib/qvmc/optimizer.pyx":62
  * 
  *         f = {}
  *         f.update((key, None) for key in self.parameters.keys())             # <<<<<<<<<<<<<<
  *         parameter_changes = {}
  *         for key in self.parameters.keys():
  */
-  __pyx_t_2 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_parameters_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_2 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_29update_variational_parameters_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_v_f, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_v_f, __pyx_t_2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":61
+  /* "lib/qvmc/optimizer.pyx":63
  *         f = {}
  *         f.update((key, None) for key in self.parameters.keys())
  *         parameter_changes = {}             # <<<<<<<<<<<<<<
  *         for key in self.parameters.keys():
  *             f[key] = -1*(self.exp_Q[key] - self.exp_delta[key]*self.variational_energy)
  */
-  __pyx_t_5 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_v_parameter_changes = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":62
+  /* "lib/qvmc/optimizer.pyx":64
  *         f.update((key, None) for key in self.parameters.keys())
  *         parameter_changes = {}
  *         for key in self.parameters.keys():             # <<<<<<<<<<<<<<
  *             f[key] = -1*(self.exp_Q[key] - self.exp_delta[key]*self.variational_energy)
  *             parameter_changes[key] = self.lr*f[key]
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_keys); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_keys); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3139,16 +3176,16 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   }
   __pyx_t_5 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
     __pyx_t_6 = __pyx_t_5; __Pyx_INCREF(__pyx_t_6); __pyx_t_7 = 0;
     __pyx_t_8 = NULL;
   } else {
-    __pyx_t_7 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_7 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 64, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_8 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_8 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 64, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   for (;;) {
@@ -3156,17 +3193,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
       if (likely(PyList_CheckExact(__pyx_t_6))) {
         if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_6)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_7); __Pyx_INCREF(__pyx_t_5); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 62, __pyx_L1_error)
+        __pyx_t_5 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_7); __Pyx_INCREF(__pyx_t_5); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_6, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_6, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 64, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       } else {
         if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_7); __Pyx_INCREF(__pyx_t_5); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 62, __pyx_L1_error)
+        __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_7); __Pyx_INCREF(__pyx_t_5); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
         #else
-        __pyx_t_5 = PySequence_ITEM(__pyx_t_6, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
+        __pyx_t_5 = PySequence_ITEM(__pyx_t_6, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 64, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         #endif
       }
@@ -3176,7 +3213,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 62, __pyx_L1_error)
+          else __PYX_ERR(0, 64, __pyx_L1_error)
         }
         break;
       }
@@ -3185,94 +3222,94 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":63
+    /* "lib/qvmc/optimizer.pyx":65
  *         parameter_changes = {}
  *         for key in self.parameters.keys():
  *             f[key] = -1*(self.exp_Q[key] - self.exp_delta[key]*self.variational_energy)             # <<<<<<<<<<<<<<
  *             parameter_changes[key] = self.lr*f[key]
  *             cap = self.dx_cap + self.dx_cap*1j
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_Q); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_Q); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_key); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_key); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_delta); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_delta); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_9 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_key); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_key); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_10 = PyNumber_Multiply(__pyx_t_9, __pyx_t_5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_10 = PyNumber_Multiply(__pyx_t_9, __pyx_t_5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyNumber_Subtract(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_5 = PyNumber_Subtract(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = PyNumber_Multiply(__pyx_int_neg_1, __pyx_t_5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 63, __pyx_L1_error)
+    __pyx_t_10 = PyNumber_Multiply(__pyx_int_neg_1, __pyx_t_5); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(PyDict_SetItem(__pyx_v_f, __pyx_v_key, __pyx_t_10) < 0)) __PYX_ERR(0, 63, __pyx_L1_error)
+    if (unlikely(PyDict_SetItem(__pyx_v_f, __pyx_v_key, __pyx_t_10) < 0)) __PYX_ERR(0, 65, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":64
+    /* "lib/qvmc/optimizer.pyx":66
  *         for key in self.parameters.keys():
  *             f[key] = -1*(self.exp_Q[key] - self.exp_delta[key]*self.variational_energy)
  *             parameter_changes[key] = self.lr*f[key]             # <<<<<<<<<<<<<<
  *             cap = self.dx_cap + self.dx_cap*1j
  *             parameter_changes[key] = parameter_changes[key].clip(-1*cap, cap)
  */
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_lr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 64, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_lr); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_f, __pyx_v_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 64, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyDict_GetItem(__pyx_v_f, __pyx_v_key); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = PyNumber_Multiply(__pyx_t_10, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_10, __pyx_t_5); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(PyDict_SetItem(__pyx_v_parameter_changes, __pyx_v_key, __pyx_t_2) < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
+    if (unlikely(PyDict_SetItem(__pyx_v_parameter_changes, __pyx_v_key, __pyx_t_2) < 0)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":65
+    /* "lib/qvmc/optimizer.pyx":67
  *             f[key] = -1*(self.exp_Q[key] - self.exp_delta[key]*self.variational_energy)
  *             parameter_changes[key] = self.lr*f[key]
  *             cap = self.dx_cap + self.dx_cap*1j             # <<<<<<<<<<<<<<
  *             parameter_changes[key] = parameter_changes[key].clip(-1*cap, cap)
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_dx_cap); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_dx_cap); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_dx_cap); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_dx_cap); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_10 = PyComplex_FromDoubles(0.0, 1.0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_10 = PyComplex_FromDoubles(0.0, 1.0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_9 = PyNumber_Multiply(__pyx_t_5, __pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_9 = PyNumber_Multiply(__pyx_t_5, __pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = PyNumber_Add(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_10 = PyNumber_Add(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 67, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_XDECREF_SET(__pyx_v_cap, __pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":66
+    /* "lib/qvmc/optimizer.pyx":68
  *             parameter_changes[key] = self.lr*f[key]
  *             cap = self.dx_cap + self.dx_cap*1j
  *             parameter_changes[key] = parameter_changes[key].clip(-1*cap, cap)             # <<<<<<<<<<<<<<
  * 
  *         for key in self.parameters.keys():
  */
-    __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_parameter_changes, __pyx_v_key); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 66, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyDict_GetItem(__pyx_v_parameter_changes, __pyx_v_key); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_clip); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_clip); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = PyNumber_Multiply(__pyx_int_neg_1, __pyx_v_cap); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 66, __pyx_L1_error)
+    __pyx_t_9 = PyNumber_Multiply(__pyx_int_neg_1, __pyx_v_cap); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_5 = NULL;
     __pyx_t_11 = 0;
@@ -3289,7 +3326,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_9, __pyx_v_cap};
-      __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 66, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 68, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -3298,14 +3335,14 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_9, __pyx_v_cap};
-      __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 66, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_11, 2+__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 68, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     } else
     #endif
     {
-      __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 66, __pyx_L1_error)
+      __pyx_t_12 = PyTuple_New(2+__pyx_t_11); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 68, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       if (__pyx_t_5) {
         __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -3316,15 +3353,15 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
       __Pyx_GIVEREF(__pyx_v_cap);
       PyTuple_SET_ITEM(__pyx_t_12, 1+__pyx_t_11, __pyx_v_cap);
       __pyx_t_9 = 0;
-      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 66, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_12, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 68, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(PyDict_SetItem(__pyx_v_parameter_changes, __pyx_v_key, __pyx_t_10) < 0)) __PYX_ERR(0, 66, __pyx_L1_error)
+    if (unlikely(PyDict_SetItem(__pyx_v_parameter_changes, __pyx_v_key, __pyx_t_10) < 0)) __PYX_ERR(0, 68, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":62
+    /* "lib/qvmc/optimizer.pyx":64
  *         f.update((key, None) for key in self.parameters.keys())
  *         parameter_changes = {}
  *         for key in self.parameters.keys():             # <<<<<<<<<<<<<<
@@ -3334,16 +3371,16 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":68
+  /* "lib/qvmc/optimizer.pyx":70
  *             parameter_changes[key] = parameter_changes[key].clip(-1*cap, cap)
  * 
  *         for key in self.parameters.keys():             # <<<<<<<<<<<<<<
  *             self.parameters[key] = self.parameters[key] + parameter_changes[key]
  * 
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_keys); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_keys); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_t_10 = NULL;
@@ -3358,16 +3395,16 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   }
   __pyx_t_6 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 68, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (likely(PyList_CheckExact(__pyx_t_6)) || PyTuple_CheckExact(__pyx_t_6)) {
     __pyx_t_2 = __pyx_t_6; __Pyx_INCREF(__pyx_t_2); __pyx_t_7 = 0;
     __pyx_t_8 = NULL;
   } else {
-    __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
+    __pyx_t_7 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 68, __pyx_L1_error)
+    __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 70, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   for (;;) {
@@ -3375,17 +3412,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 68, __pyx_L1_error)
+        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 70, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 68, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 70, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       } else {
         if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 68, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_7); __Pyx_INCREF(__pyx_t_6); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 70, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 68, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_2, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 70, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       }
@@ -3395,7 +3432,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 68, __pyx_L1_error)
+          else __PYX_ERR(0, 70, __pyx_L1_error)
         }
         break;
       }
@@ -3404,31 +3441,31 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     __Pyx_XDECREF_SET(__pyx_v_key, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":69
+    /* "lib/qvmc/optimizer.pyx":71
  * 
  *         for key in self.parameters.keys():
  *             self.parameters[key] = self.parameters[key] + parameter_changes[key]             # <<<<<<<<<<<<<<
  * 
  *         self.clear_expectations() # this insures we pick up more bugs
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 71, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_key); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_key); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 71, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyDict_GetItem(__pyx_v_parameter_changes, __pyx_v_key); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyDict_GetItem(__pyx_v_parameter_changes, __pyx_v_key); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 71, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_12 = PyNumber_Add(__pyx_t_10, __pyx_t_6); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __pyx_t_12 = PyNumber_Add(__pyx_t_10, __pyx_t_6); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 71, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 69, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 71, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_v_key, __pyx_t_12) < 0)) __PYX_ERR(0, 69, __pyx_L1_error)
+    if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_v_key, __pyx_t_12) < 0)) __PYX_ERR(0, 71, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":68
+    /* "lib/qvmc/optimizer.pyx":70
  *             parameter_changes[key] = parameter_changes[key].clip(-1*cap, cap)
  * 
  *         for key in self.parameters.keys():             # <<<<<<<<<<<<<<
@@ -3438,14 +3475,14 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":71
+  /* "lib/qvmc/optimizer.pyx":73
  *             self.parameters[key] = self.parameters[key] + parameter_changes[key]
  * 
  *         self.clear_expectations() # this insures we pick up more bugs             # <<<<<<<<<<<<<<
  * 
  *         # artificially contrain certain parameters
  */
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_clear_expectations); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_clear_expectations); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
@@ -3459,35 +3496,35 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   }
   __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":74
+  /* "lib/qvmc/optimizer.pyx":76
  * 
  *         # artificially contrain certain parameters
  *         if self.fixed_parameters is not None:             # <<<<<<<<<<<<<<
  *             for idx, param in self.fixed_parameters.items():
  *                 self.parameters[idx] = param
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_fixed_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_fixed_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_1 = (__pyx_t_2 != Py_None);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_4 = (__pyx_t_1 != 0);
   if (__pyx_t_4) {
 
-    /* "lib/qvmc/optimizer.pyx":75
+    /* "lib/qvmc/optimizer.pyx":77
  *         # artificially contrain certain parameters
  *         if self.fixed_parameters is not None:
  *             for idx, param in self.fixed_parameters.items():             # <<<<<<<<<<<<<<
  *                 self.parameters[idx] = param
  * 
  */
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_fixed_parameters); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_fixed_parameters); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 77, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_items); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_items); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 77, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
     __pyx_t_12 = NULL;
@@ -3502,16 +3539,16 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     }
     __pyx_t_2 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
     __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
       __pyx_t_6 = __pyx_t_2; __Pyx_INCREF(__pyx_t_6); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
     } else {
-      __pyx_t_7 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 75, __pyx_L1_error)
+      __pyx_t_7 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 77, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_8 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 75, __pyx_L1_error)
+      __pyx_t_8 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 77, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     for (;;) {
@@ -3519,17 +3556,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
         if (likely(PyList_CheckExact(__pyx_t_6))) {
           if (__pyx_t_7 >= PyList_GET_SIZE(__pyx_t_6)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __pyx_t_2 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 77, __pyx_L1_error)
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_6, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_6, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           #endif
         } else {
           if (__pyx_t_7 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_7); __Pyx_INCREF(__pyx_t_2); __pyx_t_7++; if (unlikely(0 < 0)) __PYX_ERR(0, 77, __pyx_L1_error)
           #else
-          __pyx_t_2 = PySequence_ITEM(__pyx_t_6, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __pyx_t_2 = PySequence_ITEM(__pyx_t_6, __pyx_t_7); __pyx_t_7++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           #endif
         }
@@ -3539,7 +3576,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 75, __pyx_L1_error)
+            else __PYX_ERR(0, 77, __pyx_L1_error)
           }
           break;
         }
@@ -3551,7 +3588,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
         if (unlikely(size != 2)) {
           if (size > 2) __Pyx_RaiseTooManyValuesError(2);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          __PYX_ERR(0, 75, __pyx_L1_error)
+          __PYX_ERR(0, 77, __pyx_L1_error)
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
         if (likely(PyTuple_CheckExact(sequence))) {
@@ -3564,15 +3601,15 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
         __Pyx_INCREF(__pyx_t_12);
         __Pyx_INCREF(__pyx_t_10);
         #else
-        __pyx_t_12 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 75, __pyx_L1_error)
+        __pyx_t_12 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 77, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_10 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 75, __pyx_L1_error)
+        __pyx_t_10 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 77, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         #endif
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       } else {
         Py_ssize_t index = -1;
-        __pyx_t_9 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 75, __pyx_L1_error)
+        __pyx_t_9 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 77, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_13 = Py_TYPE(__pyx_t_9)->tp_iternext;
@@ -3580,7 +3617,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
         __Pyx_GOTREF(__pyx_t_12);
         index = 1; __pyx_t_10 = __pyx_t_13(__pyx_t_9); if (unlikely(!__pyx_t_10)) goto __pyx_L14_unpacking_failed;
         __Pyx_GOTREF(__pyx_t_10);
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_9), 2) < 0) __PYX_ERR(0, 75, __pyx_L1_error)
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_9), 2) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
         __pyx_t_13 = NULL;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         goto __pyx_L15_unpacking_done;
@@ -3588,7 +3625,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __pyx_t_13 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        __PYX_ERR(0, 75, __pyx_L1_error)
+        __PYX_ERR(0, 77, __pyx_L1_error)
         __pyx_L15_unpacking_done:;
       }
       __Pyx_XDECREF_SET(__pyx_v_idx, __pyx_t_12);
@@ -3596,19 +3633,19 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
       __Pyx_XDECREF_SET(__pyx_v_param, __pyx_t_10);
       __pyx_t_10 = 0;
 
-      /* "lib/qvmc/optimizer.pyx":76
+      /* "lib/qvmc/optimizer.pyx":78
  *         if self.fixed_parameters is not None:
  *             for idx, param in self.fixed_parameters.items():
  *                 self.parameters[idx] = param             # <<<<<<<<<<<<<<
  * 
- *     def monte_carlo_simulation(self):
+ * 
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_v_idx, __pyx_v_param) < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_v_idx, __pyx_v_param) < 0)) __PYX_ERR(0, 78, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "lib/qvmc/optimizer.pyx":75
+      /* "lib/qvmc/optimizer.pyx":77
  *         # artificially contrain certain parameters
  *         if self.fixed_parameters is not None:
  *             for idx, param in self.fixed_parameters.items():             # <<<<<<<<<<<<<<
@@ -3618,7 +3655,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
     }
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":74
+    /* "lib/qvmc/optimizer.pyx":76
  * 
  *         # artificially contrain certain parameters
  *         if self.fixed_parameters is not None:             # <<<<<<<<<<<<<<
@@ -3627,7 +3664,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
  */
   }
 
-  /* "lib/qvmc/optimizer.pyx":54
+  /* "lib/qvmc/optimizer.pyx":56
  *         set_trace()
  * 
  *     def update_variational_parameters(self):             # <<<<<<<<<<<<<<
@@ -3660,11 +3697,11 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_4update_variational_p
   return __pyx_r;
 }
 
-/* "lib/qvmc/optimizer.pyx":78
- *                 self.parameters[idx] = param
+/* "lib/qvmc/optimizer.pyx":81
+ * 
  * 
  *     def monte_carlo_simulation(self):             # <<<<<<<<<<<<<<
- *         """
+ *         '''
  *         This function calculates expectation values for the
  */
 
@@ -3684,7 +3721,7 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_7monte_carlo_simulati
 }
 static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_2generator1(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "lib/qvmc/optimizer.pyx":104
+/* "lib/qvmc/optimizer.pyx":112
  * 
  *             expectation_local_energy += local_energy
  *             expectation_delta.update((key, value + delta_x[key]) for key, value in expectation_delta.items())             # <<<<<<<<<<<<<<
@@ -3701,7 +3738,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 104, __pyx_L1_error)
+    __PYX_ERR(0, 112, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -3709,7 +3746,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_2generator1, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_monte_carlo_simulation, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_2generator1, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_monte_carlo_simulation, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -3747,21 +3784,21 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 104, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta)) { __Pyx_RaiseClosureNameError("expectation_delta"); __PYX_ERR(0, 104, __pyx_L1_error) }
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 112, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta)) { __Pyx_RaiseClosureNameError("expectation_delta"); __PYX_ERR(0, 112, __pyx_L1_error) }
   if (unlikely(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-    __PYX_ERR(0, 104, __pyx_L1_error)
+    __PYX_ERR(0, 112, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_Items(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_Items(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 112, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -3769,17 +3806,17 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 104, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 104, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -3789,7 +3826,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 104, __pyx_L1_error)
+          else __PYX_ERR(0, 112, __pyx_L1_error)
         }
         break;
       }
@@ -3801,7 +3838,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 104, __pyx_L1_error)
+        __PYX_ERR(0, 112, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -3814,15 +3851,15 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 112, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 104, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 104, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 112, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -3830,7 +3867,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_GOTREF(__pyx_t_5);
       index = 1; __pyx_t_6 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L6_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L7_unpacking_done;
@@ -3838,7 +3875,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 104, __pyx_L1_error)
+      __PYX_ERR(0, 112, __pyx_L1_error)
       __pyx_L7_unpacking_done:;
     }
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_key);
@@ -3849,13 +3886,13 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_value, __pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_6);
     __pyx_t_6 = 0;
-    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_delta_x)) { __Pyx_RaiseClosureNameError("delta_x"); __PYX_ERR(0, 104, __pyx_L1_error) }
-    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_delta_x, __pyx_cur_scope->__pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_delta_x)) { __Pyx_RaiseClosureNameError("delta_x"); __PYX_ERR(0, 112, __pyx_L1_error) }
+    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_delta_x, __pyx_cur_scope->__pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = PyNumber_Add(__pyx_cur_scope->__pyx_v_value, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_cur_scope->__pyx_v_value, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_key);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_key);
@@ -3881,7 +3918,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     __Pyx_XGOTREF(__pyx_t_2);
     __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 104, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 112, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
@@ -3908,12 +3945,12 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
 }
 static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_5generator2(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "lib/qvmc/optimizer.pyx":105
+/* "lib/qvmc/optimizer.pyx":113
  *             expectation_local_energy += local_energy
  *             expectation_delta.update((key, value + delta_x[key]) for key, value in expectation_delta.items())
  *             expectation_Q.update((key, value + Q_of_x[key]) for key, value in expectation_Q.items())             # <<<<<<<<<<<<<<
  * 
- *         # normalize expectation values
+ * 
  */
 
 static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_3genexpr(PyObject *__pyx_self) {
@@ -3925,7 +3962,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 105, __pyx_L1_error)
+    __PYX_ERR(0, 113, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -3933,7 +3970,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_5generator2, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_monte_carlo_simulation, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 105, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_5generator2, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_monte_carlo_simulation, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -3971,21 +4008,21 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 105, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q)) { __Pyx_RaiseClosureNameError("expectation_Q"); __PYX_ERR(0, 105, __pyx_L1_error) }
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 113, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q)) { __Pyx_RaiseClosureNameError("expectation_Q"); __PYX_ERR(0, 113, __pyx_L1_error) }
   if (unlikely(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-    __PYX_ERR(0, 105, __pyx_L1_error)
+    __PYX_ERR(0, 113, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_Items(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_Items(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -3993,17 +4030,17 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 113, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 113, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -4013,7 +4050,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 105, __pyx_L1_error)
+          else __PYX_ERR(0, 113, __pyx_L1_error)
         }
         break;
       }
@@ -4025,7 +4062,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 105, __pyx_L1_error)
+        __PYX_ERR(0, 113, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -4038,15 +4075,15 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 105, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 105, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 113, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -4054,7 +4091,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_GOTREF(__pyx_t_5);
       index = 1; __pyx_t_6 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L6_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L7_unpacking_done;
@@ -4062,7 +4099,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 105, __pyx_L1_error)
+      __PYX_ERR(0, 113, __pyx_L1_error)
       __pyx_L7_unpacking_done:;
     }
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_key);
@@ -4073,13 +4110,13 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_value, __pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_6);
     __pyx_t_6 = 0;
-    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_Q_of_x)) { __Pyx_RaiseClosureNameError("Q_of_x"); __PYX_ERR(0, 105, __pyx_L1_error) }
-    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_Q_of_x, __pyx_cur_scope->__pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+    if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_Q_of_x)) { __Pyx_RaiseClosureNameError("Q_of_x"); __PYX_ERR(0, 113, __pyx_L1_error) }
+    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_Q_of_x, __pyx_cur_scope->__pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = PyNumber_Add(__pyx_cur_scope->__pyx_v_value, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 105, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_cur_scope->__pyx_v_value, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_key);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_key);
@@ -4105,7 +4142,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     __Pyx_XGOTREF(__pyx_t_2);
     __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 105, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 113, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
@@ -4132,7 +4169,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
 }
 static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_8generator3(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "lib/qvmc/optimizer.pyx":110
+/* "lib/qvmc/optimizer.pyx":131
  *         num_steps = self.num_steps
  *         expectation_local_energy = expectation_local_energy / num_steps
  *         expectation_delta.update((key, value/num_steps) for key, value in expectation_delta.items())             # <<<<<<<<<<<<<<
@@ -4149,7 +4186,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 110, __pyx_L1_error)
+    __PYX_ERR(0, 131, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -4157,7 +4194,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_8generator3, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_monte_carlo_simulation, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_8generator3, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_monte_carlo_simulation, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -4195,21 +4232,21 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 110, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta)) { __Pyx_RaiseClosureNameError("expectation_delta"); __PYX_ERR(0, 110, __pyx_L1_error) }
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 131, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta)) { __Pyx_RaiseClosureNameError("expectation_delta"); __PYX_ERR(0, 131, __pyx_L1_error) }
   if (unlikely(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-    __PYX_ERR(0, 110, __pyx_L1_error)
+    __PYX_ERR(0, 131, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_Items(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_Items(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_delta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 131, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -4217,17 +4254,17 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 131, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 131, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -4237,7 +4274,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 110, __pyx_L1_error)
+          else __PYX_ERR(0, 131, __pyx_L1_error)
         }
         break;
       }
@@ -4249,7 +4286,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 110, __pyx_L1_error)
+        __PYX_ERR(0, 131, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -4262,15 +4299,15 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 110, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 131, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 110, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 110, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 131, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -4278,7 +4315,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_GOTREF(__pyx_t_5);
       index = 1; __pyx_t_6 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L6_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L7_unpacking_done;
@@ -4286,7 +4323,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 110, __pyx_L1_error)
+      __PYX_ERR(0, 131, __pyx_L1_error)
       __pyx_L7_unpacking_done:;
     }
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_key);
@@ -4297,12 +4334,12 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_value, __pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_num_steps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_num_steps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_PyNumber_Divide(__pyx_cur_scope->__pyx_v_value, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyNumber_Divide(__pyx_cur_scope->__pyx_v_value, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_key);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_key);
@@ -4328,7 +4365,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     __Pyx_XGOTREF(__pyx_t_2);
     __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 110, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 131, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
@@ -4355,7 +4392,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
 }
 static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_11generator4(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "lib/qvmc/optimizer.pyx":111
+/* "lib/qvmc/optimizer.pyx":132
  *         expectation_local_energy = expectation_local_energy / num_steps
  *         expectation_delta.update((key, value/num_steps) for key, value in expectation_delta.items())
  *         expectation_Q.update((key, value/num_steps) for key, value in expectation_Q.items())             # <<<<<<<<<<<<<<
@@ -4372,7 +4409,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 111, __pyx_L1_error)
+    __PYX_ERR(0, 132, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -4380,7 +4417,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_11generator4, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_monte_carlo_simulation, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_11generator4, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_monte_carlo_simulation, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -4418,21 +4455,21 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 111, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q)) { __Pyx_RaiseClosureNameError("expectation_Q"); __PYX_ERR(0, 111, __pyx_L1_error) }
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 132, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q)) { __Pyx_RaiseClosureNameError("expectation_Q"); __PYX_ERR(0, 132, __pyx_L1_error) }
   if (unlikely(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-    __PYX_ERR(0, 111, __pyx_L1_error)
+    __PYX_ERR(0, 132, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_Items(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_Items(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_expectation_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
     __pyx_t_4 = NULL;
   } else {
-    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -4440,17 +4477,17 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 132, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_1); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 132, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -4460,7 +4497,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 111, __pyx_L1_error)
+          else __PYX_ERR(0, 132, __pyx_L1_error)
         }
         break;
       }
@@ -4472,7 +4509,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 111, __pyx_L1_error)
+        __PYX_ERR(0, 132, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -4485,15 +4522,15 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_INCREF(__pyx_t_5);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 111, __pyx_L1_error)
+      __pyx_t_5 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 111, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 111, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 132, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -4501,7 +4538,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_GOTREF(__pyx_t_5);
       index = 1; __pyx_t_6 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L6_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L7_unpacking_done;
@@ -4509,7 +4546,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 111, __pyx_L1_error)
+      __PYX_ERR(0, 132, __pyx_L1_error)
       __pyx_L7_unpacking_done:;
     }
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_key);
@@ -4520,12 +4557,12 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_value, __pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_num_steps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_num_steps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_PyNumber_Divide(__pyx_cur_scope->__pyx_v_value, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyNumber_Divide(__pyx_cur_scope->__pyx_v_value, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_key);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_key);
@@ -4551,7 +4588,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
     __Pyx_XGOTREF(__pyx_t_2);
     __pyx_t_3 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_4 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 111, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 132, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
@@ -4577,11 +4614,11 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulat
   return __pyx_r;
 }
 
-/* "lib/qvmc/optimizer.pyx":78
- *                 self.parameters[idx] = param
+/* "lib/qvmc/optimizer.pyx":81
+ * 
  * 
  *     def monte_carlo_simulation(self):             # <<<<<<<<<<<<<<
- *         """
+ *         '''
  *         This function calculates expectation values for the
  */
 
@@ -4592,6 +4629,8 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   PyObject *__pyx_v_state = NULL;
   __pyx_t_double_complex __pyx_v_expectation_local_energy;
   __pyx_t_double_complex __pyx_v_local_energy;
+  PyObject *__pyx_v_Ys = NULL;
+  CYTHON_UNUSED PyObject *__pyx_v_Xs = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4604,54 +4643,55 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   int __pyx_t_8;
   int __pyx_t_9;
   __pyx_t_double_complex __pyx_t_10;
+  int __pyx_t_11;
   __Pyx_RefNannySetupContext("monte_carlo_simulation", 0);
   __pyx_cur_scope = (struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation *)__pyx_tp_new_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation(__pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation, __pyx_empty_tuple, NULL);
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 78, __pyx_L1_error)
+    __PYX_ERR(0, 81, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
 
-  /* "lib/qvmc/optimizer.pyx":84
- *         """
+  /* "lib/qvmc/optimizer.pyx":87
+ *         '''
  * 
  *         cdef int N = self.num_particles             # <<<<<<<<<<<<<<
  *         cdef int num_steps = self.num_steps
  *         cdef int i
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_num_particles); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_num_particles); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_N = __pyx_t_2;
 
-  /* "lib/qvmc/optimizer.pyx":85
+  /* "lib/qvmc/optimizer.pyx":88
  * 
  *         cdef int N = self.num_particles
  *         cdef int num_steps = self.num_steps             # <<<<<<<<<<<<<<
  *         cdef int i
  *         state = State(self.num_particles, self.parameters)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_num_steps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_num_steps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_cur_scope->__pyx_v_num_steps = __pyx_t_2;
 
-  /* "lib/qvmc/optimizer.pyx":87
+  /* "lib/qvmc/optimizer.pyx":90
  *         cdef int num_steps = self.num_steps
  *         cdef int i
  *         state = State(self.num_particles, self.parameters)             # <<<<<<<<<<<<<<
  * 
  *         # initialize running variables
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_State); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_State); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_num_particles); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_num_particles); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   __pyx_t_2 = 0;
@@ -4668,7 +4708,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_4, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_2, 2+__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_2, 2+__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4678,7 +4718,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_4, __pyx_t_5};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_2, 2+__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_2, 2+__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -4686,7 +4726,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 90, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_6) {
       __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -4697,7 +4737,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_2, __pyx_t_5);
     __pyx_t_4 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -4705,7 +4745,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_v_state = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":90
+  /* "lib/qvmc/optimizer.pyx":93
  * 
  *         # initialize running variables
  *         cdef complex expectation_local_energy = 0             # <<<<<<<<<<<<<<
@@ -4714,21 +4754,21 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
  */
   __pyx_v_expectation_local_energy = __pyx_t_double_complex_from_parts(0, 0);
 
-  /* "lib/qvmc/optimizer.pyx":92
+  /* "lib/qvmc/optimizer.pyx":95
  *         cdef complex expectation_local_energy = 0
  *         cdef complex local_energy
  *         cdef dict expectation_delta = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}             # <<<<<<<<<<<<<<
  *         cdef dict expectation_Q = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
  * 
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -4743,17 +4783,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_a, __pyx_t_3) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_a, __pyx_t_3) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -4768,17 +4808,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_5);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_b, __pyx_t_3) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_b, __pyx_t_3) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -4793,30 +4833,30 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_w, __pyx_t_3) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_w, __pyx_t_3) < 0) __PYX_ERR(0, 95, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_expectation_delta = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":93
+  /* "lib/qvmc/optimizer.pyx":96
  *         cdef complex local_energy
  *         cdef dict expectation_delta = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
  *         cdef dict expectation_Q = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}             # <<<<<<<<<<<<<<
  * 
- *         for i in range(num_steps):
+ *         Ys = []
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -4831,17 +4871,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_5);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_a, __pyx_t_3) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_a, __pyx_t_3) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -4856,17 +4896,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_b, __pyx_t_3) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_b, __pyx_t_3) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -4881,17 +4921,41 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_5);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_w, __pyx_t_3) < 0) __PYX_ERR(0, 93, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_w, __pyx_t_3) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_expectation_Q = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":95
+  /* "lib/qvmc/optimizer.pyx":98
  *         cdef dict expectation_Q = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
+ * 
+ *         Ys = []             # <<<<<<<<<<<<<<
+ *         Xs = []
+ * 
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_Ys = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "lib/qvmc/optimizer.pyx":99
+ * 
+ *         Ys = []
+ *         Xs = []             # <<<<<<<<<<<<<<
+ * 
+ *         for i in range(num_steps):
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_Xs = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "lib/qvmc/optimizer.pyx":101
+ *         Xs = []
  * 
  *         for i in range(num_steps):             # <<<<<<<<<<<<<<
  *             # clear_output(wait=True)
@@ -4902,14 +4966,14 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
     __pyx_v_i = __pyx_t_9;
 
-    /* "lib/qvmc/optimizer.pyx":98
+    /* "lib/qvmc/optimizer.pyx":104
  *             # clear_output(wait=True)
  * 
  *             state.update_state()             # <<<<<<<<<<<<<<
- *             local_energy = self.H.calculate_local_energy(state)
- *             delta_x = state.get_delta_x()
+ *             state.delta_x = None
+ *             state.Q_of_x = None
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_state, __pyx_n_s_update_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 98, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_state, __pyx_n_s_update_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -4923,21 +4987,39 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
     }
     __pyx_t_1 = (__pyx_t_7) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_7) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":99
+    /* "lib/qvmc/optimizer.pyx":105
  * 
  *             state.update_state()
+ *             state.delta_x = None             # <<<<<<<<<<<<<<
+ *             state.Q_of_x = None
+ *             local_energy = self.H.calculate_local_energy(state)
+ */
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_state, __pyx_n_s_delta_x, Py_None) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+
+    /* "lib/qvmc/optimizer.pyx":106
+ *             state.update_state()
+ *             state.delta_x = None
+ *             state.Q_of_x = None             # <<<<<<<<<<<<<<
+ *             local_energy = self.H.calculate_local_energy(state)
+ *             delta_x = state.get_delta_x()
+ */
+    if (__Pyx_PyObject_SetAttrStr(__pyx_v_state, __pyx_n_s_Q_of_x, Py_None) < 0) __PYX_ERR(0, 106, __pyx_L1_error)
+
+    /* "lib/qvmc/optimizer.pyx":107
+ *             state.delta_x = None
+ *             state.Q_of_x = None
  *             local_energy = self.H.calculate_local_energy(state)             # <<<<<<<<<<<<<<
  *             delta_x = state.get_delta_x()
  *             Q_of_x = state.get_Q_of_x(local_energy)
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_H); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_H); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_calculate_local_energy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_calculate_local_energy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_3 = NULL;
@@ -4952,21 +5034,21 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
     }
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_3, __pyx_v_state) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_state);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_10 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 107, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_local_energy = __pyx_t_10;
 
-    /* "lib/qvmc/optimizer.pyx":100
- *             state.update_state()
+    /* "lib/qvmc/optimizer.pyx":108
+ *             state.Q_of_x = None
  *             local_energy = self.H.calculate_local_energy(state)
  *             delta_x = state.get_delta_x()             # <<<<<<<<<<<<<<
  *             Q_of_x = state.get_Q_of_x(local_energy)
  * 
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_state, __pyx_n_s_get_delta_x); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 100, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_state, __pyx_n_s_get_delta_x); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
@@ -4980,7 +5062,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
     }
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_7);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_delta_x);
@@ -4988,16 +5070,16 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
     __Pyx_GIVEREF(__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":101
+    /* "lib/qvmc/optimizer.pyx":109
  *             local_energy = self.H.calculate_local_energy(state)
  *             delta_x = state.get_delta_x()
  *             Q_of_x = state.get_Q_of_x(local_energy)             # <<<<<<<<<<<<<<
  * 
  *             expectation_local_energy += local_energy
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_state, __pyx_n_s_get_Q_of_x); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_state, __pyx_n_s_get_Q_of_x); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 109, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_3 = __pyx_PyComplex_FromComplex(__pyx_v_local_energy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_3 = __pyx_PyComplex_FromComplex(__pyx_v_local_energy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 109, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
@@ -5012,7 +5094,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
     __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_3);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_Q_of_x);
@@ -5020,7 +5102,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
     __Pyx_GIVEREF(__pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":103
+    /* "lib/qvmc/optimizer.pyx":111
  *             Q_of_x = state.get_Q_of_x(local_energy)
  * 
  *             expectation_local_energy += local_energy             # <<<<<<<<<<<<<<
@@ -5029,49 +5111,224 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
  */
     __pyx_v_expectation_local_energy = __Pyx_c_sum_double(__pyx_v_expectation_local_energy, __pyx_v_local_energy);
 
-    /* "lib/qvmc/optimizer.pyx":104
+    /* "lib/qvmc/optimizer.pyx":112
  * 
  *             expectation_local_energy += local_energy
  *             expectation_delta.update((key, value + delta_x[key]) for key, value in expectation_delta.items())             # <<<<<<<<<<<<<<
  *             expectation_Q.update((key, value + Q_of_x[key]) for key, value in expectation_Q.items())
  * 
  */
-    __pyx_t_1 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_t_1 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_cur_scope->__pyx_v_expectation_delta, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 104, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_cur_scope->__pyx_v_expectation_delta, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 112, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "lib/qvmc/optimizer.pyx":105
+    /* "lib/qvmc/optimizer.pyx":113
  *             expectation_local_energy += local_energy
  *             expectation_delta.update((key, value + delta_x[key]) for key, value in expectation_delta.items())
  *             expectation_Q.update((key, value + Q_of_x[key]) for key, value in expectation_Q.items())             # <<<<<<<<<<<<<<
  * 
- *         # normalize expectation values
+ * 
  */
-    __pyx_t_7 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_3genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 105, __pyx_L1_error)
+    __pyx_t_7 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_3genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_cur_scope->__pyx_v_expectation_Q, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_cur_scope->__pyx_v_expectation_Q, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "lib/qvmc/optimizer.pyx":117
+ * 
+ *             if True:
+ *                 Ys.append(local_energy.real)             # <<<<<<<<<<<<<<
+ *                 clear_output(wait=True)
+ *                 plt.plot(Ys)
+ */
+    __pyx_t_1 = PyFloat_FromDouble(__Pyx_CREAL(__pyx_v_local_energy)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_11 = __Pyx_PyList_Append(__pyx_v_Ys, __pyx_t_1); if (unlikely(__pyx_t_11 == ((int)-1))) __PYX_ERR(0, 117, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "lib/qvmc/optimizer.pyx":118
+ *             if True:
+ *                 Ys.append(local_energy.real)
+ *                 clear_output(wait=True)             # <<<<<<<<<<<<<<
+ *                 plt.plot(Ys)
+ *                 plt.title("Local Energies Throughout Monte Carlo")
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_clear_output); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_wait, Py_True) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "lib/qvmc/optimizer.pyx":119
+ *                 Ys.append(local_energy.real)
+ *                 clear_output(wait=True)
+ *                 plt.plot(Ys)             # <<<<<<<<<<<<<<
+ *                 plt.title("Local Energies Throughout Monte Carlo")
+ *                 plt.xlabel("Iteration")
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_plt); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_plot); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_7, __pyx_v_Ys) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_Ys);
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "lib/qvmc/optimizer.pyx":120
+ *                 clear_output(wait=True)
+ *                 plt.plot(Ys)
+ *                 plt.title("Local Energies Throughout Monte Carlo")             # <<<<<<<<<<<<<<
+ *                 plt.xlabel("Iteration")
+ *                 plt.ylabel("Energy")
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_title); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_7);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_7, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_1, __pyx_kp_s_Local_Energies_Throughout_Monte) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_kp_s_Local_Energies_Throughout_Monte);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "lib/qvmc/optimizer.pyx":121
+ *                 plt.plot(Ys)
+ *                 plt.title("Local Energies Throughout Monte Carlo")
+ *                 plt.xlabel("Iteration")             # <<<<<<<<<<<<<<
+ *                 plt.ylabel("Energy")
+ *                 plt.show()
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_plt); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_xlabel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_7, __pyx_n_s_Iteration) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_n_s_Iteration);
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 121, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "lib/qvmc/optimizer.pyx":122
+ *                 plt.title("Local Energies Throughout Monte Carlo")
+ *                 plt.xlabel("Iteration")
+ *                 plt.ylabel("Energy")             # <<<<<<<<<<<<<<
+ *                 plt.show()
+ * 
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_plt); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ylabel); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 122, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
+      __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_7);
+      if (likely(__pyx_t_1)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+        __Pyx_INCREF(__pyx_t_1);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_7, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_1, __pyx_n_s_Energy) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_n_s_Energy);
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 122, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "lib/qvmc/optimizer.pyx":123
+ *                 plt.xlabel("Iteration")
+ *                 plt.ylabel("Energy")
+ *                 plt.show()             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_plt); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 123, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_show); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_1);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_1, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_7) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_7) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
 
-  /* "lib/qvmc/optimizer.pyx":108
+  /* "lib/qvmc/optimizer.pyx":129
  * 
  *         # normalize expectation values
  *         num_steps = self.num_steps             # <<<<<<<<<<<<<<
  *         expectation_local_energy = expectation_local_energy / num_steps
  *         expectation_delta.update((key, value/num_steps) for key, value in expectation_delta.items())
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_num_steps); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 108, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_num_steps); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_cur_scope->__pyx_v_num_steps = __pyx_t_2;
 
-  /* "lib/qvmc/optimizer.pyx":109
+  /* "lib/qvmc/optimizer.pyx":130
  *         # normalize expectation values
  *         num_steps = self.num_steps
  *         expectation_local_energy = expectation_local_energy / num_steps             # <<<<<<<<<<<<<<
@@ -5081,68 +5338,68 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_t_10 = __pyx_t_double_complex_from_parts(__pyx_cur_scope->__pyx_v_num_steps, 0);
   if (unlikely(__Pyx_c_is_zero_double(__pyx_t_10))) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 109, __pyx_L1_error)
+    __PYX_ERR(0, 130, __pyx_L1_error)
   }
   __pyx_v_expectation_local_energy = __Pyx_c_quot_double(__pyx_v_expectation_local_energy, __pyx_t_10);
 
-  /* "lib/qvmc/optimizer.pyx":110
+  /* "lib/qvmc/optimizer.pyx":131
  *         num_steps = self.num_steps
  *         expectation_local_energy = expectation_local_energy / num_steps
  *         expectation_delta.update((key, value/num_steps) for key, value in expectation_delta.items())             # <<<<<<<<<<<<<<
  *         expectation_Q.update((key, value/num_steps) for key, value in expectation_Q.items())
  * 
  */
-  __pyx_t_1 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_6genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+  __pyx_t_3 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_6genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_cur_scope->__pyx_v_expectation_delta, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_cur_scope->__pyx_v_expectation_delta, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 110, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":111
+  /* "lib/qvmc/optimizer.pyx":132
  *         expectation_local_energy = expectation_local_energy / num_steps
  *         expectation_delta.update((key, value/num_steps) for key, value in expectation_delta.items())
  *         expectation_Q.update((key, value/num_steps) for key, value in expectation_Q.items())             # <<<<<<<<<<<<<<
  * 
  *         return expectation_local_energy, expectation_delta, expectation_Q
  */
-  __pyx_t_7 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_9genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 111, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_1 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_cur_scope->__pyx_v_expectation_Q, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_1 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_22monte_carlo_simulation_9genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_3 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_cur_scope->__pyx_v_expectation_Q, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":113
+  /* "lib/qvmc/optimizer.pyx":134
  *         expectation_Q.update((key, value/num_steps) for key, value in expectation_Q.items())
  * 
  *         return expectation_local_energy, expectation_delta, expectation_Q             # <<<<<<<<<<<<<<
  * 
- *     def clear_expectations(self):
+ * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_PyComplex_FromComplex(__pyx_v_expectation_local_energy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_3 = __pyx_PyComplex_FromComplex(__pyx_v_expectation_local_energy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 113, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_expectation_delta);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_expectation_delta);
-  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_cur_scope->__pyx_v_expectation_delta);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_cur_scope->__pyx_v_expectation_delta);
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_expectation_Q);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_expectation_Q);
-  PyTuple_SET_ITEM(__pyx_t_7, 2, __pyx_cur_scope->__pyx_v_expectation_Q);
+  PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_cur_scope->__pyx_v_expectation_Q);
+  __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
-  __pyx_r = __pyx_t_7;
-  __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "lib/qvmc/optimizer.pyx":78
- *                 self.parameters[idx] = param
+  /* "lib/qvmc/optimizer.pyx":81
+ * 
  * 
  *     def monte_carlo_simulation(self):             # <<<<<<<<<<<<<<
- *         """
+ *         '''
  *         This function calculates expectation values for the
  */
 
@@ -5158,18 +5415,20 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_6monte_carlo_simulati
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_state);
+  __Pyx_XDECREF(__pyx_v_Ys);
+  __Pyx_XDECREF(__pyx_v_Xs);
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "lib/qvmc/optimizer.pyx":115
- *         return expectation_local_energy, expectation_delta, expectation_Q
+/* "lib/qvmc/optimizer.pyx":138
+ * 
  * 
  *     def clear_expectations(self):             # <<<<<<<<<<<<<<
  *         self.exp_Q = None
- *         self.varitional_enery = None
+ *         self.variational_energy = None
  */
 
 /* Python wrapper */
@@ -5191,39 +5450,39 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_8clear_expectations(C
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("clear_expectations", 0);
 
-  /* "lib/qvmc/optimizer.pyx":116
+  /* "lib/qvmc/optimizer.pyx":139
  * 
  *     def clear_expectations(self):
  *         self.exp_Q = None             # <<<<<<<<<<<<<<
- *         self.varitional_enery = None
+ *         self.variational_energy = None
  *         self.exp_delta = None
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_Q, Py_None) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_Q, Py_None) < 0) __PYX_ERR(0, 139, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":117
+  /* "lib/qvmc/optimizer.pyx":140
  *     def clear_expectations(self):
  *         self.exp_Q = None
- *         self.varitional_enery = None             # <<<<<<<<<<<<<<
+ *         self.variational_energy = None             # <<<<<<<<<<<<<<
  *         self.exp_delta = None
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_varitional_enery, Py_None) < 0) __PYX_ERR(0, 117, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_variational_energy, Py_None) < 0) __PYX_ERR(0, 140, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":118
+  /* "lib/qvmc/optimizer.pyx":141
  *         self.exp_Q = None
- *         self.varitional_enery = None
+ *         self.variational_energy = None
  *         self.exp_delta = None             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_delta, Py_None) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_delta, Py_None) < 0) __PYX_ERR(0, 141, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":115
- *         return expectation_local_energy, expectation_delta, expectation_Q
+  /* "lib/qvmc/optimizer.pyx":138
+ * 
  * 
  *     def clear_expectations(self):             # <<<<<<<<<<<<<<
  *         self.exp_Q = None
- *         self.varitional_enery = None
+ *         self.variational_energy = None
  */
 
   /* function exit code */
@@ -5238,7 +5497,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_8clear_expectations(C
   return __pyx_r;
 }
 
-/* "lib/qvmc/optimizer.pyx":121
+/* "lib/qvmc/optimizer.pyx":144
  * 
  * 
  *     def get_ground_state(self):             # <<<<<<<<<<<<<<
@@ -5261,10 +5520,10 @@ static PyObject *__pyx_pw_3lib_4qvmc_9optimizer_9Optimizer_11get_ground_state(Py
 }
 static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2generator5(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "lib/qvmc/optimizer.pyx":150
- *                         optimal_parameters = self.parameters
+/* "lib/qvmc/optimizer.pyx":173
+ *                         optimal_parameters = {}
  *                         # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
- *                         optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())             # <<<<<<<<<<<<<<
+ *                         optimal_parameters.update((key, value.copy()) for key, value in self.parameters.items())             # <<<<<<<<<<<<<<
  * 
  *                 self.update_variational_parameters()
  */
@@ -5278,7 +5537,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_ge
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_8_genexpr *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 150, __pyx_L1_error)
+    __PYX_ERR(0, 173, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -5286,7 +5545,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_ge
   __Pyx_INCREF(((PyObject *)__pyx_cur_scope->__pyx_outer_scope));
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2generator5, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_get_ground_state_local, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 150, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2generator5, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_genexpr, __pyx_n_s_Optimizer_get_ground_state_local, __pyx_n_s_lib_qvmc_optimizer); if (unlikely(!gen)) __PYX_ERR(0, 173, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -5324,60 +5583,63 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2g
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 150, __pyx_L1_error)
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_optimal_parameters)) { __Pyx_RaiseClosureNameError("optimal_parameters"); __PYX_ERR(0, 150, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_optimal_parameters, __pyx_n_s_items); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 173, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 173, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_items); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
     }
   }
-  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
-    __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
+    __pyx_t_3 = __pyx_t_1; __Pyx_INCREF(__pyx_t_3); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 150, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_5 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 173, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
     if (likely(!__pyx_t_5)) {
-      if (likely(PyList_CheckExact(__pyx_t_2))) {
-        if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
+      if (likely(PyList_CheckExact(__pyx_t_3))) {
+        if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 173, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
-        if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+        if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 173, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_3, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
     } else {
-      __pyx_t_1 = __pyx_t_5(__pyx_t_2);
+      __pyx_t_1 = __pyx_t_5(__pyx_t_3);
       if (unlikely(!__pyx_t_1)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 150, __pyx_L1_error)
+          else __PYX_ERR(0, 173, __pyx_L1_error)
         }
         break;
       }
@@ -5389,36 +5651,36 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2g
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 150, __pyx_L1_error)
+        __PYX_ERR(0, 173, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
-        __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
+        __pyx_t_2 = PyTuple_GET_ITEM(sequence, 0); 
         __pyx_t_6 = PyTuple_GET_ITEM(sequence, 1); 
       } else {
-        __pyx_t_3 = PyList_GET_ITEM(sequence, 0); 
+        __pyx_t_2 = PyList_GET_ITEM(sequence, 0); 
         __pyx_t_6 = PyList_GET_ITEM(sequence, 1); 
       }
-      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 173, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 150, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
-      index = 0; __pyx_t_3 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_3)) goto __pyx_L6_unpacking_failed;
-      __Pyx_GOTREF(__pyx_t_3);
+      index = 0; __pyx_t_2 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_2)) goto __pyx_L6_unpacking_failed;
+      __Pyx_GOTREF(__pyx_t_2);
       index = 1; __pyx_t_6 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L6_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 150, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L7_unpacking_done;
@@ -5426,35 +5688,35 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2g
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 150, __pyx_L1_error)
+      __PYX_ERR(0, 173, __pyx_L1_error)
       __pyx_L7_unpacking_done:;
     }
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_key);
-    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_key, __pyx_t_3);
-    __Pyx_GIVEREF(__pyx_t_3);
-    __pyx_t_3 = 0;
+    __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_key, __pyx_t_2);
+    __Pyx_GIVEREF(__pyx_t_2);
+    __pyx_t_2 = 0;
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_value);
     __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_value, __pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_value, __pyx_n_s_copy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 150, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_value, __pyx_n_s_copy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_3 = NULL;
+    __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
-      __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_6);
-      if (likely(__pyx_t_3)) {
+      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_2)) {
         PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-        __Pyx_INCREF(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_2);
         __Pyx_INCREF(function);
         __Pyx_DECREF_SET(__pyx_t_6, function);
       }
     }
-    __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
+    __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_6);
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 150, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 173, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_key);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_key);
@@ -5464,8 +5726,8 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2g
     __pyx_t_1 = 0;
     __pyx_r = __pyx_t_6;
     __pyx_t_6 = 0;
-    __Pyx_XGIVEREF(__pyx_t_2);
-    __pyx_cur_scope->__pyx_t_0 = __pyx_t_2;
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __pyx_cur_scope->__pyx_t_0 = __pyx_t_3;
     __pyx_cur_scope->__pyx_t_1 = __pyx_t_4;
     __pyx_cur_scope->__pyx_t_2 = __pyx_t_5;
     __Pyx_XGIVEREF(__pyx_r);
@@ -5475,14 +5737,14 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2g
     __pyx_generator->resume_label = 1;
     return __pyx_r;
     __pyx_L8_resume_from_yield:;
-    __pyx_t_2 = __pyx_cur_scope->__pyx_t_0;
+    __pyx_t_3 = __pyx_cur_scope->__pyx_t_0;
     __pyx_cur_scope->__pyx_t_0 = 0;
-    __Pyx_XGOTREF(__pyx_t_2);
+    __Pyx_XGOTREF(__pyx_t_3);
     __pyx_t_4 = __pyx_cur_scope->__pyx_t_1;
     __pyx_t_5 = __pyx_cur_scope->__pyx_t_2;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 150, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 173, __pyx_L1_error)
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
   /* function exit code */
@@ -5506,7 +5768,7 @@ static PyObject *__pyx_gb_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_2g
   return __pyx_r;
 }
 
-/* "lib/qvmc/optimizer.pyx":121
+/* "lib/qvmc/optimizer.pyx":144
  * 
  * 
  *     def get_ground_state(self):             # <<<<<<<<<<<<<<
@@ -5522,6 +5784,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
   int __pyx_v_loop_count;
   int __pyx_v_total_loops;
   CYTHON_UNUSED int __pyx_v_reset_count;
+  PyObject *__pyx_v_optimal_parameters = NULL;
   CYTHON_UNUSED int __pyx_v_cont;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -5547,22 +5810,25 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 121, __pyx_L1_error)
+    __PYX_ERR(0, 144, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self);
 
-  /* "lib/qvmc/optimizer.pyx":127
+  /* "lib/qvmc/optimizer.pyx":150
  *         # pre loop conditions
  *         cdef int i
  *         cdef complex min_energy = 99999999999             # <<<<<<<<<<<<<<
  *         cdef int time_caught_in_local_min = 0
  *         cdef int loop_count = 0
  */
-  __pyx_t_1 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_int_99999999999); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_int_99999999999); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 150, __pyx_L1_error)
   __pyx_v_min_energy = __pyx_t_1;
 
-  /* "lib/qvmc/optimizer.pyx":128
+  /* "lib/qvmc/optimizer.pyx":151
  *         cdef int i
  *         cdef complex min_energy = 99999999999
  *         cdef int time_caught_in_local_min = 0             # <<<<<<<<<<<<<<
@@ -5571,7 +5837,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  */
   __pyx_v_time_caught_in_local_min = 0;
 
-  /* "lib/qvmc/optimizer.pyx":129
+  /* "lib/qvmc/optimizer.pyx":152
  *         cdef complex min_energy = 99999999999
  *         cdef int time_caught_in_local_min = 0
  *         cdef int loop_count = 0             # <<<<<<<<<<<<<<
@@ -5580,20 +5846,20 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  */
   __pyx_v_loop_count = 0;
 
-  /* "lib/qvmc/optimizer.pyx":130
+  /* "lib/qvmc/optimizer.pyx":153
  *         cdef int time_caught_in_local_min = 0
  *         cdef int loop_count = 0
  *         cdef int total_loops = self.monte_carlo_simulations_per_delta             # <<<<<<<<<<<<<<
  * 
  *         cdef int reset_count = 0 # the number of times the alpha was randomly initialized
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_monte_carlo_simulations_per_delt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_monte_carlo_simulations_per_delt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_total_loops = __pyx_t_3;
 
-  /* "lib/qvmc/optimizer.pyx":132
+  /* "lib/qvmc/optimizer.pyx":155
  *         cdef int total_loops = self.monte_carlo_simulations_per_delta
  * 
  *         cdef int reset_count = 0 # the number of times the alpha was randomly initialized             # <<<<<<<<<<<<<<
@@ -5602,7 +5868,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  */
   __pyx_v_reset_count = 0;
 
-  /* "lib/qvmc/optimizer.pyx":133
+  /* "lib/qvmc/optimizer.pyx":156
  * 
  *         cdef int reset_count = 0 # the number of times the alpha was randomly initialized
  *         for i in range(total_loops):             # <<<<<<<<<<<<<<
@@ -5614,7 +5880,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
     __pyx_v_i = __pyx_t_5;
 
-    /* "lib/qvmc/optimizer.pyx":134
+    /* "lib/qvmc/optimizer.pyx":157
  *         cdef int reset_count = 0 # the number of times the alpha was randomly initialized
  *         for i in range(total_loops):
  *             try:             # <<<<<<<<<<<<<<
@@ -5630,14 +5896,14 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
       __Pyx_XGOTREF(__pyx_t_8);
       /*try:*/ {
 
-        /* "lib/qvmc/optimizer.pyx":137
+        /* "lib/qvmc/optimizer.pyx":160
  *                 # clear_output(wait=True)
  * 
  *                 self.variational_energy, self.exp_delta, self.exp_Q = self.monte_carlo_simulation()             # <<<<<<<<<<<<<<
  *                 # print(f"var energy: {self.variational_energy} \ndelta: {self.exp_delta}\nQ: {self.exp_Q}")
  * 
  */
-        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_monte_carlo_simulation); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 137, __pyx_L5_error)
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_monte_carlo_simulation); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 160, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_9);
         __pyx_t_10 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
@@ -5651,7 +5917,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
         }
         __pyx_t_2 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_9);
         __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L5_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 160, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -5660,7 +5926,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
           if (unlikely(size != 3)) {
             if (size > 3) __Pyx_RaiseTooManyValuesError(3);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 137, __pyx_L5_error)
+            __PYX_ERR(0, 160, __pyx_L5_error)
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -5676,17 +5942,17 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
           __Pyx_INCREF(__pyx_t_10);
           __Pyx_INCREF(__pyx_t_11);
           #else
-          __pyx_t_9 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 137, __pyx_L5_error)
+          __pyx_t_9 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 160, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_9);
-          __pyx_t_10 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 137, __pyx_L5_error)
+          __pyx_t_10 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 160, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_10);
-          __pyx_t_11 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 137, __pyx_L5_error)
+          __pyx_t_11 = PySequence_ITEM(sequence, 2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 160, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_11);
           #endif
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_12 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 137, __pyx_L5_error)
+          __pyx_t_12 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 160, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __pyx_t_13 = Py_TYPE(__pyx_t_12)->tp_iternext;
@@ -5696,7 +5962,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
           __Pyx_GOTREF(__pyx_t_10);
           index = 2; __pyx_t_11 = __pyx_t_13(__pyx_t_12); if (unlikely(!__pyx_t_11)) goto __pyx_L13_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_11);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_12), 3) < 0) __PYX_ERR(0, 137, __pyx_L5_error)
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_12), 3) < 0) __PYX_ERR(0, 160, __pyx_L5_error)
           __pyx_t_13 = NULL;
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           goto __pyx_L14_unpacking_done;
@@ -5704,45 +5970,45 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __pyx_t_13 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 137, __pyx_L5_error)
+          __PYX_ERR(0, 160, __pyx_L5_error)
           __pyx_L14_unpacking_done:;
         }
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_variational_energy, __pyx_t_9) < 0) __PYX_ERR(0, 137, __pyx_L5_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_variational_energy, __pyx_t_9) < 0) __PYX_ERR(0, 160, __pyx_L5_error)
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_delta, __pyx_t_10) < 0) __PYX_ERR(0, 137, __pyx_L5_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_delta, __pyx_t_10) < 0) __PYX_ERR(0, 160, __pyx_L5_error)
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_exp_Q, __pyx_t_11) < 0) __PYX_ERR(0, 137, __pyx_L5_error)
+        if (__Pyx_PyObject_SetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_exp_Q, __pyx_t_11) < 0) __PYX_ERR(0, 160, __pyx_L5_error)
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-        /* "lib/qvmc/optimizer.pyx":140
+        /* "lib/qvmc/optimizer.pyx":163
  *                 # print(f"var energy: {self.variational_energy} \ndelta: {self.exp_delta}\nQ: {self.exp_Q}")
  * 
  *                 if self.plotter is not None:             # <<<<<<<<<<<<<<
  *                     self.plotter.update_history(self.variational_energy, self.parameters)
  *                     if self.plotter.plot_real_time:
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L5_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_14 = (__pyx_t_2 != Py_None);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_15 = (__pyx_t_14 != 0);
         if (__pyx_t_15) {
 
-          /* "lib/qvmc/optimizer.pyx":141
+          /* "lib/qvmc/optimizer.pyx":164
  * 
  *                 if self.plotter is not None:
  *                     self.plotter.update_history(self.variational_energy, self.parameters)             # <<<<<<<<<<<<<<
  *                     if self.plotter.plot_real_time:
  *                         self.plotter.show_plot()
  */
-          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 141, __pyx_L5_error)
+          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 164, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_update_history); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 141, __pyx_L5_error)
+          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_update_history); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 164, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 141, __pyx_L5_error)
+          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 164, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 141, __pyx_L5_error)
+          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 164, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_9);
           __pyx_t_12 = NULL;
           __pyx_t_16 = 0;
@@ -5759,7 +6025,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_10)) {
             PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_11, __pyx_t_9};
-            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -5769,7 +6035,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
             PyObject *__pyx_temp[3] = {__pyx_t_12, __pyx_t_11, __pyx_t_9};
-            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L5_error)
             __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
@@ -5777,7 +6043,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
           } else
           #endif
           {
-            __pyx_t_17 = PyTuple_New(2+__pyx_t_16); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 141, __pyx_L5_error)
+            __pyx_t_17 = PyTuple_New(2+__pyx_t_16); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 164, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_17);
             if (__pyx_t_12) {
               __Pyx_GIVEREF(__pyx_t_12); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_12); __pyx_t_12 = NULL;
@@ -5788,39 +6054,39 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
             PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_16, __pyx_t_9);
             __pyx_t_11 = 0;
             __pyx_t_9 = 0;
-            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_17, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_17, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_2);
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
           }
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "lib/qvmc/optimizer.pyx":142
+          /* "lib/qvmc/optimizer.pyx":165
  *                 if self.plotter is not None:
  *                     self.plotter.update_history(self.variational_energy, self.parameters)
  *                     if self.plotter.plot_real_time:             # <<<<<<<<<<<<<<
  *                         self.plotter.show_plot()
  *                 # if this energy is lowest, update optimal measurements,
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L5_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_plot_real_time); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 142, __pyx_L5_error)
+          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_plot_real_time); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 165, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 142, __pyx_L5_error)
+          __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 165, __pyx_L5_error)
           __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
           if (__pyx_t_15) {
 
-            /* "lib/qvmc/optimizer.pyx":143
+            /* "lib/qvmc/optimizer.pyx":166
  *                     self.plotter.update_history(self.variational_energy, self.parameters)
  *                     if self.plotter.plot_real_time:
  *                         self.plotter.show_plot()             # <<<<<<<<<<<<<<
  *                 # if this energy is lowest, update optimal measurements,
  *                 # and assume you can do better (set end count, i, to zero)
  */
-            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L5_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_show_plot); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 143, __pyx_L5_error)
+            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_show_plot); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 166, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_17);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __pyx_t_2 = NULL;
@@ -5835,12 +6101,12 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
             }
             __pyx_t_10 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_17);
             __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-            if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 143, __pyx_L5_error)
+            if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 166, __pyx_L5_error)
             __Pyx_GOTREF(__pyx_t_10);
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
             __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-            /* "lib/qvmc/optimizer.pyx":142
+            /* "lib/qvmc/optimizer.pyx":165
  *                 if self.plotter is not None:
  *                     self.plotter.update_history(self.variational_energy, self.parameters)
  *                     if self.plotter.plot_real_time:             # <<<<<<<<<<<<<<
@@ -5849,7 +6115,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  */
           }
 
-          /* "lib/qvmc/optimizer.pyx":140
+          /* "lib/qvmc/optimizer.pyx":163
  *                 # print(f"var energy: {self.variational_energy} \ndelta: {self.exp_delta}\nQ: {self.exp_Q}")
  * 
  *                 if self.plotter is not None:             # <<<<<<<<<<<<<<
@@ -5858,119 +6124,102 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  */
         }
 
-        /* "lib/qvmc/optimizer.pyx":146
+        /* "lib/qvmc/optimizer.pyx":169
  *                 # if this energy is lowest, update optimal measurements,
  *                 # and assume you can do better (set end count, i, to zero)
  *                 if self.variational_energy.real < min_energy.real:             # <<<<<<<<<<<<<<
  *                         min_energy = self.variational_energy
- *                         optimal_parameters = self.parameters
+ *                         optimal_parameters = {}
  */
-        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 146, __pyx_L5_error)
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 169, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_real); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 146, __pyx_L5_error)
+        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_real); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 169, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_17);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        __pyx_t_10 = PyFloat_FromDouble(__Pyx_CREAL(__pyx_v_min_energy)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 146, __pyx_L5_error)
+        __pyx_t_10 = PyFloat_FromDouble(__Pyx_CREAL(__pyx_v_min_energy)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 169, __pyx_L5_error)
         __Pyx_GOTREF(__pyx_t_10);
-        __pyx_t_2 = PyObject_RichCompare(__pyx_t_17, __pyx_t_10, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L5_error)
+        __pyx_t_2 = PyObject_RichCompare(__pyx_t_17, __pyx_t_10, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L5_error)
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 146, __pyx_L5_error)
+        __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 169, __pyx_L5_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         if (__pyx_t_15) {
 
-          /* "lib/qvmc/optimizer.pyx":147
+          /* "lib/qvmc/optimizer.pyx":170
  *                 # and assume you can do better (set end count, i, to zero)
  *                 if self.variational_energy.real < min_energy.real:
  *                         min_energy = self.variational_energy             # <<<<<<<<<<<<<<
- *                         optimal_parameters = self.parameters
+ *                         optimal_parameters = {}
  *                         # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L5_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_variational_energy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 170, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_1 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 147, __pyx_L5_error)
+          __pyx_t_1 = __Pyx_PyComplex_As___pyx_t_double_complex(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 170, __pyx_L5_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __pyx_v_min_energy = __pyx_t_1;
 
-          /* "lib/qvmc/optimizer.pyx":148
+          /* "lib/qvmc/optimizer.pyx":171
  *                 if self.variational_energy.real < min_energy.real:
  *                         min_energy = self.variational_energy
- *                         optimal_parameters = self.parameters             # <<<<<<<<<<<<<<
+ *                         optimal_parameters = {}             # <<<<<<<<<<<<<<
  *                         # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
- *                         optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())
+ *                         optimal_parameters.update((key, value.copy()) for key, value in self.parameters.items())
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L5_error)
+          __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 171, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_optimal_parameters);
-          __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_optimal_parameters, __pyx_t_2);
-          __Pyx_GIVEREF(__pyx_t_2);
+          __Pyx_XDECREF_SET(__pyx_v_optimal_parameters, ((PyObject*)__pyx_t_2));
           __pyx_t_2 = 0;
 
-          /* "lib/qvmc/optimizer.pyx":150
- *                         optimal_parameters = self.parameters
+          /* "lib/qvmc/optimizer.pyx":173
+ *                         optimal_parameters = {}
  *                         # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
- *                         optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())             # <<<<<<<<<<<<<<
+ *                         optimal_parameters.update((key, value.copy()) for key, value in self.parameters.items())             # <<<<<<<<<<<<<<
  * 
  *                 self.update_variational_parameters()
  */
-          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_optimal_parameters, __pyx_n_s_update); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 150, __pyx_L5_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          __pyx_t_17 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 150, __pyx_L5_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_9 = NULL;
-          if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
-            __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_10);
-            if (likely(__pyx_t_9)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
-              __Pyx_INCREF(__pyx_t_9);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_10, function);
-            }
-          }
-          __pyx_t_2 = (__pyx_t_9) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_9, __pyx_t_17) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_17);
-          __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 150, __pyx_L5_error)
+          __pyx_t_2 = __pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_16get_ground_state_genexpr(((PyObject*)__pyx_cur_scope)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L5_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+          __pyx_t_10 = __Pyx_CallUnboundCMethod1(&__pyx_umethod_PyDict_Type_update, __pyx_v_optimal_parameters, __pyx_t_2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 173, __pyx_L5_error)
+          __Pyx_GOTREF(__pyx_t_10);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-          /* "lib/qvmc/optimizer.pyx":146
+          /* "lib/qvmc/optimizer.pyx":169
  *                 # if this energy is lowest, update optimal measurements,
  *                 # and assume you can do better (set end count, i, to zero)
  *                 if self.variational_energy.real < min_energy.real:             # <<<<<<<<<<<<<<
  *                         min_energy = self.variational_energy
- *                         optimal_parameters = self.parameters
+ *                         optimal_parameters = {}
  */
         }
 
-        /* "lib/qvmc/optimizer.pyx":152
- *                         optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())
+        /* "lib/qvmc/optimizer.pyx":175
+ *                         optimal_parameters.update((key, value.copy()) for key, value in self.parameters.items())
  * 
  *                 self.update_variational_parameters()             # <<<<<<<<<<<<<<
  * 
  *                 loop_count += 1
  */
-        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_update_variational_parameters); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 152, __pyx_L5_error)
-        __Pyx_GOTREF(__pyx_t_10);
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_update_variational_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 175, __pyx_L5_error)
+        __Pyx_GOTREF(__pyx_t_2);
         __pyx_t_17 = NULL;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
-          __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_10);
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+          __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_2);
           if (likely(__pyx_t_17)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
             __Pyx_INCREF(__pyx_t_17);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_10, function);
+            __Pyx_DECREF_SET(__pyx_t_2, function);
           }
         }
-        __pyx_t_2 = (__pyx_t_17) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_17) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
+        __pyx_t_10 = (__pyx_t_17) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_17) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 152, __pyx_L5_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 175, __pyx_L5_error)
+        __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-        /* "lib/qvmc/optimizer.pyx":154
+        /* "lib/qvmc/optimizer.pyx":177
  *                 self.update_variational_parameters()
  * 
  *                 loop_count += 1             # <<<<<<<<<<<<<<
@@ -5979,7 +6228,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  */
         __pyx_v_loop_count = (__pyx_v_loop_count + 1);
 
-        /* "lib/qvmc/optimizer.pyx":155
+        /* "lib/qvmc/optimizer.pyx":178
  * 
  *                 loop_count += 1
  *                 if loop_count == total_loops:             # <<<<<<<<<<<<<<
@@ -5989,7 +6238,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
         __pyx_t_15 = ((__pyx_v_loop_count == __pyx_v_total_loops) != 0);
         if (__pyx_t_15) {
 
-          /* "lib/qvmc/optimizer.pyx":157
+          /* "lib/qvmc/optimizer.pyx":180
  *                 if loop_count == total_loops:
  *                     # print("Ending because loop count == 50")
  *                     cont = False             # <<<<<<<<<<<<<<
@@ -5998,7 +6247,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  */
           __pyx_v_cont = 0;
 
-          /* "lib/qvmc/optimizer.pyx":155
+          /* "lib/qvmc/optimizer.pyx":178
  * 
  *                 loop_count += 1
  *                 if loop_count == total_loops:             # <<<<<<<<<<<<<<
@@ -6007,7 +6256,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  */
         }
 
-        /* "lib/qvmc/optimizer.pyx":134
+        /* "lib/qvmc/optimizer.pyx":157
  *         cdef int reset_count = 0 # the number of times the alpha was randomly initialized
  *         for i in range(total_loops):
  *             try:             # <<<<<<<<<<<<<<
@@ -6027,7 +6276,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "lib/qvmc/optimizer.pyx":158
+      /* "lib/qvmc/optimizer.pyx":181
  *                     # print("Ending because loop count == 50")
  *                     cont = False
  *             except KeyboardInterrupt:             # <<<<<<<<<<<<<<
@@ -6037,12 +6286,12 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
       __pyx_t_16 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyboardInterrupt);
       if (__pyx_t_16) {
         __Pyx_AddTraceback("lib.qvmc.optimizer.Optimizer.get_ground_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_10, &__pyx_t_17) < 0) __PYX_ERR(0, 158, __pyx_L7_except_error)
-        __Pyx_GOTREF(__pyx_t_2);
+        if (__Pyx_GetException(&__pyx_t_10, &__pyx_t_2, &__pyx_t_17) < 0) __PYX_ERR(0, 181, __pyx_L7_except_error)
         __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GOTREF(__pyx_t_17);
 
-        /* "lib/qvmc/optimizer.pyx":159
+        /* "lib/qvmc/optimizer.pyx":182
  *                     cont = False
  *             except KeyboardInterrupt:
  *                 cont = False             # <<<<<<<<<<<<<<
@@ -6050,15 +6299,15 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
  *         self.plotter.save_parameter_plot()
  */
         __pyx_v_cont = 0;
-        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
         goto __pyx_L6_exception_handled;
       }
       goto __pyx_L7_except_error;
       __pyx_L7_except_error:;
 
-      /* "lib/qvmc/optimizer.pyx":134
+      /* "lib/qvmc/optimizer.pyx":157
  *         cdef int reset_count = 0 # the number of times the alpha was randomly initialized
  *         for i in range(total_loops):
  *             try:             # <<<<<<<<<<<<<<
@@ -6079,61 +6328,61 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
     }
   }
 
-  /* "lib/qvmc/optimizer.pyx":161
+  /* "lib/qvmc/optimizer.pyx":184
  *                 cont = False
  *                 # print("Ending because Keyboard interruption")
  *         self.plotter.save_parameter_plot()             # <<<<<<<<<<<<<<
  *         return min_energy, optimal_parameters, self.parameters
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 161, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_save_parameter_plot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_plotter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_10 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_10)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_10);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_save_parameter_plot); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_10))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_10);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_10);
+      __Pyx_INCREF(__pyx_t_2);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_10, function);
     }
   }
-  __pyx_t_17 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_17 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_10);
+  __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":162
+  /* "lib/qvmc/optimizer.pyx":185
  *                 # print("Ending because Keyboard interruption")
  *         self.plotter.save_parameter_plot()
  *         return min_energy, optimal_parameters, self.parameters             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_17 = __pyx_PyComplex_FromComplex(__pyx_v_min_energy); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_t_17 = __pyx_PyComplex_FromComplex(__pyx_v_min_energy); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  if (unlikely(!__pyx_cur_scope->__pyx_v_optimal_parameters)) { __Pyx_RaiseUnboundLocalError("optimal_parameters"); __PYX_ERR(0, 162, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_10 = PyTuple_New(3); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 162, __pyx_L1_error)
+  if (unlikely(!__pyx_v_optimal_parameters)) { __Pyx_RaiseUnboundLocalError("optimal_parameters"); __PYX_ERR(0, 185, __pyx_L1_error) }
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self, __pyx_n_s_parameters); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_17);
-  PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_17);
-  __Pyx_INCREF(__pyx_cur_scope->__pyx_v_optimal_parameters);
-  __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_optimal_parameters);
-  PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_cur_scope->__pyx_v_optimal_parameters);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_10, 2, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_17);
+  __Pyx_INCREF(__pyx_v_optimal_parameters);
+  __Pyx_GIVEREF(__pyx_v_optimal_parameters);
+  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_optimal_parameters);
+  __Pyx_GIVEREF(__pyx_t_10);
+  PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_t_10);
   __pyx_t_17 = 0;
-  __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_10;
   __pyx_t_10 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "lib/qvmc/optimizer.pyx":121
+  /* "lib/qvmc/optimizer.pyx":144
  * 
  * 
  *     def get_ground_state(self):             # <<<<<<<<<<<<<<
@@ -6152,6 +6401,7 @@ static PyObject *__pyx_pf_3lib_4qvmc_9optimizer_9Optimizer_10get_ground_state(CY
   __Pyx_AddTraceback("lib.qvmc.optimizer.Optimizer.get_ground_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_optimal_parameters);
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -6938,7 +7188,7 @@ static PyObject *__pyx_tp_new_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_gro
 static void __pyx_tp_dealloc_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state(PyObject *o) {
   struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state *p = (struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state *)o;
   PyObject_GC_UnTrack(o);
-  Py_CLEAR(p->__pyx_v_optimal_parameters);
+  Py_CLEAR(p->__pyx_v_self);
   if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state)))) {
     __pyx_freelist_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state[__pyx_freecount_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state++] = ((struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state *)o);
   } else {
@@ -6949,8 +7199,8 @@ static void __pyx_tp_dealloc_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_grou
 static int __pyx_tp_traverse_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state(PyObject *o, visitproc v, void *a) {
   int e;
   struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state *p = (struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state *)o;
-  if (p->__pyx_v_optimal_parameters) {
-    e = (*v)(p->__pyx_v_optimal_parameters, a); if (e) return e;
+  if (p->__pyx_v_self) {
+    e = (*v)(p->__pyx_v_self, a); if (e) return e;
   }
   return 0;
 }
@@ -6958,8 +7208,8 @@ static int __pyx_tp_traverse_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_grou
 static int __pyx_tp_clear_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state(PyObject *o) {
   PyObject* tmp;
   struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state *p = (struct __pyx_obj_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state *)o;
-  tmp = ((PyObject*)p->__pyx_v_optimal_parameters);
-  p->__pyx_v_optimal_parameters = Py_None; Py_INCREF(Py_None);
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
@@ -7176,10 +7426,13 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_ERROR_RANDOMIZED_PARAMETERS_NOT, __pyx_k_ERROR_RANDOMIZED_PARAMETERS_NOT, sizeof(__pyx_k_ERROR_RANDOMIZED_PARAMETERS_NOT), 0, 0, 1, 0},
+  {&__pyx_n_s_Energy, __pyx_k_Energy, sizeof(__pyx_k_Energy), 0, 0, 1, 1},
   {&__pyx_n_s_H, __pyx_k_H, sizeof(__pyx_k_H), 0, 0, 1, 1},
   {&__pyx_n_s_Hamiltonian, __pyx_k_Hamiltonian, sizeof(__pyx_k_Hamiltonian), 0, 0, 1, 1},
   {&__pyx_n_s_IPython_display, __pyx_k_IPython_display, sizeof(__pyx_k_IPython_display), 0, 0, 1, 1},
+  {&__pyx_n_s_Iteration, __pyx_k_Iteration, sizeof(__pyx_k_Iteration), 0, 0, 1, 1},
   {&__pyx_n_s_KeyboardInterrupt, __pyx_k_KeyboardInterrupt, sizeof(__pyx_k_KeyboardInterrupt), 0, 0, 1, 1},
+  {&__pyx_kp_s_Local_Energies_Throughout_Monte, __pyx_k_Local_Energies_Throughout_Monte, sizeof(__pyx_k_Local_Energies_Throughout_Monte), 0, 0, 1, 0},
   {&__pyx_n_s_N, __pyx_k_N, sizeof(__pyx_k_N), 0, 0, 1, 1},
   {&__pyx_kp_s_OUT_OF_ORDER_ERROR, __pyx_k_OUT_OF_ORDER_ERROR, sizeof(__pyx_k_OUT_OF_ORDER_ERROR), 0, 0, 1, 0},
   {&__pyx_n_s_Optimizer, __pyx_k_Optimizer, sizeof(__pyx_k_Optimizer), 0, 0, 1, 1},
@@ -7194,6 +7447,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Optimizer_update_variational_par_2, __pyx_k_Optimizer_update_variational_par_2, sizeof(__pyx_k_Optimizer_update_variational_par_2), 0, 0, 1, 1},
   {&__pyx_n_s_Q_of_x, __pyx_k_Q_of_x, sizeof(__pyx_k_Q_of_x), 0, 0, 1, 1},
   {&__pyx_n_s_State, __pyx_k_State, sizeof(__pyx_k_State), 0, 0, 1, 1},
+  {&__pyx_n_s_Xs, __pyx_k_Xs, sizeof(__pyx_k_Xs), 0, 0, 1, 1},
+  {&__pyx_n_s_Ys, __pyx_k_Ys, sizeof(__pyx_k_Ys), 0, 0, 1, 1},
   {&__pyx_n_s_a, __pyx_k_a, sizeof(__pyx_k_a), 0, 0, 1, 1},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_b, __pyx_k_b, sizeof(__pyx_k_b), 0, 0, 1, 1},
@@ -7261,6 +7516,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_parameter_changes, __pyx_k_parameter_changes, sizeof(__pyx_k_parameter_changes), 0, 0, 1, 1},
   {&__pyx_n_s_parameters, __pyx_k_parameters, sizeof(__pyx_k_parameters), 0, 0, 1, 1},
   {&__pyx_n_s_pdb, __pyx_k_pdb, sizeof(__pyx_k_pdb), 0, 0, 1, 1},
+  {&__pyx_n_s_plot, __pyx_k_plot, sizeof(__pyx_k_plot), 0, 0, 1, 1},
   {&__pyx_n_s_plot_real_time, __pyx_k_plot_real_time, sizeof(__pyx_k_plot_real_time), 0, 0, 1, 1},
   {&__pyx_n_s_plotter, __pyx_k_plotter, sizeof(__pyx_k_plotter), 0, 0, 1, 1},
   {&__pyx_n_s_plt, __pyx_k_plt, sizeof(__pyx_k_plt), 0, 0, 1, 1},
@@ -7281,6 +7537,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_send, __pyx_k_send, sizeof(__pyx_k_send), 0, 0, 1, 1},
   {&__pyx_n_s_set_trace, __pyx_k_set_trace, sizeof(__pyx_k_set_trace), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
+  {&__pyx_n_s_show, __pyx_k_show, sizeof(__pyx_k_show), 0, 0, 1, 1},
   {&__pyx_n_s_show_plot, __pyx_k_show_plot, sizeof(__pyx_k_show_plot), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_sleep, __pyx_k_sleep, sizeof(__pyx_k_sleep), 0, 0, 1, 1},
@@ -7289,6 +7546,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_throw, __pyx_k_throw, sizeof(__pyx_k_throw), 0, 0, 1, 1},
   {&__pyx_n_s_time, __pyx_k_time, sizeof(__pyx_k_time), 0, 0, 1, 1},
   {&__pyx_n_s_time_caught_in_local_min, __pyx_k_time_caught_in_local_min, sizeof(__pyx_k_time_caught_in_local_min), 0, 0, 1, 1},
+  {&__pyx_n_s_title, __pyx_k_title, sizeof(__pyx_k_title), 0, 0, 1, 1},
   {&__pyx_n_s_total_loops, __pyx_k_total_loops, sizeof(__pyx_k_total_loops), 0, 0, 1, 1},
   {&__pyx_n_s_tqdm, __pyx_k_tqdm, sizeof(__pyx_k_tqdm), 0, 0, 1, 1},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
@@ -7297,14 +7555,16 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_update_variational_parameters, __pyx_k_update_variational_parameters, sizeof(__pyx_k_update_variational_parameters), 0, 0, 1, 1},
   {&__pyx_n_s_value, __pyx_k_value, sizeof(__pyx_k_value), 0, 0, 1, 1},
   {&__pyx_n_s_variational_energy, __pyx_k_variational_energy, sizeof(__pyx_k_variational_energy), 0, 0, 1, 1},
-  {&__pyx_n_s_varitional_enery, __pyx_k_varitional_enery, sizeof(__pyx_k_varitional_enery), 0, 0, 1, 1},
   {&__pyx_n_s_w, __pyx_k_w, sizeof(__pyx_k_w), 0, 0, 1, 1},
+  {&__pyx_n_s_wait, __pyx_k_wait, sizeof(__pyx_k_wait), 0, 0, 1, 1},
+  {&__pyx_n_s_xlabel, __pyx_k_xlabel, sizeof(__pyx_k_xlabel), 0, 0, 1, 1},
+  {&__pyx_n_s_ylabel, __pyx_k_ylabel, sizeof(__pyx_k_ylabel), 0, 0, 1, 1},
   {&__pyx_n_s_zeros, __pyx_k_zeros, sizeof(__pyx_k_zeros), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 95, __pyx_L1_error)
-  __pyx_builtin_KeyboardInterrupt = __Pyx_GetBuiltinName(__pyx_n_s_KeyboardInterrupt); if (!__pyx_builtin_KeyboardInterrupt) __PYX_ERR(0, 158, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_builtin_KeyboardInterrupt = __Pyx_GetBuiltinName(__pyx_n_s_KeyboardInterrupt); if (!__pyx_builtin_KeyboardInterrupt) __PYX_ERR(0, 181, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -7314,80 +7574,80 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "lib/qvmc/optimizer.pyx":18
+  /* "lib/qvmc/optimizer.pyx":20
  * 
  * class Optimizer:
  *     def __init__(self, hamiltonian, num_steps, cfg,             # <<<<<<<<<<<<<<
  *                  plotter = None, parameters = None, fixed_parameters = None,
  *                  lr = 0.03, derivative_cap = 0.3, random_noise_scale = None):
  */
-  __pyx_tuple_ = PyTuple_Pack(14, __pyx_n_s_self, __pyx_n_s_hamiltonian, __pyx_n_s_num_steps, __pyx_n_s_cfg, __pyx_n_s_plotter, __pyx_n_s_parameters, __pyx_n_s_fixed_parameters, __pyx_n_s_lr, __pyx_n_s_derivative_cap, __pyx_n_s_random_noise_scale, __pyx_n_s_key, __pyx_n_s_value, __pyx_n_s_real_noise, __pyx_n_s_imag_noise); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(14, __pyx_n_s_self, __pyx_n_s_hamiltonian, __pyx_n_s_num_steps, __pyx_n_s_cfg, __pyx_n_s_plotter, __pyx_n_s_parameters, __pyx_n_s_fixed_parameters, __pyx_n_s_lr, __pyx_n_s_derivative_cap, __pyx_n_s_random_noise_scale, __pyx_n_s_key, __pyx_n_s_value, __pyx_n_s_real_noise, __pyx_n_s_imag_noise); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(10, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_init, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 18, __pyx_L1_error)
-  __pyx_tuple__3 = PyTuple_Pack(6, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject*)__pyx_float_0_03), ((PyObject*)__pyx_float_0_3), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(10, 0, 14, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_init, 20, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(6, ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject *)Py_None), ((PyObject*)__pyx_float_0_03), ((PyObject*)__pyx_float_0_3), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "lib/qvmc/optimizer.pyx":50
+  /* "lib/qvmc/optimizer.pyx":52
  *         self.sleep = False
  * 
  *     def randomize_parameters(self):             # <<<<<<<<<<<<<<
  *         print("ERROR: RANDOMIZED PARAMETERS NOT DEFINED")
  *         set_trace()
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 52, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
-  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_randomize_parameters, 50, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_randomize_parameters, 52, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) __PYX_ERR(0, 52, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":54
+  /* "lib/qvmc/optimizer.pyx":56
  *         set_trace()
  * 
  *     def update_variational_parameters(self):             # <<<<<<<<<<<<<<
  *         if self.variational_energy is None or self.exp_delta is None or self.exp_Q is None:
  *             print("OUT OF ORDER ERROR")
  */
-  __pyx_tuple__6 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_f, __pyx_n_s_parameter_changes, __pyx_n_s_key, __pyx_n_s_cap, __pyx_n_s_idx, __pyx_n_s_param, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_f, __pyx_n_s_parameter_changes, __pyx_n_s_key, __pyx_n_s_cap, __pyx_n_s_idx, __pyx_n_s_param, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_update_variational_parameters, 54, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(1, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_update_variational_parameters, 56, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 56, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":78
- *                 self.parameters[idx] = param
+  /* "lib/qvmc/optimizer.pyx":81
+ * 
  * 
  *     def monte_carlo_simulation(self):             # <<<<<<<<<<<<<<
- *         """
+ *         '''
  *         This function calculates expectation values for the
  */
-  __pyx_tuple__8 = PyTuple_Pack(16, __pyx_n_s_self, __pyx_n_s_N, __pyx_n_s_num_steps, __pyx_n_s_i, __pyx_n_s_state, __pyx_n_s_expectation_local_energy, __pyx_n_s_local_energy, __pyx_n_s_expectation_delta, __pyx_n_s_expectation_Q, __pyx_n_s_delta_x, __pyx_n_s_Q_of_x, __pyx_n_s_genexpr, __pyx_n_s_genexpr, __pyx_n_s_genexpr, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(18, __pyx_n_s_self, __pyx_n_s_N, __pyx_n_s_num_steps, __pyx_n_s_i, __pyx_n_s_state, __pyx_n_s_expectation_local_energy, __pyx_n_s_local_energy, __pyx_n_s_expectation_delta, __pyx_n_s_expectation_Q, __pyx_n_s_Ys, __pyx_n_s_Xs, __pyx_n_s_delta_x, __pyx_n_s_Q_of_x, __pyx_n_s_genexpr, __pyx_n_s_genexpr, __pyx_n_s_genexpr, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 16, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_monte_carlo_simulation, 78, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 78, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 18, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_monte_carlo_simulation, 81, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 81, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":115
- *         return expectation_local_energy, expectation_delta, expectation_Q
+  /* "lib/qvmc/optimizer.pyx":138
+ * 
  * 
  *     def clear_expectations(self):             # <<<<<<<<<<<<<<
  *         self.exp_Q = None
- *         self.varitional_enery = None
+ *         self.variational_energy = None
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_clear_expectations, 115, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_clear_expectations, 138, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 138, __pyx_L1_error)
 
-  /* "lib/qvmc/optimizer.pyx":121
+  /* "lib/qvmc/optimizer.pyx":144
  * 
  * 
  *     def get_ground_state(self):             # <<<<<<<<<<<<<<
  * 
  *         # def check_ending_conditions()
  */
-  __pyx_tuple__12 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_min_energy, __pyx_n_s_time_caught_in_local_min, __pyx_n_s_loop_count, __pyx_n_s_total_loops, __pyx_n_s_reset_count, __pyx_n_s_optimal_parameters, __pyx_n_s_cont, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_min_energy, __pyx_n_s_time_caught_in_local_min, __pyx_n_s_loop_count, __pyx_n_s_total_loops, __pyx_n_s_reset_count, __pyx_n_s_optimal_parameters, __pyx_n_s_cont, __pyx_n_s_genexpr, __pyx_n_s_genexpr); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_get_ground_state, 121, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 121, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_lib_qvmc_optimizer_pyx, __pyx_n_s_get_ground_state, 144, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -7444,55 +7704,55 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters) < 0) __PYX_ERR(0, 56, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters = &__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct__update_variational_parameters;
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr = &__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_1_genexpr;
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation = &__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_2_monte_carlo_simulation;
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr) < 0) __PYX_ERR(0, 112, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr = &__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_3_genexpr;
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr = &__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_4_genexpr;
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr) < 0) __PYX_ERR(0, 110, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr) < 0) __PYX_ERR(0, 131, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr = &__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_5_genexpr;
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr) < 0) __PYX_ERR(0, 111, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr) < 0) __PYX_ERR(0, 132, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr = &__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_6_genexpr;
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state) < 0) __PYX_ERR(0, 121, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state = &__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_7_get_ground_state;
-  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_8_genexpr) < 0) __PYX_ERR(0, 150, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_8_genexpr) < 0) __PYX_ERR(0, 173, __pyx_L1_error)
   __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_8_genexpr.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_8_genexpr.tp_dictoffset && __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_8_genexpr.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_3lib_4qvmc_9optimizer___pyx_scope_struct_8_genexpr.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
@@ -7840,7 +8100,7 @@ if (!__Pyx_RefNanny) {
  * import time
  * import cmath             # <<<<<<<<<<<<<<
  * 
- * from tqdm import tqdm
+ * from IPython.display import clear_output
  */
   __pyx_t_2 = __Pyx_Import(__pyx_n_s_cmath, 0, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
@@ -7850,192 +8110,213 @@ if (!__Pyx_RefNanny) {
   /* "lib/qvmc/optimizer.pyx":10
  * import cmath
  * 
- * from tqdm import tqdm             # <<<<<<<<<<<<<<
+ * from IPython.display import clear_output             # <<<<<<<<<<<<<<
  * 
- * from .state import State
+ * from tqdm import tqdm
  */
   __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_INCREF(__pyx_n_s_tqdm);
-  __Pyx_GIVEREF(__pyx_n_s_tqdm);
-  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_tqdm);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_tqdm, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_clear_output);
+  __Pyx_GIVEREF(__pyx_n_s_clear_output);
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_clear_output);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_IPython_display, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_clear_output); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tqdm, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_clear_output, __pyx_t_2) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "lib/qvmc/optimizer.pyx":12
+ * from IPython.display import clear_output
+ * 
+ * from tqdm import tqdm             # <<<<<<<<<<<<<<
+ * 
+ * from .state import State
+ */
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(__pyx_n_s_tqdm);
+  __Pyx_GIVEREF(__pyx_n_s_tqdm);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_tqdm);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_tqdm, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_tqdm); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tqdm, __pyx_t_1) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "lib/qvmc/optimizer.pyx":14
  * from tqdm import tqdm
  * 
  * from .state import State             # <<<<<<<<<<<<<<
  * from .hamiltonian import Hamiltonian
  * 
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_State);
   __Pyx_GIVEREF(__pyx_n_s_State);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_State);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_state, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_State); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 12, __pyx_L1_error)
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_State);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_state, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 14, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_State, __pyx_t_1) < 0) __PYX_ERR(0, 12, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_State); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_State, __pyx_t_2) < 0) __PYX_ERR(0, 14, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":13
+  /* "lib/qvmc/optimizer.pyx":15
  * 
  * from .state import State
  * from .hamiltonian import Hamiltonian             # <<<<<<<<<<<<<<
  * 
  * from pdb import set_trace
  */
-  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_n_s_Hamiltonian);
   __Pyx_GIVEREF(__pyx_n_s_Hamiltonian);
-  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_Hamiltonian);
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_hamiltonian, __pyx_t_2, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_Hamiltonian); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 13, __pyx_L1_error)
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_Hamiltonian);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_hamiltonian, __pyx_t_1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Hamiltonian, __pyx_t_2) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_Hamiltonian); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Hamiltonian, __pyx_t_1) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":15
+  /* "lib/qvmc/optimizer.pyx":17
  * from .hamiltonian import Hamiltonian
  * 
  * from pdb import set_trace             # <<<<<<<<<<<<<<
  * 
  * class Optimizer:
  */
-  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_n_s_set_trace);
   __Pyx_GIVEREF(__pyx_n_s_set_trace);
-  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_set_trace);
-  __pyx_t_2 = __Pyx_Import(__pyx_n_s_pdb, __pyx_t_1, -1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 15, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_set_trace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 15, __pyx_L1_error)
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_set_trace);
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_pdb, __pyx_t_2, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_set_trace, __pyx_t_1) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_1, __pyx_n_s_set_trace); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_set_trace, __pyx_t_2) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":17
+  /* "lib/qvmc/optimizer.pyx":19
  * from pdb import set_trace
  * 
  * class Optimizer:             # <<<<<<<<<<<<<<
  *     def __init__(self, hamiltonian, num_steps, cfg,
  *                  plotter = None, parameters = None, fixed_parameters = None,
  */
-  __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_Optimizer, __pyx_n_s_Optimizer, (PyObject *) NULL, __pyx_n_s_lib_qvmc_optimizer, (PyObject *) NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 17, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_Optimizer, __pyx_n_s_Optimizer, (PyObject *) NULL, __pyx_n_s_lib_qvmc_optimizer, (PyObject *) NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
 
-  /* "lib/qvmc/optimizer.pyx":18
+  /* "lib/qvmc/optimizer.pyx":20
  * 
  * class Optimizer:
  *     def __init__(self, hamiltonian, num_steps, cfg,             # <<<<<<<<<<<<<<
  *                  plotter = None, parameters = None, fixed_parameters = None,
  *                  lr = 0.03, derivative_cap = 0.3, random_noise_scale = None):
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_1__init__, 0, __pyx_n_s_Optimizer___init, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__3);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 18, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_1__init__, 0, __pyx_n_s_Optimizer___init, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_2, __pyx_tuple__3);
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_init, __pyx_t_2) < 0) __PYX_ERR(0, 20, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":50
+  /* "lib/qvmc/optimizer.pyx":52
  *         self.sleep = False
  * 
  *     def randomize_parameters(self):             # <<<<<<<<<<<<<<
  *         print("ERROR: RANDOMIZED PARAMETERS NOT DEFINED")
  *         set_trace()
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_3randomize_parameters, 0, __pyx_n_s_Optimizer_randomize_parameters, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__5)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_randomize_parameters, __pyx_t_1) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_3randomize_parameters, 0, __pyx_n_s_Optimizer_randomize_parameters, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__5)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_randomize_parameters, __pyx_t_2) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":54
+  /* "lib/qvmc/optimizer.pyx":56
  *         set_trace()
  * 
  *     def update_variational_parameters(self):             # <<<<<<<<<<<<<<
  *         if self.variational_energy is None or self.exp_delta is None or self.exp_Q is None:
  *             print("OUT OF ORDER ERROR")
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_5update_variational_parameters, 0, __pyx_n_s_Optimizer_update_variational_par_2, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_update_variational_parameters, __pyx_t_1) < 0) __PYX_ERR(0, 54, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_5update_variational_parameters, 0, __pyx_n_s_Optimizer_update_variational_par_2, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_update_variational_parameters, __pyx_t_2) < 0) __PYX_ERR(0, 56, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":78
- *                 self.parameters[idx] = param
+  /* "lib/qvmc/optimizer.pyx":81
+ * 
  * 
  *     def monte_carlo_simulation(self):             # <<<<<<<<<<<<<<
- *         """
+ *         '''
  *         This function calculates expectation values for the
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_7monte_carlo_simulation, 0, __pyx_n_s_Optimizer_monte_carlo_simulation_2, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_monte_carlo_simulation, __pyx_t_1) < 0) __PYX_ERR(0, 78, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_7monte_carlo_simulation, 0, __pyx_n_s_Optimizer_monte_carlo_simulation_2, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_monte_carlo_simulation, __pyx_t_2) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":115
- *         return expectation_local_energy, expectation_delta, expectation_Q
+  /* "lib/qvmc/optimizer.pyx":138
+ * 
  * 
  *     def clear_expectations(self):             # <<<<<<<<<<<<<<
  *         self.exp_Q = None
- *         self.varitional_enery = None
+ *         self.variational_energy = None
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_9clear_expectations, 0, __pyx_n_s_Optimizer_clear_expectations, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_clear_expectations, __pyx_t_1) < 0) __PYX_ERR(0, 115, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_9clear_expectations, 0, __pyx_n_s_Optimizer_clear_expectations, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_clear_expectations, __pyx_t_2) < 0) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":121
+  /* "lib/qvmc/optimizer.pyx":144
  * 
  * 
  *     def get_ground_state(self):             # <<<<<<<<<<<<<<
  * 
  *         # def check_ending_conditions()
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_11get_ground_state, 0, __pyx_n_s_Optimizer_get_ground_state, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_get_ground_state, __pyx_t_1) < 0) __PYX_ERR(0, 121, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_4qvmc_9optimizer_9Optimizer_11get_ground_state, 0, __pyx_n_s_Optimizer_get_ground_state, NULL, __pyx_n_s_lib_qvmc_optimizer, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (__Pyx_SetNameInClass(__pyx_t_1, __pyx_n_s_get_ground_state, __pyx_t_2) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "lib/qvmc/optimizer.pyx":17
+  /* "lib/qvmc/optimizer.pyx":19
  * from pdb import set_trace
  * 
  * class Optimizer:             # <<<<<<<<<<<<<<
  *     def __init__(self, hamiltonian, num_steps, cfg,
  *                  plotter = None, parameters = None, fixed_parameters = None,
  */
-  __pyx_t_1 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_Optimizer, __pyx_empty_tuple, __pyx_t_2, NULL, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Optimizer, __pyx_t_1) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_Py3ClassCreate(((PyObject*)&__Pyx_DefaultClassType), __pyx_n_s_Optimizer, __pyx_empty_tuple, __pyx_t_1, NULL, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_Optimizer, __pyx_t_2) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "lib/qvmc/optimizer.pyx":1
  * import numpy as np             # <<<<<<<<<<<<<<
  * import random
  * import math
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /*--- Wrapped vars code ---*/
 

@@ -155,7 +155,7 @@ class Optimizer:
                         min_energy = self.variational_energy
                         optimal_parameters = {}
                         # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
-                        optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())
+                        optimal_parameters.update((key, value.copy()) for key, value in self.parameters.items())
 
 
                 self.update_variational_parameters()

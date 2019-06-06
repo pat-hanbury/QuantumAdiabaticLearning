@@ -1373,6 +1373,7 @@ static const char __pyx_k_range[] = "range";
 static const char __pyx_k_title[] = "title";
 static const char __pyx_k_Energy[] = "Energy";
 static const char __pyx_k_append[] = "append";
+static const char __pyx_k_arange[] = "arange";
 static const char __pyx_k_energy[] = "energy";
 static const char __pyx_k_exists[] = "exists";
 static const char __pyx_k_figure[] = "figure";
@@ -1384,7 +1385,6 @@ static const char __pyx_k_real_2[] = "_real_";
 static const char __pyx_k_xlabel[] = "xlabel";
 static const char __pyx_k_ylabel[] = "ylabel";
 static const char __pyx_k_Plotter[] = "Plotter";
-static const char __pyx_k_arrange[] = "arrange";
 static const char __pyx_k_prepare[] = "__prepare__";
 static const char __pyx_k_savefig[] = "savefig";
 static const char __pyx_k_makedirs[] = "makedirs";
@@ -1442,7 +1442,7 @@ static PyObject *__pyx_n_s_Plotter_update_history;
 static PyObject *__pyx_kp_u_Real_Parts_for;
 static PyObject *__pyx_kp_u_Variational_Energy;
 static PyObject *__pyx_n_s_append;
-static PyObject *__pyx_n_s_arrange;
+static PyObject *__pyx_n_s_arange;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_close;
 static PyObject *__pyx_n_s_delta;
@@ -4503,8 +4503,8 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_6save_plot(CYT
  *         plt.close(fig)
  * 
  *     def save_parameter_plot(self):             # <<<<<<<<<<<<<<
- *         for key, parameters in self.parameter_history .items():
- *             if key == 'w':
+ *         for key, parameters in self.parameter_history.items():
+ *             if key == 'w': # only print for ws
  */
 
 /* Python wrapper */
@@ -4556,8 +4556,8 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
   /* "lib/enumeration_qvmc/debug.pyx":75
  * 
  *     def save_parameter_plot(self):
- *         for key, parameters in self.parameter_history .items():             # <<<<<<<<<<<<<<
- *             if key == 'w':
+ *         for key, parameters in self.parameter_history.items():             # <<<<<<<<<<<<<<
+ *             if key == 'w': # only print for ws
  *                 fig = plt.figure()
  */
   __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameter_history); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
@@ -4673,8 +4673,8 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
 
     /* "lib/enumeration_qvmc/debug.pyx":76
  *     def save_parameter_plot(self):
- *         for key, parameters in self.parameter_history .items():
- *             if key == 'w':             # <<<<<<<<<<<<<<
+ *         for key, parameters in self.parameter_history.items():
+ *             if key == 'w': # only print for ws             # <<<<<<<<<<<<<<
  *                 fig = plt.figure()
  *                 for param in self.parameter_history[key]:
  */
@@ -4682,8 +4682,8 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
     if (__pyx_t_9) {
 
       /* "lib/enumeration_qvmc/debug.pyx":77
- *         for key, parameters in self.parameter_history .items():
- *             if key == 'w':
+ *         for key, parameters in self.parameter_history.items():
+ *             if key == 'w': # only print for ws
  *                 fig = plt.figure()             # <<<<<<<<<<<<<<
  *                 for param in self.parameter_history[key]:
  *                     plt.plot([x.imag for x in param], self.energy_history)
@@ -4712,7 +4712,7 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
       __pyx_t_1 = 0;
 
       /* "lib/enumeration_qvmc/debug.pyx":78
- *             if key == 'w':
+ *             if key == 'w': # only print for ws
  *                 fig = plt.figure()
  *                 for param in self.parameter_history[key]:             # <<<<<<<<<<<<<<
  *                     plt.plot([x.imag for x in param], self.energy_history)
@@ -5181,7 +5181,7 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
         /* "lib/enumeration_qvmc/debug.pyx":78
- *             if key == 'w':
+ *             if key == 'w': # only print for ws
  *                 fig = plt.figure()
  *                 for param in self.parameter_history[key]:             # <<<<<<<<<<<<<<
  *                     plt.plot([x.imag for x in param], self.energy_history)
@@ -5195,7 +5195,7 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
  *                     plt.title(f"Imaginary Parts for {key} Parameter for delta = {self.delta:.2f}")
  *                 fig.savefig(os.path.join(self.save_dir, f"{key}_imag_{self.delta:.2f}.png"))             # <<<<<<<<<<<<<<
  * 
- *             # print real part for all other parameters
+ *                 # print real part for all other parameters
  */
       __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_fig, __pyx_n_s_savefig); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
@@ -5308,867 +5308,867 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+      /* "lib/enumeration_qvmc/debug.pyx":89
+ * 
+ *                 # print real part for all other parameters
+ *                 fig = plt.figure()             # <<<<<<<<<<<<<<
+ *                 for param in self.parameter_history[key]:
+ *                     plt.plot([x.real for x in param], self.energy_history)
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_figure); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = NULL;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
+        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_12);
+        if (likely(__pyx_t_2)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+          __Pyx_INCREF(__pyx_t_2);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_12, function);
+        }
+      }
+      __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
+      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      __Pyx_DECREF_SET(__pyx_v_fig, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "lib/enumeration_qvmc/debug.pyx":90
+ *                 # print real part for all other parameters
+ *                 fig = plt.figure()
+ *                 for param in self.parameter_history[key]:             # <<<<<<<<<<<<<<
+ *                     plt.plot([x.real for x in param], self.energy_history)
+ *                     if key == 'w':
+ */
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameter_history); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __pyx_t_12 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_key); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 90, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      if (likely(PyList_CheckExact(__pyx_t_12)) || PyTuple_CheckExact(__pyx_t_12)) {
+        __pyx_t_1 = __pyx_t_12; __Pyx_INCREF(__pyx_t_1); __pyx_t_10 = 0;
+        __pyx_t_11 = NULL;
+      } else {
+        __pyx_t_10 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_11 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 90, __pyx_L1_error)
+      }
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      for (;;) {
+        if (likely(!__pyx_t_11)) {
+          if (likely(PyList_CheckExact(__pyx_t_1))) {
+            if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_1)) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_12 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_12); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 90, __pyx_L1_error)
+            #else
+            __pyx_t_12 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 90, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            #endif
+          } else {
+            if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
+            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+            __pyx_t_12 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_12); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 90, __pyx_L1_error)
+            #else
+            __pyx_t_12 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 90, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            #endif
+          }
+        } else {
+          __pyx_t_12 = __pyx_t_11(__pyx_t_1);
+          if (unlikely(!__pyx_t_12)) {
+            PyObject* exc_type = PyErr_Occurred();
+            if (exc_type) {
+              if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+              else __PYX_ERR(0, 90, __pyx_L1_error)
+            }
+            break;
+          }
+          __Pyx_GOTREF(__pyx_t_12);
+        }
+        __Pyx_XDECREF_SET(__pyx_v_param, __pyx_t_12);
+        __pyx_t_12 = 0;
+
+        /* "lib/enumeration_qvmc/debug.pyx":91
+ *                 fig = plt.figure()
+ *                 for param in self.parameter_history[key]:
+ *                     plt.plot([x.real for x in param], self.energy_history)             # <<<<<<<<<<<<<<
+ *                     if key == 'w':
+ *                          for i in range(len(param[0])):
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_plot); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (likely(PyList_CheckExact(__pyx_v_param)) || PyTuple_CheckExact(__pyx_v_param)) {
+          __pyx_t_6 = __pyx_v_param; __Pyx_INCREF(__pyx_t_6); __pyx_t_13 = 0;
+          __pyx_t_14 = NULL;
+        } else {
+          __pyx_t_13 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_v_param); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __pyx_t_14 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 91, __pyx_L1_error)
+        }
+        for (;;) {
+          if (likely(!__pyx_t_14)) {
+            if (likely(PyList_CheckExact(__pyx_t_6))) {
+              if (__pyx_t_13 >= PyList_GET_SIZE(__pyx_t_6)) break;
+              #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+              __pyx_t_21 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_13); __Pyx_INCREF(__pyx_t_21); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
+              #else
+              __pyx_t_21 = PySequence_ITEM(__pyx_t_6, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 91, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              #endif
+            } else {
+              if (__pyx_t_13 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
+              #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+              __pyx_t_21 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_13); __Pyx_INCREF(__pyx_t_21); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
+              #else
+              __pyx_t_21 = PySequence_ITEM(__pyx_t_6, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 91, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              #endif
+            }
+          } else {
+            __pyx_t_21 = __pyx_t_14(__pyx_t_6);
+            if (unlikely(!__pyx_t_21)) {
+              PyObject* exc_type = PyErr_Occurred();
+              if (exc_type) {
+                if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+                else __PYX_ERR(0, 91, __pyx_L1_error)
+              }
+              break;
+            }
+            __Pyx_GOTREF(__pyx_t_21);
+          }
+          __Pyx_XDECREF_SET(__pyx_v_x, __pyx_t_21);
+          __pyx_t_21 = 0;
+          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_real); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_21);
+          if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_21))) __PYX_ERR(0, 91, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        }
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_21 = NULL;
+        __pyx_t_16 = 0;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
+          __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_17);
+          if (likely(__pyx_t_21)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
+            __Pyx_INCREF(__pyx_t_21);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_17, function);
+            __pyx_t_16 = 1;
+          }
+        }
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_17)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_21, __pyx_t_2, __pyx_t_6};
+          __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_21, __pyx_t_2, __pyx_t_6};
+          __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_7 = PyTuple_New(2+__pyx_t_16); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          if (__pyx_t_21) {
+            __Pyx_GIVEREF(__pyx_t_21); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_21); __pyx_t_21 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_2);
+          PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_16, __pyx_t_2);
+          __Pyx_GIVEREF(__pyx_t_6);
+          PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_16, __pyx_t_6);
+          __pyx_t_2 = 0;
+          __pyx_t_6 = 0;
+          __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_7, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 91, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        }
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+        /* "lib/enumeration_qvmc/debug.pyx":92
+ *                 for param in self.parameter_history[key]:
+ *                     plt.plot([x.real for x in param], self.energy_history)
+ *                     if key == 'w':             # <<<<<<<<<<<<<<
+ *                          for i in range(len(param[0])):
+ *                             plt.plot(param[0][i].real, self.energy_history[0], 'go')
+ */
+        __pyx_t_9 = (__Pyx_PyString_Equals(__pyx_v_key, __pyx_n_s_w, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
+        if (__pyx_t_9) {
+
+          /* "lib/enumeration_qvmc/debug.pyx":93
+ *                     plt.plot([x.real for x in param], self.energy_history)
+ *                     if key == 'w':
+ *                          for i in range(len(param[0])):             # <<<<<<<<<<<<<<
+ *                             plt.plot(param[0][i].real, self.energy_history[0], 'go')
+ *                             plt.plot(param[-1][i].real, self.energy_history[-1], 'ro')
+ */
+          __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_param, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 93, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_12);
+          __pyx_t_13 = PyObject_Length(__pyx_t_12); if (unlikely(__pyx_t_13 == ((Py_ssize_t)-1))) __PYX_ERR(0, 93, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __pyx_t_18 = __pyx_t_13;
+          for (__pyx_t_19 = 0; __pyx_t_19 < __pyx_t_18; __pyx_t_19+=1) {
+            __pyx_v_i = __pyx_t_19;
+
+            /* "lib/enumeration_qvmc/debug.pyx":94
+ *                     if key == 'w':
+ *                          for i in range(len(param[0])):
+ *                             plt.plot(param[0][i].real, self.energy_history[0], 'go')             # <<<<<<<<<<<<<<
+ *                             plt.plot(param[-1][i].real, self.energy_history[-1], 'ro')
+ *                     else:
+ */
+            __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_plt); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 94, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_plot); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 94, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_7);
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            __pyx_t_17 = __Pyx_GetItemInt(__pyx_v_param, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 94, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_17, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_6);
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_real); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 94, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
+            __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+            __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_6);
+            __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+            __pyx_t_6 = NULL;
+            __pyx_t_16 = 0;
+            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
+              __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_7);
+              if (likely(__pyx_t_6)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+                __Pyx_INCREF(__pyx_t_6);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_7, function);
+                __pyx_t_16 = 1;
+              }
+            }
+            #if CYTHON_FAST_PYCALL
+            if (PyFunction_Check(__pyx_t_7)) {
+              PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_17, __pyx_t_2, __pyx_n_s_go};
+              __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 94, __pyx_L1_error)
+              __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            } else
+            #endif
+            #if CYTHON_FAST_PYCCALL
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
+              PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_17, __pyx_t_2, __pyx_n_s_go};
+              __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 94, __pyx_L1_error)
+              __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            } else
+            #endif
+            {
+              __pyx_t_21 = PyTuple_New(3+__pyx_t_16); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 94, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_21);
+              if (__pyx_t_6) {
+                __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_6); __pyx_t_6 = NULL;
+              }
+              __Pyx_GIVEREF(__pyx_t_17);
+              PyTuple_SET_ITEM(__pyx_t_21, 0+__pyx_t_16, __pyx_t_17);
+              __Pyx_GIVEREF(__pyx_t_2);
+              PyTuple_SET_ITEM(__pyx_t_21, 1+__pyx_t_16, __pyx_t_2);
+              __Pyx_INCREF(__pyx_n_s_go);
+              __Pyx_GIVEREF(__pyx_n_s_go);
+              PyTuple_SET_ITEM(__pyx_t_21, 2+__pyx_t_16, __pyx_n_s_go);
+              __pyx_t_17 = 0;
+              __pyx_t_2 = 0;
+              __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_21, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 94, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            }
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+            /* "lib/enumeration_qvmc/debug.pyx":95
+ *                          for i in range(len(param[0])):
+ *                             plt.plot(param[0][i].real, self.energy_history[0], 'go')
+ *                             plt.plot(param[-1][i].real, self.energy_history[-1], 'ro')             # <<<<<<<<<<<<<<
+ *                     else:
+ *                         plt.plot(param[0].real, self.energy_history[0], 'go')
+ */
+            __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_plt); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_7);
+            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_plot); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_21);
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+            __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_param, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_7);
+            __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+            __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_real); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_7);
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_2, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            __pyx_t_2 = NULL;
+            __pyx_t_16 = 0;
+            if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_21))) {
+              __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_21);
+              if (likely(__pyx_t_2)) {
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
+                __Pyx_INCREF(__pyx_t_2);
+                __Pyx_INCREF(function);
+                __Pyx_DECREF_SET(__pyx_t_21, function);
+                __pyx_t_16 = 1;
+              }
+            }
+            #if CYTHON_FAST_PYCALL
+            if (PyFunction_Check(__pyx_t_21)) {
+              PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_t_7, __pyx_t_17, __pyx_n_s_ro};
+              __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_21, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 95, __pyx_L1_error)
+              __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            } else
+            #endif
+            #if CYTHON_FAST_PYCCALL
+            if (__Pyx_PyFastCFunction_Check(__pyx_t_21)) {
+              PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_t_7, __pyx_t_17, __pyx_n_s_ro};
+              __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_21, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 95, __pyx_L1_error)
+              __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            } else
+            #endif
+            {
+              __pyx_t_6 = PyTuple_New(3+__pyx_t_16); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 95, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_6);
+              if (__pyx_t_2) {
+                __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
+              }
+              __Pyx_GIVEREF(__pyx_t_7);
+              PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_16, __pyx_t_7);
+              __Pyx_GIVEREF(__pyx_t_17);
+              PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_16, __pyx_t_17);
+              __Pyx_INCREF(__pyx_n_s_ro);
+              __Pyx_GIVEREF(__pyx_n_s_ro);
+              PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_16, __pyx_n_s_ro);
+              __pyx_t_7 = 0;
+              __pyx_t_17 = 0;
+              __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_21, __pyx_t_6, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 95, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_12);
+              __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+            }
+            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          }
+
+          /* "lib/enumeration_qvmc/debug.pyx":92
+ *                 for param in self.parameter_history[key]:
+ *                     plt.plot([x.real for x in param], self.energy_history)
+ *                     if key == 'w':             # <<<<<<<<<<<<<<
+ *                          for i in range(len(param[0])):
+ *                             plt.plot(param[0][i].real, self.energy_history[0], 'go')
+ */
+          goto __pyx_L18;
+        }
+
+        /* "lib/enumeration_qvmc/debug.pyx":97
+ *                             plt.plot(param[-1][i].real, self.energy_history[-1], 'ro')
+ *                     else:
+ *                         plt.plot(param[0].real, self.energy_history[0], 'go')             # <<<<<<<<<<<<<<
+ *                         plt.plot(param[-1].real, self.energy_history[-1], 'ro')
+ *                     plt.xlabel(f"Parameters: {key}")
+ */
+        /*else*/ {
+          __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_plt); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 97, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_21);
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_plot); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __pyx_t_21 = __Pyx_GetItemInt(__pyx_v_param, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 97, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_21);
+          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_real); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 97, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_17);
+          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 97, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_21);
+          __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_21, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 97, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __pyx_t_21 = NULL;
+          __pyx_t_16 = 0;
+          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+            __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_6);
+            if (likely(__pyx_t_21)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+              __Pyx_INCREF(__pyx_t_21);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_6, function);
+              __pyx_t_16 = 1;
+            }
+          }
+          #if CYTHON_FAST_PYCALL
+          if (PyFunction_Check(__pyx_t_6)) {
+            PyObject *__pyx_temp[4] = {__pyx_t_21, __pyx_t_17, __pyx_t_7, __pyx_n_s_go};
+            __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 97, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+          } else
+          #endif
+          #if CYTHON_FAST_PYCCALL
+          if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
+            PyObject *__pyx_temp[4] = {__pyx_t_21, __pyx_t_17, __pyx_t_7, __pyx_n_s_go};
+            __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 97, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+          } else
+          #endif
+          {
+            __pyx_t_2 = PyTuple_New(3+__pyx_t_16); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            if (__pyx_t_21) {
+              __Pyx_GIVEREF(__pyx_t_21); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_21); __pyx_t_21 = NULL;
+            }
+            __Pyx_GIVEREF(__pyx_t_17);
+            PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_16, __pyx_t_17);
+            __Pyx_GIVEREF(__pyx_t_7);
+            PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_16, __pyx_t_7);
+            __Pyx_INCREF(__pyx_n_s_go);
+            __Pyx_GIVEREF(__pyx_n_s_go);
+            PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_16, __pyx_n_s_go);
+            __pyx_t_17 = 0;
+            __pyx_t_7 = 0;
+            __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_2, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 97, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          }
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+          /* "lib/enumeration_qvmc/debug.pyx":98
+ *                     else:
+ *                         plt.plot(param[0].real, self.energy_history[0], 'go')
+ *                         plt.plot(param[-1].real, self.energy_history[-1], 'ro')             # <<<<<<<<<<<<<<
+ *                     plt.xlabel(f"Parameters: {key}")
+ *                     plt.ylabel(f"Variational Energy")
+ */
+          __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_plt); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_plot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_param, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_real); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 98, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_6, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 98, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_17);
+          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+          __pyx_t_6 = NULL;
+          __pyx_t_16 = 0;
+          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+            __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_2);
+            if (likely(__pyx_t_6)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+              __Pyx_INCREF(__pyx_t_6);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_2, function);
+              __pyx_t_16 = 1;
+            }
+          }
+          #if CYTHON_FAST_PYCALL
+          if (PyFunction_Check(__pyx_t_2)) {
+            PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_7, __pyx_t_17, __pyx_n_s_ro};
+            __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 98, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          } else
+          #endif
+          #if CYTHON_FAST_PYCCALL
+          if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+            PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_7, __pyx_t_17, __pyx_n_s_ro};
+            __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 98, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          } else
+          #endif
+          {
+            __pyx_t_21 = PyTuple_New(3+__pyx_t_16); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 98, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_21);
+            if (__pyx_t_6) {
+              __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_6); __pyx_t_6 = NULL;
+            }
+            __Pyx_GIVEREF(__pyx_t_7);
+            PyTuple_SET_ITEM(__pyx_t_21, 0+__pyx_t_16, __pyx_t_7);
+            __Pyx_GIVEREF(__pyx_t_17);
+            PyTuple_SET_ITEM(__pyx_t_21, 1+__pyx_t_16, __pyx_t_17);
+            __Pyx_INCREF(__pyx_n_s_ro);
+            __Pyx_GIVEREF(__pyx_n_s_ro);
+            PyTuple_SET_ITEM(__pyx_t_21, 2+__pyx_t_16, __pyx_n_s_ro);
+            __pyx_t_7 = 0;
+            __pyx_t_17 = 0;
+            __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_21, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 98, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          }
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+        }
+        __pyx_L18:;
+
+        /* "lib/enumeration_qvmc/debug.pyx":99
+ *                         plt.plot(param[0].real, self.energy_history[0], 'go')
+ *                         plt.plot(param[-1].real, self.energy_history[-1], 'ro')
+ *                     plt.xlabel(f"Parameters: {key}")             # <<<<<<<<<<<<<<
+ *                     plt.ylabel(f"Variational Energy")
+ *                     plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_xlabel); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 99, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_21);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_v_key, __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_17 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Parameters, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 99, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_21))) {
+          __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_21);
+          if (likely(__pyx_t_2)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
+            __Pyx_INCREF(__pyx_t_2);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_21, function);
+          }
+        }
+        __pyx_t_12 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_21, __pyx_t_2, __pyx_t_17) : __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_t_17);
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 99, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+        /* "lib/enumeration_qvmc/debug.pyx":100
+ *                         plt.plot(param[-1].real, self.energy_history[-1], 'ro')
+ *                     plt.xlabel(f"Parameters: {key}")
+ *                     plt.ylabel(f"Variational Energy")             # <<<<<<<<<<<<<<
+ *                     plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")
+ *                 fig.savefig(os.path.join(self.save_dir, f"{key}_real_{self.delta:.2f}.png"))
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_plt); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_21);
+        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_ylabel); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __pyx_t_21 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
+          __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_17);
+          if (likely(__pyx_t_21)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
+            __Pyx_INCREF(__pyx_t_21);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_17, function);
+          }
+        }
+        __pyx_t_12 = (__pyx_t_21) ? __Pyx_PyObject_Call2Args(__pyx_t_17, __pyx_t_21, __pyx_kp_u_Variational_Energy) : __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_kp_u_Variational_Energy);
+        __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+        if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 100, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+        /* "lib/enumeration_qvmc/debug.pyx":101
+ *                     plt.xlabel(f"Parameters: {key}")
+ *                     plt.ylabel(f"Variational Energy")
+ *                     plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")             # <<<<<<<<<<<<<<
+ *                 fig.savefig(os.path.join(self.save_dir, f"{key}_real_{self.delta:.2f}.png"))
+ *                 plt.close(fig)
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_plt); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_title); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_21);
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __pyx_t_17 = PyTuple_New(4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_17);
+        __pyx_t_13 = 0;
+        __pyx_t_20 = 127;
+        __Pyx_INCREF(__pyx_kp_u_Real_Parts_for);
+        __pyx_t_13 += 15;
+        __Pyx_GIVEREF(__pyx_kp_u_Real_Parts_for);
+        PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_kp_u_Real_Parts_for);
+        __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_v_key, __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_20 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) > __pyx_t_20) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) : __pyx_t_20;
+        __pyx_t_13 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2);
+        __Pyx_GIVEREF(__pyx_t_2);
+        PyTuple_SET_ITEM(__pyx_t_17, 1, __pyx_t_2);
+        __pyx_t_2 = 0;
+        __Pyx_INCREF(__pyx_kp_u_Parameter_for_delta);
+        __pyx_t_13 += 23;
+        __Pyx_GIVEREF(__pyx_kp_u_Parameter_for_delta);
+        PyTuple_SET_ITEM(__pyx_t_17, 2, __pyx_kp_u_Parameter_for_delta);
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_delta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_7 = __Pyx_PyObject_Format(__pyx_t_2, __pyx_kp_u_2f); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_20 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_7) > __pyx_t_20) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_7) : __pyx_t_20;
+        __pyx_t_13 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_7);
+        __Pyx_GIVEREF(__pyx_t_7);
+        PyTuple_SET_ITEM(__pyx_t_17, 3, __pyx_t_7);
+        __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyUnicode_Join(__pyx_t_17, 4, __pyx_t_13, __pyx_t_20); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __pyx_t_17 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_21))) {
+          __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_21);
+          if (likely(__pyx_t_17)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
+            __Pyx_INCREF(__pyx_t_17);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_21, function);
+          }
+        }
+        __pyx_t_12 = (__pyx_t_17) ? __Pyx_PyObject_Call2Args(__pyx_t_21, __pyx_t_17, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_t_7);
+        __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 101, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_12);
+        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+        /* "lib/enumeration_qvmc/debug.pyx":90
+ *                 # print real part for all other parameters
+ *                 fig = plt.figure()
+ *                 for param in self.parameter_history[key]:             # <<<<<<<<<<<<<<
+ *                     plt.plot([x.real for x in param], self.energy_history)
+ *                     if key == 'w':
+ */
+      }
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "lib/enumeration_qvmc/debug.pyx":102
+ *                     plt.ylabel(f"Variational Energy")
+ *                     plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")
+ *                 fig.savefig(os.path.join(self.save_dir, f"{key}_real_{self.delta:.2f}.png"))             # <<<<<<<<<<<<<<
+ *                 plt.close(fig)
+ * 
+ */
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_fig, __pyx_n_s_savefig); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_os); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_path); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_join); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+      __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_save_dir); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
+      __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_10 = 0;
+      __pyx_t_20 = 127;
+      __pyx_t_6 = __Pyx_PyObject_FormatSimple(__pyx_v_key, __pyx_empty_unicode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_20 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_6) > __pyx_t_20) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_6) : __pyx_t_20;
+      __pyx_t_10 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_6);
+      __Pyx_GIVEREF(__pyx_t_6);
+      PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __Pyx_INCREF(__pyx_n_u_real_2);
+      __pyx_t_10 += 6;
+      __Pyx_GIVEREF(__pyx_n_u_real_2);
+      PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_real_2);
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_delta); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_15 = __Pyx_PyObject_Format(__pyx_t_6, __pyx_kp_u_2f); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_15);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_20 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_15) > __pyx_t_20) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_15) : __pyx_t_20;
+      __pyx_t_10 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_15);
+      __Pyx_GIVEREF(__pyx_t_15);
+      PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_t_15);
+      __pyx_t_15 = 0;
+      __Pyx_INCREF(__pyx_kp_u_png);
+      __pyx_t_10 += 4;
+      __Pyx_GIVEREF(__pyx_kp_u_png);
+      PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_kp_u_png);
+      __pyx_t_15 = __Pyx_PyUnicode_Join(__pyx_t_2, 4, __pyx_t_10, __pyx_t_20); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_15);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = NULL;
+      __pyx_t_16 = 0;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
+        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_7);
+        if (likely(__pyx_t_2)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+          __Pyx_INCREF(__pyx_t_2);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_7, function);
+          __pyx_t_16 = 1;
+        }
+      }
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_7)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_17, __pyx_t_15};
+        __pyx_t_21 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 102, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __Pyx_GOTREF(__pyx_t_21);
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_17, __pyx_t_15};
+        __pyx_t_21 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 102, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __Pyx_GOTREF(__pyx_t_21);
+        __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+        __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
+      } else
+      #endif
+      {
+        __pyx_t_6 = PyTuple_New(2+__pyx_t_16); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        if (__pyx_t_2) {
+          __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
+        }
+        __Pyx_GIVEREF(__pyx_t_17);
+        PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_16, __pyx_t_17);
+        __Pyx_GIVEREF(__pyx_t_15);
+        PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_16, __pyx_t_15);
+        __pyx_t_17 = 0;
+        __pyx_t_15 = 0;
+        __pyx_t_21 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 102, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_21);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __pyx_t_7 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
+        __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_12);
+        if (likely(__pyx_t_7)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+          __Pyx_INCREF(__pyx_t_7);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_12, function);
+        }
+      }
+      __pyx_t_1 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_7, __pyx_t_21) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_21);
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+      /* "lib/enumeration_qvmc/debug.pyx":103
+ *                     plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")
+ *                 fig.savefig(os.path.join(self.save_dir, f"{key}_real_{self.delta:.2f}.png"))
+ *                 plt.close(fig)             # <<<<<<<<<<<<<<
+ * 
+ *         self.save_plot(np.arange(len(self.energy_history)), self.energy_history,
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_plt); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 103, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_12);
+      __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_close); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 103, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_21);
+      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+      __pyx_t_12 = NULL;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_21))) {
+        __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_21);
+        if (likely(__pyx_t_12)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
+          __Pyx_INCREF(__pyx_t_12);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_21, function);
+        }
+      }
+      __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_Call2Args(__pyx_t_21, __pyx_t_12, __pyx_v_fig) : __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_v_fig);
+      __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
+      if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
       /* "lib/enumeration_qvmc/debug.pyx":76
  *     def save_parameter_plot(self):
- *         for key, parameters in self.parameter_history .items():
- *             if key == 'w':             # <<<<<<<<<<<<<<
+ *         for key, parameters in self.parameter_history.items():
+ *             if key == 'w': # only print for ws             # <<<<<<<<<<<<<<
  *                 fig = plt.figure()
  *                 for param in self.parameter_history[key]:
  */
     }
 
-    /* "lib/enumeration_qvmc/debug.pyx":89
- * 
- *             # print real part for all other parameters
- *             fig = plt.figure()             # <<<<<<<<<<<<<<
- *             for param in self.parameter_history[key]:
- *                 plt.plot([x.real for x in param], self.energy_history)
- */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_figure); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 89, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_12);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = NULL;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_12))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_12);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
-        __Pyx_INCREF(__pyx_t_2);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_12, function);
-      }
-    }
-    __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __Pyx_XDECREF_SET(__pyx_v_fig, __pyx_t_1);
-    __pyx_t_1 = 0;
-
-    /* "lib/enumeration_qvmc/debug.pyx":90
- *             # print real part for all other parameters
- *             fig = plt.figure()
- *             for param in self.parameter_history[key]:             # <<<<<<<<<<<<<<
- *                 plt.plot([x.real for x in param], self.energy_history)
- *                 if key == 'w':
- */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_parameter_history); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_12 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_key); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 90, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_12);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    if (likely(PyList_CheckExact(__pyx_t_12)) || PyTuple_CheckExact(__pyx_t_12)) {
-      __pyx_t_1 = __pyx_t_12; __Pyx_INCREF(__pyx_t_1); __pyx_t_10 = 0;
-      __pyx_t_11 = NULL;
-    } else {
-      __pyx_t_10 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_11 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 90, __pyx_L1_error)
-    }
-    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    for (;;) {
-      if (likely(!__pyx_t_11)) {
-        if (likely(PyList_CheckExact(__pyx_t_1))) {
-          if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_1)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_12 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_12); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 90, __pyx_L1_error)
-          #else
-          __pyx_t_12 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 90, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_12);
-          #endif
-        } else {
-          if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_12 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_10); __Pyx_INCREF(__pyx_t_12); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 90, __pyx_L1_error)
-          #else
-          __pyx_t_12 = PySequence_ITEM(__pyx_t_1, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 90, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_12);
-          #endif
-        }
-      } else {
-        __pyx_t_12 = __pyx_t_11(__pyx_t_1);
-        if (unlikely(!__pyx_t_12)) {
-          PyObject* exc_type = PyErr_Occurred();
-          if (exc_type) {
-            if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 90, __pyx_L1_error)
-          }
-          break;
-        }
-        __Pyx_GOTREF(__pyx_t_12);
-      }
-      __Pyx_XDECREF_SET(__pyx_v_param, __pyx_t_12);
-      __pyx_t_12 = 0;
-
-      /* "lib/enumeration_qvmc/debug.pyx":91
- *             fig = plt.figure()
- *             for param in self.parameter_history[key]:
- *                 plt.plot([x.real for x in param], self.energy_history)             # <<<<<<<<<<<<<<
- *                 if key == 'w':
- *                      for i in range(len(param[0])):
- */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_plot); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 91, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_17);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      if (likely(PyList_CheckExact(__pyx_v_param)) || PyTuple_CheckExact(__pyx_v_param)) {
-        __pyx_t_6 = __pyx_v_param; __Pyx_INCREF(__pyx_t_6); __pyx_t_13 = 0;
-        __pyx_t_14 = NULL;
-      } else {
-        __pyx_t_13 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_v_param); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_14 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 91, __pyx_L1_error)
-      }
-      for (;;) {
-        if (likely(!__pyx_t_14)) {
-          if (likely(PyList_CheckExact(__pyx_t_6))) {
-            if (__pyx_t_13 >= PyList_GET_SIZE(__pyx_t_6)) break;
-            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_21 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_13); __Pyx_INCREF(__pyx_t_21); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
-            #else
-            __pyx_t_21 = PySequence_ITEM(__pyx_t_6, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 91, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            #endif
-          } else {
-            if (__pyx_t_13 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
-            #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_21 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_13); __Pyx_INCREF(__pyx_t_21); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
-            #else
-            __pyx_t_21 = PySequence_ITEM(__pyx_t_6, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 91, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            #endif
-          }
-        } else {
-          __pyx_t_21 = __pyx_t_14(__pyx_t_6);
-          if (unlikely(!__pyx_t_21)) {
-            PyObject* exc_type = PyErr_Occurred();
-            if (exc_type) {
-              if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 91, __pyx_L1_error)
-            }
-            break;
-          }
-          __Pyx_GOTREF(__pyx_t_21);
-        }
-        __Pyx_XDECREF_SET(__pyx_v_x, __pyx_t_21);
-        __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_real); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 91, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_21))) __PYX_ERR(0, 91, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      }
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 91, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_21 = NULL;
-      __pyx_t_16 = 0;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
-        __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_17);
-        if (likely(__pyx_t_21)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
-          __Pyx_INCREF(__pyx_t_21);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_17, function);
-          __pyx_t_16 = 1;
-        }
-      }
-      #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_17)) {
-        PyObject *__pyx_temp[3] = {__pyx_t_21, __pyx_t_2, __pyx_t_6};
-        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 91, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __Pyx_GOTREF(__pyx_t_12);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      } else
-      #endif
-      #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_17)) {
-        PyObject *__pyx_temp[3] = {__pyx_t_21, __pyx_t_2, __pyx_t_6};
-        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_17, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 91, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __Pyx_GOTREF(__pyx_t_12);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      } else
-      #endif
-      {
-        __pyx_t_7 = PyTuple_New(2+__pyx_t_16); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 91, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        if (__pyx_t_21) {
-          __Pyx_GIVEREF(__pyx_t_21); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_21); __pyx_t_21 = NULL;
-        }
-        __Pyx_GIVEREF(__pyx_t_2);
-        PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_16, __pyx_t_2);
-        __Pyx_GIVEREF(__pyx_t_6);
-        PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_16, __pyx_t_6);
-        __pyx_t_2 = 0;
-        __pyx_t_6 = 0;
-        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_17, __pyx_t_7, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 91, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_12);
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      }
-      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-
-      /* "lib/enumeration_qvmc/debug.pyx":92
- *             for param in self.parameter_history[key]:
- *                 plt.plot([x.real for x in param], self.energy_history)
- *                 if key == 'w':             # <<<<<<<<<<<<<<
- *                      for i in range(len(param[0])):
- *                         plt.plot(param[0][i].real, self.energy_history[0], 'go')
- */
-      __pyx_t_9 = (__Pyx_PyString_Equals(__pyx_v_key, __pyx_n_s_w, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
-      if (__pyx_t_9) {
-
-        /* "lib/enumeration_qvmc/debug.pyx":93
- *                 plt.plot([x.real for x in param], self.energy_history)
- *                 if key == 'w':
- *                      for i in range(len(param[0])):             # <<<<<<<<<<<<<<
- *                         plt.plot(param[0][i].real, self.energy_history[0], 'go')
- *                         plt.plot(param[-1][i].real, self.energy_history[-1], 'ro')
- */
-        __pyx_t_12 = __Pyx_GetItemInt(__pyx_v_param, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 93, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_13 = PyObject_Length(__pyx_t_12); if (unlikely(__pyx_t_13 == ((Py_ssize_t)-1))) __PYX_ERR(0, 93, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_18 = __pyx_t_13;
-        for (__pyx_t_19 = 0; __pyx_t_19 < __pyx_t_18; __pyx_t_19+=1) {
-          __pyx_v_i = __pyx_t_19;
-
-          /* "lib/enumeration_qvmc/debug.pyx":94
- *                 if key == 'w':
- *                      for i in range(len(param[0])):
- *                         plt.plot(param[0][i].real, self.energy_history[0], 'go')             # <<<<<<<<<<<<<<
- *                         plt.plot(param[-1][i].real, self.energy_history[-1], 'ro')
- *                 else:
- */
-          __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_plt); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 94, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_plot); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 94, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_17 = __Pyx_GetItemInt(__pyx_v_param, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 94, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_17, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_real); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 94, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 94, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 94, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_6 = NULL;
-          __pyx_t_16 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
-            __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_7);
-            if (likely(__pyx_t_6)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-              __Pyx_INCREF(__pyx_t_6);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_7, function);
-              __pyx_t_16 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_7)) {
-            PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_17, __pyx_t_2, __pyx_n_s_go};
-            __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 94, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-            __Pyx_GOTREF(__pyx_t_12);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
-            PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_17, __pyx_t_2, __pyx_n_s_go};
-            __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 94, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-            __Pyx_GOTREF(__pyx_t_12);
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_21 = PyTuple_New(3+__pyx_t_16); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 94, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            if (__pyx_t_6) {
-              __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_6); __pyx_t_6 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_21, 0+__pyx_t_16, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_2);
-            PyTuple_SET_ITEM(__pyx_t_21, 1+__pyx_t_16, __pyx_t_2);
-            __Pyx_INCREF(__pyx_n_s_go);
-            __Pyx_GIVEREF(__pyx_n_s_go);
-            PyTuple_SET_ITEM(__pyx_t_21, 2+__pyx_t_16, __pyx_n_s_go);
-            __pyx_t_17 = 0;
-            __pyx_t_2 = 0;
-            __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_21, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 94, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_12);
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-
-          /* "lib/enumeration_qvmc/debug.pyx":95
- *                      for i in range(len(param[0])):
- *                         plt.plot(param[0][i].real, self.energy_history[0], 'go')
- *                         plt.plot(param[-1][i].real, self.energy_history[-1], 'ro')             # <<<<<<<<<<<<<<
- *                 else:
- *                     plt.plot(param[0].real, self.energy_history[0], 'go')
- */
-          __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_plt); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_plot); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 95, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __pyx_t_7 = __Pyx_GetItemInt(__pyx_v_param, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, __pyx_v_i, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_real); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 95, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_2, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 95, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_17);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-          __pyx_t_2 = NULL;
-          __pyx_t_16 = 0;
-          if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_21))) {
-            __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_21);
-            if (likely(__pyx_t_2)) {
-              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
-              __Pyx_INCREF(__pyx_t_2);
-              __Pyx_INCREF(function);
-              __Pyx_DECREF_SET(__pyx_t_21, function);
-              __pyx_t_16 = 1;
-            }
-          }
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_21)) {
-            PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_t_7, __pyx_t_17, __pyx_n_s_ro};
-            __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_21, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 95, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-            __Pyx_GOTREF(__pyx_t_12);
-            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_21)) {
-            PyObject *__pyx_temp[4] = {__pyx_t_2, __pyx_t_7, __pyx_t_17, __pyx_n_s_ro};
-            __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_21, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 95, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-            __Pyx_GOTREF(__pyx_t_12);
-            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_6 = PyTuple_New(3+__pyx_t_16); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 95, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_6);
-            if (__pyx_t_2) {
-              __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
-            }
-            __Pyx_GIVEREF(__pyx_t_7);
-            PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_16, __pyx_t_7);
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_16, __pyx_t_17);
-            __Pyx_INCREF(__pyx_n_s_ro);
-            __Pyx_GIVEREF(__pyx_n_s_ro);
-            PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_16, __pyx_n_s_ro);
-            __pyx_t_7 = 0;
-            __pyx_t_17 = 0;
-            __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_21, __pyx_t_6, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 95, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_12);
-            __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          }
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        }
-
-        /* "lib/enumeration_qvmc/debug.pyx":92
- *             for param in self.parameter_history[key]:
- *                 plt.plot([x.real for x in param], self.energy_history)
- *                 if key == 'w':             # <<<<<<<<<<<<<<
- *                      for i in range(len(param[0])):
- *                         plt.plot(param[0][i].real, self.energy_history[0], 'go')
- */
-        goto __pyx_L18;
-      }
-
-      /* "lib/enumeration_qvmc/debug.pyx":97
- *                         plt.plot(param[-1][i].real, self.energy_history[-1], 'ro')
- *                 else:
- *                     plt.plot(param[0].real, self.energy_history[0], 'go')             # <<<<<<<<<<<<<<
- *                     plt.plot(param[-1].real, self.energy_history[-1], 'ro')
- *                 plt.xlabel(f"Parameters: {key}")
- */
-      /*else*/ {
-        __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_plt); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 97, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_plot); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 97, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_GetItemInt(__pyx_v_param, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 97, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_real); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 97, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_17);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 97, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_21, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 97, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = NULL;
-        __pyx_t_16 = 0;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
-          __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_6);
-          if (likely(__pyx_t_21)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
-            __Pyx_INCREF(__pyx_t_21);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_6, function);
-            __pyx_t_16 = 1;
-          }
-        }
-        #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_6)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_21, __pyx_t_17, __pyx_t_7, __pyx_n_s_go};
-          __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 97, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
-          __Pyx_GOTREF(__pyx_t_12);
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        } else
-        #endif
-        #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_21, __pyx_t_17, __pyx_t_7, __pyx_n_s_go};
-          __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 97, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
-          __Pyx_GOTREF(__pyx_t_12);
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        } else
-        #endif
-        {
-          __pyx_t_2 = PyTuple_New(3+__pyx_t_16); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          if (__pyx_t_21) {
-            __Pyx_GIVEREF(__pyx_t_21); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_21); __pyx_t_21 = NULL;
-          }
-          __Pyx_GIVEREF(__pyx_t_17);
-          PyTuple_SET_ITEM(__pyx_t_2, 0+__pyx_t_16, __pyx_t_17);
-          __Pyx_GIVEREF(__pyx_t_7);
-          PyTuple_SET_ITEM(__pyx_t_2, 1+__pyx_t_16, __pyx_t_7);
-          __Pyx_INCREF(__pyx_n_s_go);
-          __Pyx_GIVEREF(__pyx_n_s_go);
-          PyTuple_SET_ITEM(__pyx_t_2, 2+__pyx_t_16, __pyx_n_s_go);
-          __pyx_t_17 = 0;
-          __pyx_t_7 = 0;
-          __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_2, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 97, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_12);
-          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        }
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-
-        /* "lib/enumeration_qvmc/debug.pyx":98
- *                 else:
- *                     plt.plot(param[0].real, self.energy_history[0], 'go')
- *                     plt.plot(param[-1].real, self.energy_history[-1], 'ro')             # <<<<<<<<<<<<<<
- *                 plt.xlabel(f"Parameters: {key}")
- *                 plt.ylabel(f"Variational Energy")
- */
-        __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_plt); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_plot); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_param, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_real); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 98, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 98, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_6, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 98, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_17);
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = NULL;
-        __pyx_t_16 = 0;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
-          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_2);
-          if (likely(__pyx_t_6)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-            __Pyx_INCREF(__pyx_t_6);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_2, function);
-            __pyx_t_16 = 1;
-          }
-        }
-        #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_2)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_7, __pyx_t_17, __pyx_n_s_ro};
-          __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 98, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __Pyx_GOTREF(__pyx_t_12);
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-        } else
-        #endif
-        #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_6, __pyx_t_7, __pyx_t_17, __pyx_n_s_ro};
-          __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_16, 3+__pyx_t_16); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 98, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __Pyx_GOTREF(__pyx_t_12);
-          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-        } else
-        #endif
-        {
-          __pyx_t_21 = PyTuple_New(3+__pyx_t_16); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 98, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          if (__pyx_t_6) {
-            __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_6); __pyx_t_6 = NULL;
-          }
-          __Pyx_GIVEREF(__pyx_t_7);
-          PyTuple_SET_ITEM(__pyx_t_21, 0+__pyx_t_16, __pyx_t_7);
-          __Pyx_GIVEREF(__pyx_t_17);
-          PyTuple_SET_ITEM(__pyx_t_21, 1+__pyx_t_16, __pyx_t_17);
-          __Pyx_INCREF(__pyx_n_s_ro);
-          __Pyx_GIVEREF(__pyx_n_s_ro);
-          PyTuple_SET_ITEM(__pyx_t_21, 2+__pyx_t_16, __pyx_n_s_ro);
-          __pyx_t_7 = 0;
-          __pyx_t_17 = 0;
-          __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_21, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 98, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_12);
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        }
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      }
-      __pyx_L18:;
-
-      /* "lib/enumeration_qvmc/debug.pyx":99
- *                     plt.plot(param[0].real, self.energy_history[0], 'go')
- *                     plt.plot(param[-1].real, self.energy_history[-1], 'ro')
- *                 plt.xlabel(f"Parameters: {key}")             # <<<<<<<<<<<<<<
- *                 plt.ylabel(f"Variational Energy")
- *                 plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")
- */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_plt); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_xlabel); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 99, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_v_key, __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_17 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Parameters, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 99, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_17);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_21))) {
-        __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_21);
-        if (likely(__pyx_t_2)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
-          __Pyx_INCREF(__pyx_t_2);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_21, function);
-        }
-      }
-      __pyx_t_12 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_21, __pyx_t_2, __pyx_t_17) : __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_t_17);
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 99, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-
-      /* "lib/enumeration_qvmc/debug.pyx":100
- *                     plt.plot(param[-1].real, self.energy_history[-1], 'ro')
- *                 plt.xlabel(f"Parameters: {key}")
- *                 plt.ylabel(f"Variational Energy")             # <<<<<<<<<<<<<<
- *                 plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")
- *             fig.savefig(os.path.join(self.save_dir, f"{key}_real_{self.delta:.2f}.png"))
- */
-      __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_plt); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 100, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_ylabel); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 100, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_17);
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __pyx_t_21 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_17))) {
-        __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_17);
-        if (likely(__pyx_t_21)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_17);
-          __Pyx_INCREF(__pyx_t_21);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_17, function);
-        }
-      }
-      __pyx_t_12 = (__pyx_t_21) ? __Pyx_PyObject_Call2Args(__pyx_t_17, __pyx_t_21, __pyx_kp_u_Variational_Energy) : __Pyx_PyObject_CallOneArg(__pyx_t_17, __pyx_kp_u_Variational_Energy);
-      __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
-      if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 100, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-
-      /* "lib/enumeration_qvmc/debug.pyx":101
- *                 plt.xlabel(f"Parameters: {key}")
- *                 plt.ylabel(f"Variational Energy")
- *                 plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")             # <<<<<<<<<<<<<<
- *             fig.savefig(os.path.join(self.save_dir, f"{key}_real_{self.delta:.2f}.png"))
- *             plt.close(fig)
- */
-      __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_plt); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 101, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_17);
-      __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_title); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 101, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      __pyx_t_17 = PyTuple_New(4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 101, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_17);
-      __pyx_t_13 = 0;
-      __pyx_t_20 = 127;
-      __Pyx_INCREF(__pyx_kp_u_Real_Parts_for);
-      __pyx_t_13 += 15;
-      __Pyx_GIVEREF(__pyx_kp_u_Real_Parts_for);
-      PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_kp_u_Real_Parts_for);
-      __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_v_key, __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_20 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) > __pyx_t_20) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) : __pyx_t_20;
-      __pyx_t_13 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2);
-      __Pyx_GIVEREF(__pyx_t_2);
-      PyTuple_SET_ITEM(__pyx_t_17, 1, __pyx_t_2);
-      __pyx_t_2 = 0;
-      __Pyx_INCREF(__pyx_kp_u_Parameter_for_delta);
-      __pyx_t_13 += 23;
-      __Pyx_GIVEREF(__pyx_kp_u_Parameter_for_delta);
-      PyTuple_SET_ITEM(__pyx_t_17, 2, __pyx_kp_u_Parameter_for_delta);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_delta); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_7 = __Pyx_PyObject_Format(__pyx_t_2, __pyx_kp_u_2f); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 101, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_20 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_7) > __pyx_t_20) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_7) : __pyx_t_20;
-      __pyx_t_13 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_7);
-      __Pyx_GIVEREF(__pyx_t_7);
-      PyTuple_SET_ITEM(__pyx_t_17, 3, __pyx_t_7);
-      __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyUnicode_Join(__pyx_t_17, 4, __pyx_t_13, __pyx_t_20); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 101, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      __pyx_t_17 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_21))) {
-        __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_21);
-        if (likely(__pyx_t_17)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
-          __Pyx_INCREF(__pyx_t_17);
-          __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_21, function);
-        }
-      }
-      __pyx_t_12 = (__pyx_t_17) ? __Pyx_PyObject_Call2Args(__pyx_t_21, __pyx_t_17, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_t_7);
-      __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 101, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_12);
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-
-      /* "lib/enumeration_qvmc/debug.pyx":90
- *             # print real part for all other parameters
- *             fig = plt.figure()
- *             for param in self.parameter_history[key]:             # <<<<<<<<<<<<<<
- *                 plt.plot([x.real for x in param], self.energy_history)
- *                 if key == 'w':
- */
-    }
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "lib/enumeration_qvmc/debug.pyx":102
- *                 plt.ylabel(f"Variational Energy")
- *                 plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")
- *             fig.savefig(os.path.join(self.save_dir, f"{key}_real_{self.delta:.2f}.png"))             # <<<<<<<<<<<<<<
- *             plt.close(fig)
- * 
- */
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_fig, __pyx_n_s_savefig); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_12);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_os); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_path); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_17);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_join); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-    __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_save_dir); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_17);
-    __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_10 = 0;
-    __pyx_t_20 = 127;
-    __pyx_t_6 = __Pyx_PyObject_FormatSimple(__pyx_v_key, __pyx_empty_unicode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_20 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_6) > __pyx_t_20) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_6) : __pyx_t_20;
-    __pyx_t_10 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_6);
-    __Pyx_GIVEREF(__pyx_t_6);
-    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6);
-    __pyx_t_6 = 0;
-    __Pyx_INCREF(__pyx_n_u_real_2);
-    __pyx_t_10 += 6;
-    __Pyx_GIVEREF(__pyx_n_u_real_2);
-    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_real_2);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_delta); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_15 = __Pyx_PyObject_Format(__pyx_t_6, __pyx_kp_u_2f); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_15);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_20 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_15) > __pyx_t_20) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_15) : __pyx_t_20;
-    __pyx_t_10 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_15);
-    __Pyx_GIVEREF(__pyx_t_15);
-    PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_t_15);
-    __pyx_t_15 = 0;
-    __Pyx_INCREF(__pyx_kp_u_png);
-    __pyx_t_10 += 4;
-    __Pyx_GIVEREF(__pyx_kp_u_png);
-    PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_kp_u_png);
-    __pyx_t_15 = __Pyx_PyUnicode_Join(__pyx_t_2, 4, __pyx_t_10, __pyx_t_20); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_15);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = NULL;
-    __pyx_t_16 = 0;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
-      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_7);
-      if (likely(__pyx_t_2)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-        __Pyx_INCREF(__pyx_t_2);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_7, function);
-        __pyx_t_16 = 1;
-      }
-    }
-    #if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(__pyx_t_7)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_17, __pyx_t_15};
-      __pyx_t_21 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 102, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_21);
-      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    } else
-    #endif
-    #if CYTHON_FAST_PYCCALL
-    if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
-      PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_t_17, __pyx_t_15};
-      __pyx_t_21 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_16, 2+__pyx_t_16); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 102, __pyx_L1_error)
-      __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GOTREF(__pyx_t_21);
-      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-    } else
-    #endif
-    {
-      __pyx_t_6 = PyTuple_New(2+__pyx_t_16); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 102, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      if (__pyx_t_2) {
-        __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2); __pyx_t_2 = NULL;
-      }
-      __Pyx_GIVEREF(__pyx_t_17);
-      PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_16, __pyx_t_17);
-      __Pyx_GIVEREF(__pyx_t_15);
-      PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_16, __pyx_t_15);
-      __pyx_t_17 = 0;
-      __pyx_t_15 = 0;
-      __pyx_t_21 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, NULL); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 102, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    }
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
-      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_12);
-      if (likely(__pyx_t_7)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
-        __Pyx_INCREF(__pyx_t_7);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_12, function);
-      }
-    }
-    __pyx_t_1 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_7, __pyx_t_21) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_21);
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-    /* "lib/enumeration_qvmc/debug.pyx":103
- *                 plt.title(f"Real Parts for {key} Parameter for delta = {self.delta:.2f}")
- *             fig.savefig(os.path.join(self.save_dir, f"{key}_real_{self.delta:.2f}.png"))
- *             plt.close(fig)             # <<<<<<<<<<<<<<
- * 
- *         self.save_plot(np.arrange(len(self.energy_history)), self.energy_history,
- */
-    __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_plt); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 103, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_12);
-    __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_close); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 103, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_21);
-    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-    __pyx_t_12 = NULL;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_21))) {
-      __pyx_t_12 = PyMethod_GET_SELF(__pyx_t_21);
-      if (likely(__pyx_t_12)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
-        __Pyx_INCREF(__pyx_t_12);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_21, function);
-      }
-    }
-    __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_Call2Args(__pyx_t_21, __pyx_t_12, __pyx_v_fig) : __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_v_fig);
-    __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
     /* "lib/enumeration_qvmc/debug.pyx":75
  * 
  *     def save_parameter_plot(self):
- *         for key, parameters in self.parameter_history .items():             # <<<<<<<<<<<<<<
- *             if key == 'w':
+ *         for key, parameters in self.parameter_history.items():             # <<<<<<<<<<<<<<
+ *             if key == 'w': # only print for ws
  *                 fig = plt.figure()
  */
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "lib/enumeration_qvmc/debug.pyx":105
- *             plt.close(fig)
+ *                 plt.close(fig)
  * 
- *         self.save_plot(np.arrange(len(self.energy_history)), self.energy_history,             # <<<<<<<<<<<<<<
- *                  f"Energy History for {self.delta:.2f}", "Energy", "Iteration", f"EnergyHistory_{self.delta:.2f}.png")
+ *         self.save_plot(np.arange(len(self.energy_history)), self.energy_history,             # <<<<<<<<<<<<<<
+ *                  f"Energy History for {self.delta:.2f}", "Iteration", "Energy", f"EnergyHistory_{self.delta:.2f}.png")
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_save_plot); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GetModuleGlobalName(__pyx_t_12, __pyx_n_s_np); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_arrange); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_12, __pyx_n_s_arange); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
   __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_energy_history); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 105, __pyx_L1_error)
@@ -6198,8 +6198,8 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
 
   /* "lib/enumeration_qvmc/debug.pyx":106
  * 
- *         self.save_plot(np.arrange(len(self.energy_history)), self.energy_history,
- *                  f"Energy History for {self.delta:.2f}", "Energy", "Iteration", f"EnergyHistory_{self.delta:.2f}.png")             # <<<<<<<<<<<<<<
+ *         self.save_plot(np.arange(len(self.energy_history)), self.energy_history,
+ *                  f"Energy History for {self.delta:.2f}", "Iteration", "Energy", f"EnergyHistory_{self.delta:.2f}.png")             # <<<<<<<<<<<<<<
  */
   __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_delta); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
@@ -6248,7 +6248,7 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[7] = {__pyx_t_6, __pyx_t_21, __pyx_t_7, __pyx_t_12, __pyx_n_s_Energy, __pyx_n_s_Iteration, __pyx_t_17};
+    PyObject *__pyx_temp[7] = {__pyx_t_6, __pyx_t_21, __pyx_t_7, __pyx_t_12, __pyx_n_s_Iteration, __pyx_n_s_Energy, __pyx_t_17};
     __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_16, 6+__pyx_t_16); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_3);
@@ -6260,7 +6260,7 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-    PyObject *__pyx_temp[7] = {__pyx_t_6, __pyx_t_21, __pyx_t_7, __pyx_t_12, __pyx_n_s_Energy, __pyx_n_s_Iteration, __pyx_t_17};
+    PyObject *__pyx_temp[7] = {__pyx_t_6, __pyx_t_21, __pyx_t_7, __pyx_t_12, __pyx_n_s_Iteration, __pyx_n_s_Energy, __pyx_t_17};
     __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_16, 6+__pyx_t_16); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_GOTREF(__pyx_t_3);
@@ -6282,12 +6282,12 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
     PyTuple_SET_ITEM(__pyx_t_15, 1+__pyx_t_16, __pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_12);
     PyTuple_SET_ITEM(__pyx_t_15, 2+__pyx_t_16, __pyx_t_12);
-    __Pyx_INCREF(__pyx_n_s_Energy);
-    __Pyx_GIVEREF(__pyx_n_s_Energy);
-    PyTuple_SET_ITEM(__pyx_t_15, 3+__pyx_t_16, __pyx_n_s_Energy);
     __Pyx_INCREF(__pyx_n_s_Iteration);
     __Pyx_GIVEREF(__pyx_n_s_Iteration);
-    PyTuple_SET_ITEM(__pyx_t_15, 4+__pyx_t_16, __pyx_n_s_Iteration);
+    PyTuple_SET_ITEM(__pyx_t_15, 3+__pyx_t_16, __pyx_n_s_Iteration);
+    __Pyx_INCREF(__pyx_n_s_Energy);
+    __Pyx_GIVEREF(__pyx_n_s_Energy);
+    PyTuple_SET_ITEM(__pyx_t_15, 4+__pyx_t_16, __pyx_n_s_Energy);
     __Pyx_GIVEREF(__pyx_t_17);
     PyTuple_SET_ITEM(__pyx_t_15, 5+__pyx_t_16, __pyx_t_17);
     __pyx_t_21 = 0;
@@ -6305,8 +6305,8 @@ static PyObject *__pyx_pf_3lib_16enumeration_qvmc_5debug_7Plotter_8save_paramete
  *         plt.close(fig)
  * 
  *     def save_parameter_plot(self):             # <<<<<<<<<<<<<<
- *         for key, parameters in self.parameter_history .items():
- *             if key == 'w':
+ *         for key, parameters in self.parameter_history.items():
+ *             if key == 'w': # only print for ws
  */
 
   /* function exit code */
@@ -6400,7 +6400,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Real_Parts_for, __pyx_k_Real_Parts_for, sizeof(__pyx_k_Real_Parts_for), 0, 1, 0, 0},
   {&__pyx_kp_u_Variational_Energy, __pyx_k_Variational_Energy, sizeof(__pyx_k_Variational_Energy), 0, 1, 0, 0},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
-  {&__pyx_n_s_arrange, __pyx_k_arrange, sizeof(__pyx_k_arrange), 0, 0, 1, 1},
+  {&__pyx_n_s_arange, __pyx_k_arange, sizeof(__pyx_k_arange), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_close, __pyx_k_close, sizeof(__pyx_k_close), 0, 0, 1, 1},
   {&__pyx_n_s_delta, __pyx_k_delta, sizeof(__pyx_k_delta), 0, 0, 1, 1},
@@ -6538,8 +6538,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         plt.close(fig)
  * 
  *     def save_parameter_plot(self):             # <<<<<<<<<<<<<<
- *         for key, parameters in self.parameter_history .items():
- *             if key == 'w':
+ *         for key, parameters in self.parameter_history.items():
+ *             if key == 'w': # only print for ws
  */
   __pyx_tuple__10 = PyTuple_Pack(7, __pyx_n_s_self, __pyx_n_s_key, __pyx_n_s_parameters, __pyx_n_s_fig, __pyx_n_s_param, __pyx_n_s_i, __pyx_n_s_x); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
@@ -6928,8 +6928,8 @@ if (!__Pyx_RefNanny) {
  *         plt.close(fig)
  * 
  *     def save_parameter_plot(self):             # <<<<<<<<<<<<<<
- *         for key, parameters in self.parameter_history .items():
- *             if key == 'w':
+ *         for key, parameters in self.parameter_history.items():
+ *             if key == 'w': # only print for ws
  */
   __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_3lib_16enumeration_qvmc_5debug_7Plotter_9save_parameter_plot, 0, __pyx_n_s_Plotter_save_parameter_plot, NULL, __pyx_n_s_lib_enumeration_qvmc_debug, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);

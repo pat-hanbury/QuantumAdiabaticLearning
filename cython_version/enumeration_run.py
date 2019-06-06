@@ -7,6 +7,7 @@ mpl.use("Agg")
 import time
 
 from pprint import pprint
+import pickle
 
 from lib.enumeration_qvmc.hamiltonian import Hamiltonian
 from lib.enumeration_qvmc.state import State
@@ -29,35 +30,55 @@ cwd = os.getcwd()
 
 save_dir = os.path.join(cwd, "outputs", cfg['name'], now.strftime("%Y-%m-%d-%H:%M"))
 
+
 cfg['save_dir'] = save_dir
 
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
     
+log_file_path = os.path.join(save_dir, "logfile.txt")
 
-initial_parameters = {
-            "a" : np.asarray([0 for i in range(cfg['num_particles'])]),
-            "b" : np.asarray([0 for i in range(cfg['num_particles'])]) ,
-            "w" : get_initial_w(cfg['num_particles'])
-            }
+
+checkpoints_dir = os.path.join(cfg["save_dir"], "checkpoints")
+   
+if not os.path.exists(checkpoints_dir):
+    os.makedirs(checkpoints_dir)
+    
+if cfg["checkpoint"] is not None:
+    with open(cfg['checkpoint'], 'rb') as fb:
+        initial_parameters = pickle.load(fb)
+        starting_delta = cfg["checkpoint"][-10:-7]
+    start = int(float(starting_delta)*100)
+    cfg["deltas"] = [x/100 for x in range(start, 101, 5)]
+else:
+    initial_parameters = {
+                "a" : np.asarray([0 for i in range(cfg['num_particles'])]),
+                "b" : np.asarray([0 for i in range(cfg['num_particles'])]) ,
+                "w" : get_initial_w(cfg['num_particles'])
+                }
+    start = 0
+    cfg["deltas"] = [x/100 for x in range(start, 101, 5)]
 
 cfg['fixed_params'] =  {"a" : initial_parameters['a'],
                          "b" : initial_parameters['b']}
+with open(log_file_path, 'a+') as log_file:
+    pprint("*******"*10, log_file)
+    pprint(cfg, log_file)
+    pprint("******"*10, log_file)
 
 running_deltas = []
 energies = []
 start = datetime.datetime.now()
-# set_trace()
 for delta in cfg['deltas']:
     plotter = Plotter(delta, save_dir)
     H = Hamiltonian(cfg['num_particles'], delta=delta)
     if delta == cfg['deltas'][0]: # add random noise
         opt = Optimizer(H, cfg=cfg, plotter=plotter,
-                        parameters = initial_parameters, lr = 0.02, random_noise_scale=0.02,
+                        parameters = initial_parameters, lr = cfg['learning_rate'], random_noise_scale=0.02,
                         fixed_parameters = cfg['fixed_params'])
     else: # no random noise
         opt = Optimizer(H, cfg=cfg, plotter=plotter,
-                        parameters = initial_parameters, lr = 0.02, 
+                        parameters = initial_parameters, lr = cfg['learning_rate'], 
                         fixed_parameters = cfg['fixed_params'])
     energy, optimal_parameters, final_parameters = opt.get_ground_state()
     initial_parameters = optimal_parameters
@@ -66,6 +87,10 @@ for delta in cfg['deltas']:
     # print(f"Delta: {delta}")
     # print(f"Variational Energy: {energy}")
     # print("***"*20)
+        
+    with open(os.path.join(checkpoints_dir,f"checkpoint_{delta}.pickle"), 'wb') as f:
+        pickle.dump(optimal_parameters, f, pickle.HIGHEST_PROTOCOL)
+        
 end = datetime.datetime.now()
 
 plotter = Plotter(delta, save_dir)
@@ -74,22 +99,21 @@ plotter.save_plot(running_deltas, energies, title="Energy(delta)",
                  xlabel="Delta", ylabel="Variational Energy",
                  fn="FinalOutput.png")
 
-print("*******"*10)
-pprint(cfg)
-print("---"*20)
-print(f"Total time = {((end - start).total_seconds())/3600} hours")
-if cfg['print_params']:
-    print("Final Parameters:")
-    pprint(final_parameters)
-    print('\n'*2)
-    print("Optimal Parameters:")
-    pprint(optimal_parameters)
-print("---"*20)
-print("Final Summary: ")
-for energy, delta in zip(energies, cfg['deltas']):
-    print(f"Delta: {delta:.2f}")
-    print(f"Energy: {energy.real:.2E} + {energy.imag:.2E}j")
-    print("---"*20)
+with open(log_file_path, 'a+') as log_file:
+    pprint("---"*20, log_file)
+    pprint(f"Total time = {((end - start).total_seconds())/3600} hours", log_file)
+    if cfg['print_params']:
+        pprint("Final Parameters:", log_file)
+        pprint(final_parameters, log_file)
+        pprint('\n'*2, log_file)
+        pprint("Optimal Parameters:", log_file)
+        pprint(optimal_parameters, log_file)
+    pprint("---"*20, log_file)
+    pprint("Final Summary: ", log_file)
+    for energy, delta in zip(energies, cfg['deltas']):
+        pprint(f"Delta: {delta:.2f}", log_file)
+        pprint(f"Energy: {energy.real:.2E} + {energy.imag:.2E}j", log_file)
+        pprint("---"*20, log_file)
 
     
 

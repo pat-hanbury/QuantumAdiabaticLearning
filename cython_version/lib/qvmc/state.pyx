@@ -35,6 +35,9 @@ class State:
             else:
                 state.append(-1)
         self.configuration = np.asarray(state)
+        
+        for i in range(5):
+            self.update_state()
 
     def generate_coefficient(self):
         """
@@ -152,14 +155,19 @@ class State:
             if denominator.real < numerator.real:
                 return 2.0
             return numerator.real / denominator.real
+        
+        cdef int i
+        cdef float r
+        cdef float R
 
-        trial_state = random_flip(self.configuration.copy())
-        R = compute_R(trial_state)
-        r = random.uniform(0,1)
-        if R > r:
-            self.clear_state()
-            self.configuration = trial_state.configuration
-            self.coefficient = trial_state.coefficient
+        for i in range(100):
+            trial_state = random_flip(self.configuration.copy())
+            R = compute_R(trial_state)
+            r = random.uniform(0,1)
+            if R > r:
+                self.clear_state()
+                self.configuration = trial_state.configuration
+                self.coefficient = trial_state.coefficient
 
     def calculate_delta_x(self):
         """
@@ -174,12 +182,19 @@ class State:
         return:
         - delta_x : array length N-1 fo derivatives
         """
-
+        debug_print = False
+        
         config = self.configuration
         N = self.num_particles
 
         # for computational efficiency we will calculate this once
+
         w = self.parameters["w"]
+        
+        if debug_print:
+            with np.printoptions(precision=2, suppress=True):
+                print(f"W:{w}")
+                print("\n")
         tanhs = np.zeros(self.num_particles, dtype=complex)
 
         # loop through all is and js. Calculate tanhs
@@ -191,14 +206,40 @@ class State:
 
         delta_a = self.configuration
         delta_b = tanhs
+        
+        if debug_print:
+            with np.printoptions(precision=2, suppress=True):
+                print("tanhs before broadcasting")
+                print(tanhs)
+                print("\n")
+
+            print("CONFIG")
+            print(config)
 
         s = np.broadcast_to(config, (N,N))
+        if debug_print:
+            with np.printoptions(precision=2, suppress=True):
+                print("S")
+                print(s)
+                print("\n")
+        
         tanhs = np.broadcast_to(tanhs, (N,N)).T # broadcast tanhs and transpose
+        
+        if debug_print:
+            with np.printoptions(precision=2, suppress=True):
+                print("Tanhs after broadcasting")
+                print(tanhs)
+                print("\n")
+
 
         delta_w = np.multiply(tanhs, s) # element wise multiplication
         # this should give you w[i][j] where i corresponds to the tanh and j corresponds to sj
 
         self.delta_x = {"a" : np.conjugate(delta_a), "b" : np.conjugate(delta_b), "w" : np.conjugate(delta_w) }
+        if debug_print:
+            with np.printoptions(precision=2, suppress=True):
+                print("DeltaX for Ws:")
+                print(self.delta_x)
 
 
     def get_delta_x(self):
@@ -207,7 +248,8 @@ class State:
         return self.delta_x
 
     def get_Q_of_x(self, energy):
-        Q = self.get_delta_x().copy()
-        for key, value in Q.items():
-            Q[key] = value*energy
+        delta_x = self.get_delta_x()
+        Q = dict()
+        for key, value in delta_x.items():
+            Q[key] = energy*value.copy()
         return Q
