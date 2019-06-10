@@ -9,10 +9,9 @@ import cmath
 from pdb import set_trace
 
 class State:
-    def __init__(self, num_particles, variational_parameters, configuration = None):
-
+    def __init__(self, num_particles, w_parameters, configuration = None):
         self.num_particles = num_particles
-        self.parameters = variational_parameters # dictionary of variational param data strctures
+        self.w_parameters = w_parameters # dictionary of variational param data strctures
 
         # inialize these to None. Only calulate if need be
         self.off_diagonal_configurations = None
@@ -41,23 +40,27 @@ class State:
         This function generates the variational
         projection for this particular state.
         """
-        N = self.num_particles
-        w = self.parameters["w"]
+        cdef int N = self.num_particles
+        cdef complex exponential = 0
+        cdef complex coefficient = 1
+        cdef complex cosh_arg = 0
+        w = self.w_parameters
 
         config = self.configuration
         try:
-            exponential = 0
-            coefficient = 1
+            
 
+            """
             # determine exponetial contribution (all real parameters)
             for i, param in enumerate(self.parameters["a"]):
                 exponential += param*config[i]
 
             coefficient *= cmath.exp(exponential)
+            """
 
             # determine contribution from hyperbolic cosines
-            for i, param in enumerate(self.parameters["b"]):
-                cosh_arg = param
+            for i in range(N):
+                #  cosh_arg = param
                 for j in range(N):
                     cosh_arg += config[j]*w[i][j]
                 coefficient*= cmath.cosh(cosh_arg)
@@ -65,7 +68,7 @@ class State:
             self.coefficient = coefficient
 
         except OverflowError:
-            print(f"Error: Overflow. State = {config}   alpha = {self.parameters}")
+            print(f"Error: Overflow. State = {config}   alpha = {self.w_parameters}")
 
     def generate_off_diagonal_configurations(self):
         """
@@ -90,7 +93,7 @@ class State:
                     config_copy[i] *= -1
                     config_copy[0] *= -1
                     off_diagonal_configurations.append((i, State(self.num_particles,
-                                self.parameters, configuration = config_copy)))
+                                self.w_parameters, configuration = config_copy)))
                 del config_copy # I think numpy does this automatically but just in case
                 self.off_diagonal_configurations = off_diagonal_configurations
                 return
@@ -98,12 +101,23 @@ class State:
                 config_copy[i] *= -1
                 config_copy[i+1] *= -1
                 off_diagonal_configurations.append((i,State(self.num_particles,
-                                self.parameters, configuration = config_copy)))
+                                self.w_parameters, configuration = config_copy)))
                 config_copy = config.copy()
 
     def get_off_diagonal_configurations(self):
         if not self.off_diagonal_configurations:
             self.generate_off_diagonal_configurations()
+        """    
+        print("***"*10)
+        print(f"Current config: {self.configuration}")
+        print("Off Diagonal Configs:")
+        for i, state in self.off_diagonal_configurations:
+            print(f"i: {i}")
+            print(f"config: {state.configuration}")
+        print("***"*10)
+        time.sleep(20)
+        """
+        
         return self.off_diagonal_configurations
 
     def get_variational_projection(self):
@@ -136,7 +150,7 @@ class State:
                 if config[flip2_index] != flip1_value:
                     config[flip2_index] *= -1
                     cont = False
-            return State(self.num_particles, self.parameters, configuration = config)
+            return State(self.num_particles, self.w_parameters, configuration = config)
 
         def compute_R(trial_state):
             """
@@ -176,21 +190,22 @@ class State:
         """
 
         config = self.configuration
-        N = self.num_particles
+        cdef int N = self.num_particles
+        cdef complex tanh_arg
 
         # for computational efficiency we will calculate this once
-        w = self.parameters["w"]
+        w = self.w_parameters
         tanhs = np.zeros(self.num_particles, dtype=complex)
 
         # loop through all is and js. Calculate tanhs
-        for i, param in enumerate(self.parameters["b"]):
-                tanh_arg = param
-                for j in range(N):
-                    tanh_arg += config[j]*w[i][j]
-                tanhs[i] = cmath.tanh(tanh_arg)
+        for i in range(N):
+            # tanh_arg = param
+            for j in range(N):
+                tanh_arg += config[j]*w[i][j]
+            tanhs[i] = cmath.tanh(tanh_arg)
 
-        delta_a = self.configuration
-        delta_b = tanhs
+        # delta_a = self.configuration
+        # delta_b = tanhs
 
         s = np.broadcast_to(config, (N,N))
         tanhs = np.broadcast_to(tanhs, (N,N)).T # broadcast tanhs and transpose
@@ -198,16 +213,15 @@ class State:
         delta_w = np.multiply(tanhs, s) # element wise multiplication
         # this should give you w[i][j] where i corresponds to the tanh and j corresponds to sj
 
-        self.delta_x = {"a" : np.conjugate(delta_a), "b" : np.conjugate(delta_b), "w" : np.conjugate(delta_w) }
+        # self.delta_x = {"a" : np.conjugate(delta_a), "b" : np.conjugate(delta_b), "w" : np.conjugate(delta_w) }
+        self.delta_x = np.conjugate(delta_w)
 
 
     def get_delta_x(self):
         if self.delta_x is None:
             self.calculate_delta_x()
-        return self.delta_x
+        return self.delta_x.copy()
 
     def get_Q_of_x(self, energy):
-        Q = self.get_delta_x().copy()
-        for key, value in Q.items():
-            Q[key] = value*energy
-        return Q
+        delta_x = self.get_delta_x()
+        return delta_x*energy

@@ -18,34 +18,33 @@ from .hamiltonian import Hamiltonian
 from pdb import set_trace
 
 class Optimizer:
-    def __init__(self, hamiltonian, cfg, delta,
-                 plotter = None, w_parameters = None, fixed_parameters = None,
-                 lr = 0.03, derivative_cap = 0.3):
+    def __init__(self, hamiltonian, config, delta,
+                 plotter = None, w_parameters = None, use_noise=True, fixed_parameters = None,
+                 derivative_cap = 0.3):
         self.H = hamiltonian
         self.num_particles = hamiltonian.num_particles
-        self.num_steps = configs['num_steps']# number of steps for every monte carlo simulation
-        self.lr = lr # learning rate
+        self.num_steps = config['num_steps']# number of steps for every monte carlo simulation
+        self.lr = config['learning_rate'] # learning rate
         self.dx_cap = derivative_cap
         self.fixed_parameters = fixed_parameters
-        self.monte_carlo_simulations_per_delta = cfg['num_monte_carlos_per_delta']
+        self.monte_carlo_simulations_per_delta = config['num_monte_carlos_per_delta']
 
         # quantities for calculating derivatives
-        self.exp_Q = None #expectation of Q
-        self.exp_delta =None # expectation of the delta array (also BIg Oh in sorrellas paper)
+        self.W_exp_Q = None #expectation of Q
+        self.W_exp_delta = None # expectation of the delta array (also BIg Oh in sorrellas paper)
         self.variational_energy = None
         
-        self.config = cfg
+        self.config = config
 
         if w_parameters is None:
             self.randomize_parameters()
         else:
             self.w_parameters = w_parameters
-            if delta == 0.0:
-                random_noise_scale = 0.1
-                real_noise = np.random.normal(scale=random_noise_scale, size=value.shape)
-                imag_noise = np.random.normal(scale=random_noise_scale, size=value.shape)*1j
+            if (delta == 0.0) and use_noise:
+                noise_scale = config['noise_scale']
+                real_noise = np.random.normal(scale=noise_scale, size=w_parameters.shape)
+                imag_noise = np.random.normal(scale=noise_scale, size=w_parameters.shape)*1j
                 self.w_parameters = self.w_parameters+real_noise+imag_noise
-                # self.add_noise()
 
         # some debugging features
         self.plotter = plotter
@@ -54,12 +53,12 @@ class Optimizer:
         
         
     def update_variational_parameters(self):
-        if self.variational_energy is None or self.exp_delta is None or self.exp_Q is None:
+        if self.variational_energy is None or self.W_exp_delta is None or self.W_exp_Q is None:
             print("OUT OF ORDER ERROR")
             set_trace()
 
 
-        w_derivative_vector = -2*(self.W_exp_Q - self.W_exp_delta*self.variational_energy)
+        w_derivative_vector = 2*(self.W_exp_Q - self.W_exp_delta*self.variational_energy)
         w_parameter_changes = -1*self.lr*w_derivative_vector # FOO CHECK THIS
         cap = self.dx_cap + self.dx_cap*1j
         w_parameter_changes = w_parameter_changes.clip(-1*cap, cap)
@@ -75,7 +74,7 @@ class Optimizer:
         """
         
         if self.config['Enumeration']:
-            return self.enumeration_simulation
+            return self.enumeration_simulation()
 
         cdef int N = self.num_particles
         cdef int num_steps = self.num_steps
@@ -85,8 +84,8 @@ class Optimizer:
         # initialize running variables
         cdef complex expectation_local_energy = 0
         cdef complex local_energy
-        cdef dict expectation_delta = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
-        cdef dict expectation_Q = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
+        expectation_delta =np.zeros(N)
+        expectation_Q = np.zeros(N)
 
         for i in range(num_steps):
             # clear_output(wait=True)
@@ -97,14 +96,14 @@ class Optimizer:
             Q_of_x = state.get_Q_of_x(local_energy)
 
             expectation_local_energy += local_energy
-            expectation_delta.update((key, value + delta_x[key]) for key, value in expectation_delta.items())
-            expectation_Q.update((key, value + Q_of_x[key]) for key, value in expectation_Q.items())
+            expectation_delta = expectation_delta + delta_x
+            expectation_Q = expectation_Q + Q_of_x
             
         # normalize expectation values
         num_steps = self.num_steps
         expectation_local_energy = expectation_local_energy / num_steps
-        expectation_delta.update((key, value/num_steps) for key, value in expectation_delta.items())
-        expectation_Q.update((key, value/num_steps) for key, value in expectation_Q.items())
+        expectation_delta = expectation_delta / num_steps
+        expectation_Q = expectation_Q / num_steps
         
         return expectation_local_energy, expectation_delta, expectation_Q
     
@@ -116,16 +115,15 @@ class Optimizer:
         Using enumeration as a simulation technique instead of
         monte carlo
         """
-
         cdef int N = self.num_particles
         cdef int i
-        state = State(self.num_particles, self.parameters)
+        state = State(self.num_particles, self.w_parameters)
 
         # initialize running variables
         cdef complex expectation_local_energy = 0
         cdef complex local_energy
-        cdef dict expectation_delta = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
-        cdef dict expectation_Q = {"a" : np.zeros(N), "b" : np.zeros(N), "w" : np.zeros(N)}
+        expectation_delta = np.zeros(N)
+        expectation_Q = np.zeros(N)
         
         def get_all_states(num_particles):
             initial_string = []
@@ -149,7 +147,7 @@ class Optimizer:
         sum_squared_coefficients = 0
         
         for permutation in permutations:
-            state = State(self.num_particles, self.parameters)
+            state = State(self.num_particles, self.w_parameters)
             state.configuration = permutation
             coeff = state.get_variational_projection()
             sum_squared_coefficients += coeff * coeff.conjugate()
@@ -166,8 +164,8 @@ class Optimizer:
             
             
             expectation_local_energy += local_energy*probability
-            expectation_delta.update((key, value + delta_x[key]*probability) for key, value in expectation_delta.items())
-            expectation_Q.update((key, value + Q_of_x[key]*probability) for key, value in expectation_Q.items())
+            expectation_delta = expectation_delta + delta_x*probability
+            expectation_Q = expectation_Q + Q_of_x*probability
         
         return expectation_local_energy, expectation_delta, expectation_Q        
 
@@ -193,20 +191,19 @@ class Optimizer:
             try:
                 # clear_output(wait=True)
 
-                self.variational_energy, self.exp_delta, self.exp_Q = self.monte_carlo_simulation()
+                self.variational_energy, self.W_exp_delta, self.W_exp_Q = self.monte_carlo_simulation()
+                
                 # print(f"var energy: {self.variational_energy} \ndelta: {self.exp_delta}\nQ: {self.exp_Q}")
 
                 if self.plotter is not None:
-                    self.plotter.update_history(self.variational_energy, self.parameters)
+                    self.plotter.update_history(self.variational_energy, self.w_parameters)
                     if self.plotter.plot_real_time:
                         self.plotter.show_plot()
                 # if this energy is lowest, update optimal measurements,
                 # and assume you can do better (set end count, i, to zero)
                 if self.variational_energy.real < min_energy.real:
                         min_energy = self.variational_energy
-                        optimal_parameters = self.parameters
-                        # value is numpy array so each array needs to be copied so it doesn't share memory with self.parameters
-                        optimal_parameters.update((key, value.copy()) for key, value in optimal_parameters.items())
+                        optimal_parameters = self.w_parameters.copy()
 
                 self.update_variational_parameters()
 
@@ -218,4 +215,4 @@ class Optimizer:
                 cont = False
                 # print("Ending because Keyboard interruption")
         self.plotter.save_parameter_plot()
-        return min_energy, optimal_parameters, self.parameters
+        return min_energy, optimal_parameters, self.w_parameters

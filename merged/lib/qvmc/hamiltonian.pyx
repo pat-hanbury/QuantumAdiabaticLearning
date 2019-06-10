@@ -14,16 +14,19 @@ from lib.qvmc.state import State
 from pdb import set_trace
 
 class Hamiltonian:
-    def __init__(self, config, num_particles, is_final_hamiltonian, delta = 0.0):
-        self.num_particles = num_particles
+    def __init__(self, config, is_ring, delta = 0.0, num_particles=None):
+        if num_particles is None:
+            self.num_particles = config["num_particles"]
+        else:
+            self.num_particles = num_particles
         self.delta = delta
-        self.is_final_hamiltonian = is_final_hamiltonian # if true, will calculate a ring
+        self.is_ring = is_ring # if true, will calculate a ring
         self.config = config
 
     def calculate_local_energy(self, state):
-        if config['Algorithm'] == 'Algorithm_1':
+        if self.config['Algorithm'] == 'Algorithm_1':
             return self.apply_algo1_hamiltonian(state)
-        elif config['Algorithm'] == 'Algorithm_2':
+        elif self.config['Algorithm'] == 'Algorithm_2':
             return self.apply_algo2_hamiltonian(state)
         
     def apply_algo1_hamiltonian(self, state):
@@ -79,7 +82,7 @@ class Hamiltonian:
         cdef int i
 
         for i in range(N):
-            if (i == (int(N/2) - 1)) or ((i == (N-1)) and self.is_final_hamiltonian):
+            if (i == (int(N/2) - 1)) or ((i == (N-1)) and self.is_ring):
                 energy += delta*(state_proj*config[i] * config[(i+1) % self.num_particles])/4
             elif (i == N-1): # this is if it's not the final hamiltonian -- we ignore the last interaction (chain)
                 pass
@@ -92,8 +95,10 @@ class Hamiltonian:
         off_diag_states = state.get_off_diagonal_configurations() # tuple of (switch position , state)
         
         for i, state in off_diag_states:
-            if (i == (int(N/2) - 1)) or ((i == (N-1)) and self.is_final_hamiltonian):
+            if (i == (int(N/2) - 1)) or ((i == (N-1)) and self.is_ring):
                 non_diagonal_energies += delta*(-0.5)*state.get_variational_projection()
+            elif (i == N-1): # this is if it's not the final hamiltonian -- we ignore the last interaction (chain)
+                pass
             else:
                 non_diagonal_energies += (-0.5)*state.get_variational_projection()
                 

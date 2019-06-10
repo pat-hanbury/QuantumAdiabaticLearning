@@ -1,6 +1,6 @@
 cfg = {
     'name' : '16ParticleLongerStudy',
-    'num_particles' : 16,
+    'num_particles' : 4,
     'num_steps' : 20000, # number of monte carlo steps
     'num_monte_carlos_per_delta': 100, # number of monte carlo simulations per delta
     'notes' : """
