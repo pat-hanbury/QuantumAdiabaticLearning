@@ -29,7 +29,7 @@ from pdb import set_trace
 if __name__ == '__main__':
     
     global_start = datetime.datetime.now()
-    check_configs(config)
+    config = check_configs(config)
     config = setup_save_directories(config)
     logfile_writter = LogFileWriter(config)
     logfile_writter.write(config, "Configs:")

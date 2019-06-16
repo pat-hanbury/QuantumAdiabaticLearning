@@ -18,16 +18,19 @@ from .hamiltonian import Hamiltonian
 from pdb import set_trace
 
 class Optimizer:
-    def __init__(self, hamiltonian, config, delta,
-                 plotter = None, w_parameters = None, use_noise=True, fixed_parameters = None,
+    def __init__(self, hamiltonian, config, delta, lr, iterations,
+                 plotter = None, checkpoint_manager=None,
+                 visdom_manager=None,
+                 w_parameters = None, use_noise=True, 
+                 fixed_parameters = None,
                  derivative_cap = 0.3):
         self.H = hamiltonian
         self.num_particles = hamiltonian.num_particles
         self.num_steps = config['num_steps']# number of steps for every monte carlo simulation
-        self.lr = config['learning_rate'] # learning rate
+        self.lr = lr
         self.dx_cap = derivative_cap
         self.fixed_parameters = fixed_parameters
-        self.monte_carlo_simulations_per_delta = config['num_monte_carlos_per_delta']
+        self.monte_carlo_simulations_per_delta = iterations
 
         # quantities for calculating derivatives
         self.W_exp_Q = None #expectation of Q
@@ -48,6 +51,8 @@ class Optimizer:
 
         # some debugging features
         self.plotter = plotter
+        self.checkpoint_manager = checkpoint_manager
+        self.visdom_manager=visdom_manager,
         self.debug = False
         self.sleep = False
         
@@ -204,6 +209,8 @@ class Optimizer:
                 if self.variational_energy.real < min_energy.real:
                         min_energy = self.variational_energy
                         optimal_parameters = self.w_parameters.copy()
+                        if self.checkpoint_manager is not None:
+                            self.checkpoint_manager.save_checkpoint(optimal_parameters, i)
 
                 self.update_variational_parameters()
 
@@ -215,4 +222,6 @@ class Optimizer:
                 cont = False
                 # print("Ending because Keyboard interruption")
         self.plotter.save_parameter_plot()
+        if self.visdom_manager is not None:
+            self.visdom_manager.update_energy_history(self.variational_energy)
         return min_energy, optimal_parameters, self.w_parameters

@@ -30,6 +30,28 @@ def check_configs(config):
     
     error = 'Number of particles must be a power of two'
     assert(is_power_of_two(config['num_particles'])), error
+    
+    error = "learning_rates config must be list or float"
+    lrs = config["learning_rates"]
+    assert((type(lrs) == float) or (type(lrs) == list)), error
+    
+    error = "iterations_list config must be list or int"
+    iters = config["iterations_list"]
+    assert((type(iters) == int) or (type(iters) == list)), error
+    
+    if config["deltas"] is None:
+        start = 0
+        config["deltas"] = [x/100 for x in range(start, 101, 5)]
+
+    if type(config["learning_rates"]) is float:
+        lr = config["learning_rates"]
+        config["learning_rates"] = [lr for i in range(len(config["deltas"]))]
+        
+    if type(config["iterations_list"]) is int:
+        iters = config["iterations_list"]
+        config["iterations_list"] = [iters for i in range(len(config["deltas"]))]
+        
+    return config
 
     
 def setup_save_directories(config):
@@ -46,8 +68,8 @@ def setup_save_directories(config):
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
         
-    if not os.path.exists(os.path.join(save_dir, 'checkpoints')):
-        os.makedirs(os.path.join(save_dir, 'checkpoints'))
+    if not os.path.exists(os.path.join(save_dir, 'training_checkpoints')):
+        os.makedirs(os.path.join(save_dir, 'training_checkpoints'))
         
     log_file_path = os.path.join(save_dir, "logfile.txt")
     
@@ -74,16 +96,14 @@ def load_checkpoint(config):
     if config['checkpoint'] is not None:
         with open(config['checkpoint'], 'rb') as fb:
             w_parameters = pickle.load(fb)
-            starting_delta = config["checkpoint"][-10:-7]
-        start = int(float(starting_delta)*100)
-        config["deltas"] = [x/100 for x in range(start, 101, 5)]
+        starting_delta = config["checkpoint"][-10:-7]
+        config["deltas"] = [x/100 for x in range(starting_delta, 101, 5)]
+        assert len(config["deltas"] == len(config["learning_rates"])), "Learning rate, deltas mismatch"
     else:
         if config['Algorithm'] == 'Algorithm_1':
             w_parameters = get_initial_w(config["num_particles"])
         else:
             w_parameters = get_four_particle_diamer_W_matrix()
-        start = 0
-        config["deltas"] = [x/100 for x in range(start, 101, 5)]
         
     return w_parameters, config
 

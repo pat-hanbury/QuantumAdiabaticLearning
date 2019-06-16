@@ -1,3 +1,6 @@
+#!python
+#cython: language_level=3
+
 from matplotlib import pyplot as plt
 import os
 
@@ -6,7 +9,7 @@ from pprint import pprint
 import numpy as np
 
 class Plotter:
-    def __init__(self, delta, save_root_dir, num_particles, display_parameters=None):
+    def __init__(self, delta, save_root_dir, num_particles, lr='N/A', display_parameters=None):
         self.N = num_particles
         self.display_parameters = display_parameters # max number of params to display per chart
         self.parameter_history = None
@@ -14,6 +17,7 @@ class Plotter:
         self.delta = delta
         self.save_dir = os.path.join(save_root_dir, "plots")
         self.plot_real_time = False
+        self.lr = lr
         
         if not os.path.exists(self.save_dir):
             os.makedirs(self.save_dir)
@@ -85,7 +89,7 @@ class Plotter:
                         plt.plot(param[-1][i].imag, self.energy_history[-1], 'ro')
                     plt.xlabel(f"Parameters: W")
                     plt.ylabel(f"Variational Energy")
-                    plt.title(f"Imaginary Parts for W Parameter for delta = {self.delta:.2f}")
+                    plt.title(f"Imaginary Parts for W Parameter for delta = {self.delta:.2f}, lr={self.lr}")
                 fig.savefig(os.path.join(self.save_dir, f"{self.N}_W_imag_{self.delta:.2f}.png"))
                 
                 # print real part for all other parameters
@@ -101,19 +105,37 @@ class Plotter:
                         plt.plot(param[-1].real, self.energy_history[-1], 'ro')
                     plt.xlabel(f"Parameters: W")
                     plt.ylabel(f"Variational Energy")
-                    plt.title(f"Real Parts for W Parameter for delta = {self.delta:.2f}")
+                    plt.title(f"Real Parts for W Parameter for delta = {self.delta:.2f}, lr={self.lr}")
                 fig.savefig(os.path.join(self.save_dir, f"{self.N}_W_real_{self.delta:.2f}.png"))
                 plt.close(fig)
             
         self.save_plot(np.arange(len(self.energy_history)), self.energy_history,
-                 f"Energy History for {self.delta:.2f}", "Iteration", "Energy", f"{self.N}_EnergyHistory_{self.delta:.2f}.png")
+                 f"Energy History for {self.delta:.2f}, lr={self.lr}", "Iteration", "Energy", f"{self.N}_EnergyHistory_{self.delta:.2f}.png")
         
         
 class CheckpointManager:
     def __init__(self, config):
         self.config = config
+        self.checkpoint_dir = os.path.join(config['save_dir'], "training_checkpoints")
+        self.countdown = 5 # save every X checkpoints
         
-    
+    def should_save(self):
+        if self.countdown == 0:
+            self.countdown = 5
+            return True
+        else:
+            self.countdown -= 1
+            return False
+        
+    def save_checkpoint(self, w_parameters, iteration):
+        if self.should_save():
+            path = os.path.join(self.checkpoint_dir, 
+                    f"delta{self.delta}_iter{iteration}.npy")
+            np.save(path, w_parameters)
+        
+    def update_delta(self, delta):
+        self.delta = delta
+        
         
 class LogFileWriter:
     def __init__(self, config):
