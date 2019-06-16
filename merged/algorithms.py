@@ -28,7 +28,8 @@ def algorithm1(config):
   
     for i, (delta, lr, iterations) in enumerate(zip(deltas, learning_rates, iterations_list)):
         checkpoint_manager.update_delta(delta)
-        visdom_manager.new_window(f"Energy History delta={delta}")
+        if visdom_manager is not None:
+            visdom_manager.new_window(f"Energy History delta={delta}")
         plotter = Plotter(delta, config['save_dir'],
                           config["num_particles"], lr=lr)
         H = Hamiltonian(config, is_ring=True, delta=delta)
