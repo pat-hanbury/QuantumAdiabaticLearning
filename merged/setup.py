@@ -4,11 +4,18 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 
 ext_modules=[
-    Extension("lib.qvmc.utils", ["lib/qvmc/utils.pyx"]),
-    Extension("lib.qvmc.state", ["lib/qvmc/state.pyx"]),
-    Extension("lib.qvmc.optimizer", ["lib/qvmc/optimizer.pyx"]),
-    Extension("lib.qvmc.debug", ["lib/qvmc/debug.pyx"]),
-    Extension("lib.qvmc.hamiltonian", ["lib/qvmc/hamiltonian.pyx"]),
+    Extension("lib.qvmc.utils", 
+              ["lib/qvmc/utils.pyx"]),
+    Extension("lib.qvmc.state", 
+              ["lib/qvmc/state.pyx"]),
+    Extension("lib.qvmc.optimizer",
+              ["lib/qvmc/optimizer.pyx"],
+              extra_compile_args=['-fopenmp'],
+              extra_link_args=['-fopenmp']),
+    Extension("lib.qvmc.debug", 
+              ["lib/qvmc/debug.pyx"]),
+    Extension("lib.qvmc.hamiltonian", 
+              ["lib/qvmc/hamiltonian.pyx"]),
 ]
 
 setup(

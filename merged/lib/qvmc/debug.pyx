@@ -8,6 +8,8 @@ from pprint import pprint
 
 import numpy as np
 
+from lib.qvmc.utils import get_four_particle_diamer_W_matrix, get_initial_w
+
 class Plotter:
     def __init__(self, delta, save_root_dir, num_particles, lr='N/A', display_parameters=None):
         self.N = num_particles
@@ -117,11 +119,11 @@ class CheckpointManager:
     def __init__(self, config):
         self.config = config
         self.checkpoint_dir = os.path.join(config['save_dir'], "training_checkpoints")
-        self.countdown = 5 # save every X checkpoints
+        self.countdown = 3 # save every X checkpoints
         
     def should_save(self):
         if self.countdown == 0:
-            self.countdown = 5
+            self.countdown = 3
             return True
         else:
             self.countdown -= 1
@@ -135,6 +137,16 @@ class CheckpointManager:
         
     def update_delta(self, delta):
         self.delta = delta
+        
+    def load_checkpoint(self):
+        path = self.config["checkpoint"]
+        if path is not None:
+            return np.load(path)
+        else:
+            if self.config['Algorithm'] == 'Algorithm_1':
+                return get_initial_w(self.config["num_particles"])
+            else:
+                return get_four_particle_diamer_W_matrix()
         
         
 class LogFileWriter:

@@ -52,7 +52,7 @@ class Optimizer:
         # some debugging features
         self.plotter = plotter
         self.checkpoint_manager = checkpoint_manager
-        self.visdom_manager=visdom_manager,
+        self.visdom_manager=visdom_manager
         self.debug = False
         self.sleep = False
         

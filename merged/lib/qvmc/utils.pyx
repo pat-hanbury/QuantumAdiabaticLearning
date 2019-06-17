@@ -50,6 +50,12 @@ def check_configs(config):
     if type(config["iterations_list"]) is int:
         iters = config["iterations_list"]
         config["iterations_list"] = [iters for i in range(len(config["deltas"]))]
+      
+    iters = config["iterations_list"]
+    deltas = config["deltas"]
+    lr = config["learning_rates"]
+    error = f"learning_rates {len(lr)}, deltas {len(deltas)} and iteration_list {len(iters)} must all have the same length"
+    assert len(config["iterations_list"]) == len(config["deltas"]) == len(config["learning_rates"]), error
         
     return config
 

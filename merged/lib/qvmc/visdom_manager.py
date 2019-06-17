@@ -2,8 +2,8 @@ from visdom import Visdom
 import numpy as np
 
 class VisdomManager:
-    def __init__(self, port):
-        self.viz = self.get_viz(port=port, server='login-00')
+    def __init__(self, port, server):
+        self.viz = self.get_viz(port=port, server=server)
         self.windows = []
         self.energy_history = []
         

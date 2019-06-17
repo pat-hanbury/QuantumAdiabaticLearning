@@ -7,6 +7,9 @@ from lib.qvmc.visdom_manager import VisdomManager
 import datetime
 
 def run_algorithm(config):
+    # debugging so we can attach SLURM output to logfile
+    print(config)
+    
     if config['Algorithm'] == 'Algorithm_1':
         algorithm1(config)
 
@@ -14,15 +17,15 @@ def run_algorithm(config):
         algorithm2(config)
 
 def algorithm1(config):
-    initial_ws, config = load_checkpoint(config)
     checkpoint_manager = CheckpointManager(config)
+    initial_ws = checkpoint_manager.load_checkpoint()
     deltas = config['deltas']
     learning_rates = config["learning_rates"]
     iterations_list = config['iterations_list']
     energies = []
     
     if config["visdom_port"] is not None:
-        visdom_manager = VisdomManager(port=config["visdom_port"])
+        visdom_manager = VisdomManager(port=config["visdom_port"], server=config["visdom_server"])
     else:
         visdom_manager = None
   
@@ -52,7 +55,7 @@ def algorithm2(config):
     initial_ws, config = load_checkpoint(config)
     
     if config["visdom_port"] is not None:
-        visdom_manager = VisdomManager(port=config["visdom_port"])
+        visdom_manager = VisdomManager(port=config["visdom_port"], server=config["visdom_server"])
     else:
         visdom_manager = None
      

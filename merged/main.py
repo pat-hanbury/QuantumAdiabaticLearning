@@ -11,12 +11,10 @@ from pprint import pprint
 from lib.qvmc.hamiltonian import Hamiltonian
 from lib.qvmc.state import State
 from lib.qvmc.optimizer import Optimizer
-from lib.qvmc.debug import Plotter, LogFileWriter, CheckpointManager
+from lib.qvmc.debug import Plotter, LogFileWriter
 from lib.qvmc.utils import setup_save_directories, check_configs, generate_new_parameters, get_initial_w
 
 from algorithms import run_algorithm
-
-import line_profiler
 
 from configs import config
 
