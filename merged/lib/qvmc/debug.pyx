@@ -16,6 +16,7 @@ class Plotter:
         self.display_parameters = display_parameters # max number of params to display per chart
         self.parameter_history = None
         self.energy_history = []
+        self.std_history = []
         self.delta = delta
         self.save_dir = os.path.join(save_root_dir, "plots")
         self.plot_real_time = False
@@ -37,6 +38,12 @@ class Plotter:
         else:
             for i, param in enumerate(w_parameters):
                 self.parameter_history[i].append(param)
+                
+    def update_std_history(self, std):
+        if len(self.std_history) == 0:
+            self.std_history = [std]
+        else:
+            self.std_history.append(std) 
 
                 
     def show_plot(self):
@@ -113,6 +120,9 @@ class Plotter:
             
         self.save_plot(np.arange(len(self.energy_history)), self.energy_history,
                  f"Energy History for {self.delta:.2f}, lr={self.lr}", "Iteration", "Energy", f"{self.N}_EnergyHistory_{self.delta:.2f}.png")
+        
+        self.save_plot(np.arange(len(self.std_history)), self.std_history,
+                 f"STD History for {self.delta:.2f}, lr={self.lr}", "Iteration", "Energy", f"{self.N}_STDHistory_{self.delta:.2f}.png")
         
         
 class CheckpointManager:
