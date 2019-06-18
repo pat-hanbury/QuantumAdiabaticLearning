@@ -17,6 +17,7 @@ class Plotter:
         self.parameter_history = None
         self.energy_history = []
         self.std_history = []
+        self.lr_history = None
         self.delta = delta
         self.save_dir = os.path.join(save_root_dir, "plots")
         self.plot_real_time = False
@@ -44,6 +45,12 @@ class Plotter:
             self.std_history = [std]
         else:
             self.std_history.append(std) 
+            
+    def update_LR_history(self, lr):
+        if self.lr_history is None:
+            self.lr_history = [lr]
+        else:
+            self.lr_history.append(lr) 
 
                 
     def show_plot(self):
@@ -124,7 +131,10 @@ class Plotter:
                  f"Energy History for {self.delta:.2f}, lr={self.lr}", "Iteration", "Energy", f"{self.N}_EnergyHistory_{self.delta:.2f}.png")
         
         self.save_plot(np.arange(len(self.std_history)), self.std_history,
-                 f"STD History for {self.delta:.2f}, lr={self.lr}", "Iteration", "Energy", f"{self.N}_STDHistory_{self.delta:.2f}.png")
+                 f"STD History for {self.delta:.2f}, lr={self.lr}", "Iteration", "STD", f"{self.N}_STDHistory_{self.delta:.2f}.png")
+        
+        self.save_plot(np.arange(len(self.lr_history)), self.lr_history,
+                 f"LR History for {self.delta:.2f}, lr={self.lr}", "Iteration", "LR", f"{self.N}_LRHistory_{self.delta:.2f}.png")
         
         
 class CheckpointManager:

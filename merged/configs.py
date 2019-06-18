@@ -1,22 +1,21 @@
 config = {
-    'name': '8-ConvergenceMethod', # name of job
+    'name': '8LR-Schedualer-test', # name of job
     'num_particles' : 8,
     'num_steps' : 3000, # number of monte carlo steps
     'deltas' : [x/20 for x in range(0,21)],
     'notes' : """
-              # notes
-              entirely
+              Testing the new LR schedualing which uses probing
               """,
     'visdom_port' : None,
     'visdom_server': None,
     # 'fixed_params' : ["a", "b"], # fixes parameters to 0
     'noise_scale' : 0.01,
     'Algorithm': 'Algorithm_1',
-    'convergence_indicator' : 0.05,
+    'convergence_indicator' : 0.0001,
     'Enumeration' : True,
     'checkpoint' : None,
-    'learning_rates' : 0.05,# list of learning rates. If float, same LR will be used for all deltas
-    'iterations_list': 200, # number of monte carlo simulations per delta
+    'learning_rates' : 0.1,# list of learning rates. If float, same LR will be used for all deltas
+    'iterations_list': 50, # number of monte carlo simulations per delta
 }
 
 """ # Learning Rate List

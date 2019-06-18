@@ -59,6 +59,18 @@ class Optimizer:
         self.debug = False
         self.sleep = False
         
+    def update_LR(self, new_energy):
+        if new_energy.real < self.previous_energy.real:
+            self.lr*= 1.1
+            self.previous_parameters = self.w_parameters.copy()
+            self.previous_energy = new_energy
+        else:
+            # if this happens, we reset and change the LR
+            self.lr *= 0.3
+            self.w_parameters = self.previous_parameters.copy()
+            # self.update_variational_parameters()
+            
+        
         
     def update_variational_parameters(self):
         if self.variational_energy is None or self.W_exp_delta is None or self.W_exp_Q is None:
@@ -215,11 +227,18 @@ class Optimizer:
 
                 self.variational_energy, self.W_exp_delta, self.W_exp_Q, relative_std = self.monte_carlo_simulation()
                 
+                if count == 0:
+                    self.previous_energy = self.variational_energy
+                    self.previous_parameters = self.w_parameters.copy()
+                else:
+                    self.update_LR(self.variational_energy)
+                
                 # print(f"var energy: {self.variational_energy} \ndelta: {self.exp_delta}\nQ: {self.exp_Q}")
 
                 if self.plotter is not None:
                     self.plotter.update_history(self.variational_energy, self.w_parameters)
                     self.plotter.update_std_history(relative_std)
+                    self.plotter.update_LR_history(self.lr)
                     if self.plotter.plot_real_time:
                         self.plotter.show_plot()
                 # if this energy is lowest, update optimal measurements,
