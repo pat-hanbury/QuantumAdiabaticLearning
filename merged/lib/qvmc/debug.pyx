@@ -78,6 +78,8 @@ class Plotter:
         
     def save_plot(self, xs, ys, title, xlabel, ylabel, fn):
         fig = plt.figure()
+        ax = plt.gca()
+        ax.get_xaxis().get_major_formatter().set_useOffset(False)
         plt.plot(xs, ys)
         plt.plot(xs[0], ys[0], 'go')
         plt.plot(xs[-1], ys[-1], 'ro')

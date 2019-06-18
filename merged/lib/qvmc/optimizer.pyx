@@ -172,7 +172,7 @@ class Optimizer:
             delta_x = state.get_delta_x()
             Q_of_x = state.get_Q_of_x(local_energy)
             
-            local_energies.append(local_energy)
+            local_energies.append(local_energy*probability)
             
             
             expectation_local_energy += local_energy*probability
