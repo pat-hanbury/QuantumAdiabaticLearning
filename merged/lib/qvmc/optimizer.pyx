@@ -60,15 +60,17 @@ class Optimizer:
         self.sleep = False
         
     def update_LR(self, new_energy):
-        if new_energy.real < self.previous_energy.real:
+        if new_energy.real <= self.previous_energy.real:
             self.lr*= 1.1
             self.previous_parameters = self.w_parameters.copy()
             self.previous_energy = new_energy
+            return True
         else:
             # if this happens, we reset and change the LR
-            self.lr *= 0.3
+            self.lr *= 0.6
             self.w_parameters = self.previous_parameters.copy()
             # self.update_variational_parameters()
+            return False
             
         
         
@@ -230,8 +232,9 @@ class Optimizer:
                 if count == 0:
                     self.previous_energy = self.variational_energy
                     self.previous_parameters = self.w_parameters.copy()
+                    update_parameters = True
                 else:
-                    self.update_LR(self.variational_energy)
+                    update_parameters = self.update_LR(self.variational_energy)
                 
                 # print(f"var energy: {self.variational_energy} \ndelta: {self.exp_delta}\nQ: {self.exp_Q}")
 
@@ -248,8 +251,8 @@ class Optimizer:
                         optimal_parameters = self.w_parameters.copy()
                         if self.checkpoint_manager is not None:
                             self.checkpoint_manager.save_checkpoint(optimal_parameters, count)
-
-                self.update_variational_parameters()
+                if update_parameters:
+                    self.update_variational_parameters()
 
                 loop_count += 1
                 if loop_count == total_loops:

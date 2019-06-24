@@ -1,21 +1,25 @@
 config = {
-    'name': '8LR-Schedualer-test', # name of job
-    'num_particles' : 8,
+    'name':'200-iters-Continued-0.5', # name of job
+    'num_particles' : 16,
     'num_steps' : 3000, # number of monte carlo steps
-    'deltas' : [x/20 for x in range(0,21)],
+    'deltas' : [x/20 for x in range(10,21)],
     'notes' : """
-              Testing the new LR schedualing which uses probing
+              Continued from "300-iters-1.0....
+              (which actually used 400 iters).
+              
+              Appeared linear for 400 iters, suggesting
+              we need many more but that it might still converge
               """,
     'visdom_port' : None,
     'visdom_server': None,
     # 'fixed_params' : ["a", "b"], # fixes parameters to 0
     'noise_scale' : 0.01,
     'Algorithm': 'Algorithm_1',
-    'convergence_indicator' : 0.0001,
+    'convergence_indicator' : 0.0,
     'Enumeration' : True,
-    'checkpoint' : None,
+    'checkpoint' : "/home/hanbury.p/feiguin/vmc/merged/outputs/200-iters-conitinued-0.4/2019-06-22-15:02/training_checkpoints/delta0.5_iter60.npy",
     'learning_rates' : 0.1,# list of learning rates. If float, same LR will be used for all deltas
-    'iterations_list': 50, # number of monte carlo simulations per delta
+    'iterations_list': 200,  # number of monte carlo simulations per delta
 }
 
 """ # Learning Rate List
