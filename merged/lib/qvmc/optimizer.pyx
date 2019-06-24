@@ -38,6 +38,9 @@ class Optimizer:
         self.variational_energy = None
         
         self.config = config
+        
+        self.convergence_indicator = config["convergence_indicator"]
+        self.max_iter = iterations
 
         if w_parameters is None:
             self.randomize_parameters()
@@ -55,6 +58,20 @@ class Optimizer:
         self.visdom_manager=visdom_manager
         self.debug = False
         self.sleep = False
+        
+    def update_LR(self, new_energy):
+        if new_energy.real <= self.previous_energy.real:
+            self.lr*= 1.1
+            self.previous_parameters = self.w_parameters.copy()
+            self.previous_energy = new_energy
+            return True
+        else:
+            # if this happens, we reset and change the LR
+            self.lr *= 0.6
+            self.w_parameters = self.previous_parameters.copy()
+            # self.update_variational_parameters()
+            return False
+            
         
         
     def update_variational_parameters(self):
@@ -157,6 +174,8 @@ class Optimizer:
             coeff = state.get_variational_projection()
             sum_squared_coefficients += coeff * coeff.conjugate()
             states.append(state)
+            
+        local_energies = []
         
         for state in states:
             coeff = state.get_variational_projection()
@@ -167,12 +186,18 @@ class Optimizer:
             delta_x = state.get_delta_x()
             Q_of_x = state.get_Q_of_x(local_energy)
             
+            local_energies.append(local_energy*probability)
+            
             
             expectation_local_energy += local_energy*probability
             expectation_delta = expectation_delta + delta_x*probability
             expectation_Q = expectation_Q + Q_of_x*probability
+            
+        local_energies = np.asarray(local_energies)
+        energies_std = np.std(local_energies)
+        relative_std = abs(energies_std / expectation_local_energy)
         
-        return expectation_local_energy, expectation_delta, expectation_Q        
+        return expectation_local_energy, expectation_delta, expectation_Q, relative_std        
 
     
     def clear_expectations(self):
@@ -185,23 +210,38 @@ class Optimizer:
         # def check_ending_conditions()
 
         # pre loop conditions
-        cdef int i
+        # cdef int i
         cdef complex min_energy = 99999999999
         cdef int time_caught_in_local_min = 0
         cdef int loop_count = 0
         cdef int total_loops = self.monte_carlo_simulations_per_delta
         
         cdef int reset_count = 0 # the number of times the alpha was randomly initialized
-        for i in range(total_loops):
+        
+        relative_std = 1.0
+        count = -1
+        
+        while(relative_std > self.convergence_indicator and (count < self.max_iter)):
+            count+=1
+            # print(f"Count: {count} Relative STD: {relative_std}")
             try:
                 # clear_output(wait=True)
 
-                self.variational_energy, self.W_exp_delta, self.W_exp_Q = self.monte_carlo_simulation()
+                self.variational_energy, self.W_exp_delta, self.W_exp_Q, relative_std = self.monte_carlo_simulation()
+                
+                if count == 0:
+                    self.previous_energy = self.variational_energy
+                    self.previous_parameters = self.w_parameters.copy()
+                    update_parameters = True
+                else:
+                    update_parameters = self.update_LR(self.variational_energy)
                 
                 # print(f"var energy: {self.variational_energy} \ndelta: {self.exp_delta}\nQ: {self.exp_Q}")
 
                 if self.plotter is not None:
                     self.plotter.update_history(self.variational_energy, self.w_parameters)
+                    self.plotter.update_std_history(relative_std)
+                    self.plotter.update_LR_history(self.lr)
                     if self.plotter.plot_real_time:
                         self.plotter.show_plot()
                 # if this energy is lowest, update optimal measurements,
@@ -210,9 +250,9 @@ class Optimizer:
                         min_energy = self.variational_energy
                         optimal_parameters = self.w_parameters.copy()
                         if self.checkpoint_manager is not None:
-                            self.checkpoint_manager.save_checkpoint(optimal_parameters, i)
-
-                self.update_variational_parameters()
+                            self.checkpoint_manager.save_checkpoint(optimal_parameters, count)
+                if update_parameters:
+                    self.update_variational_parameters()
 
                 loop_count += 1
                 if loop_count == total_loops:

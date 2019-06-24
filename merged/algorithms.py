@@ -52,16 +52,17 @@ def algorithm1(config):
         
         
 def algorithm2(config):
-    initial_ws, config = load_checkpoint(config)
+    checkpoint_manager = CheckpointManager(config)
+    initial_ws = checkpoint_manager.load_checkpoint()
+    deltas = config['deltas']
+    learning_rates = config["learning_rates"]
+    iterations_list = config['iterations_list']
     
     if config["visdom_port"] is not None:
         visdom_manager = VisdomManager(port=config["visdom_port"], server=config["visdom_server"])
     else:
         visdom_manager = None
-     
-    deltas = config['deltas']
-    learning_rates = config["learning_rates"]
-    iterations_list = config['iterations_list']
+    
     num_particles = len(initial_ws) # number of particle for start
     is_ring = False
     
