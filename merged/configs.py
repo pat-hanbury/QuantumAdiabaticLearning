@@ -1,14 +1,10 @@
 config = {
-    'name':'200-iters-Continued-0.5', # name of job
+    'name':'300-from-9.0-Tuesday-Jul16', # name of job
     'num_particles' : 16,
     'num_steps' : 3000, # number of monte carlo steps
-    'deltas' : [x/20 for x in range(10,21)],
+    'deltas' : [x/20 for x in range(18,21)],
     'notes' : """
-              Continued from "300-iters-1.0....
-              (which actually used 400 iters).
-              
-              Appeared linear for 400 iters, suggesting
-              we need many more but that it might still converge
+              Running another 300
               """,
     'visdom_port' : None,
     'visdom_server': None,
@@ -17,9 +13,9 @@ config = {
     'Algorithm': 'Algorithm_1',
     'convergence_indicator' : 0.0,
     'Enumeration' : True,
-    'checkpoint' : "/home/hanbury.p/feiguin/vmc/merged/outputs/200-iters-conitinued-0.4/2019-06-22-15:02/training_checkpoints/delta0.5_iter60.npy",
-    'learning_rates' : 0.1,# list of learning rates. If float, same LR will be used for all deltas
-    'iterations_list': 200,  # number of monte carlo simulations per delta
+    'checkpoint' :'/home/hanbury.p/feiguin/vmc/merged/outputs/300-from-0.95-monday-Jul15/2019-07-15-22:09/training_checkpoints/delta0.9_iter295.npy',
+    'learning_rates' : 0.01,# list of learning rates. If float, same LR will be used for all deltas
+    'iterations_list': 300,
 }
 
 """ # Learning Rate List
