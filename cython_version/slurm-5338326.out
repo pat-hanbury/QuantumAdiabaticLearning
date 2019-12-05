@@ -1,7 +1,0 @@
-running build_ext
-skipping 'lib/enumeration_qvmc/utils.c' Cython extension (up-to-date)
-skipping 'lib/enumeration_qvmc/state.c' Cython extension (up-to-date)
-skipping 'lib/enumeration_qvmc/optimizer.c' Cython extension (up-to-date)
-skipping 'lib/enumeration_qvmc/debug.c' Cython extension (up-to-date)
-skipping 'lib/enumeration_qvmc/hamiltonian.c' Cython extension (up-to-date)
-slurmstepd: error: *** JOB 5338326 ON c0100 CANCELLED AT 2019-06-04T15:41:54 DUE TO TIME LIMIT ***
