@@ -45,6 +45,8 @@ To do
 ## Acknowledgements
 This research was directed by Professor Adrian Feiguin of Northeastern University, and conceived and guided by Douglas Henry of Northeastern University.
 
+A.E. Feiguin thanks the National Science Foundation for support through Grant No. DMR-1807814.
+
 ## References
 [1] J. Biamonte, P. Wittek, N. Pancotti, P. Rebentrost, N.
 Wiebe, and S. Lloyd, Quantum Machine Learning, Nature

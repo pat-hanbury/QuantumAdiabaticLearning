@@ -1,5 +1,0 @@
-/home/hanbury.p/feiguin/vmc/cython_version/outputs/Long16Particle/2019-05-29-22:40/checkpoints/checkpoint_0.45.pickle
-
-/home/hanbury.p/feiguin/vmc/cython_version/outputs/16Spin125MonteCarlos/2019-05-29-22:41/checkpoints/checkpoint_0.2.pickle
-
-/home/hanbury.p/feiguin/vmc/cython_version/outputs/16Spin125MonteCarlos/2019-05-29-22:42/checkpoints/checkpoint_0.9.pickle
